@@ -1,5 +1,14 @@
-import React from "react";
+import React from 'react';
 
 export default function Window_Upload() {
-  return <div>Window_Upload</div>;
+  return (
+    <>
+      <p>Upload</p>
+      <div
+        style={{ width: '500px', height: '500px', backgroundColor: '#ceb9ff' }}
+      >
+        사진
+      </div>
+    </>
+  );
 }
