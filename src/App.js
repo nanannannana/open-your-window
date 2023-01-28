@@ -5,7 +5,7 @@ import MyPage_Main from './pages/MyPage_Main';
 import SignIn_SignUp from './pages/SignIn_SignUp';
 import Universe_Main from './pages/Universe_Main';
 import Window_Main from './pages/Window_Main';
-import Window_Upload from './pages/Window_Upload';
+import Window_Upload from './pages/Window_Upload/Window_Upload';
 
 function App() {
   return (
