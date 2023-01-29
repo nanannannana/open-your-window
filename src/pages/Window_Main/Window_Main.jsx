@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   ComposableMap,
   Geographies,
@@ -7,7 +8,8 @@ import {
   ZoomableGroup,
 } from 'react-simple-maps';
 import styled from 'styled-components';
-import ShareWindowBtn from '../components/ShareWindowBtn';
+import WindowBtn from '../../components/window/WindowBtn';
+import './Window_Main.css';
 // import { Tooltip as ReactTooltip } from 'react-tooltip';
 
 const getUrl =
@@ -24,6 +26,8 @@ const StyledGeography = styled(Geography)`
 `;
 
 export default function Window_Main() {
+  const navigate = useNavigate();
+
   return (
     <div>
       <ComposableMap data-tip="">
@@ -39,7 +43,17 @@ export default function Window_Main() {
           }
         </Geographies>
       </ComposableMap>
-      <ShareWindowBtn />
+      <div className="shareWindowBtn">
+        <WindowBtn
+          clickEvent={() => navigate('/window/upload')}
+          borderColor="#737373"
+          color="#737373"
+          hoverBackgroundColor="#cbcbcb"
+          hoverBorderColor="#ffffff"
+          hoverColor="#ffffff"
+          text="share your WINDOW"
+        />
+      </div>
     </div>
   );
 }
