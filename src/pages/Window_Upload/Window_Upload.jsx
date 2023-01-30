@@ -3,23 +3,15 @@ import Window_UploadEdit from './Window_UploadEdit';
 import Window_UploadCheck from './Window_UploadCheck';
 
 export default function Window_Upload() {
-  const [change, setChange] = useState({
-    edit: true,
-    country: '',
-    city: '',
-    date: '',
-    tags: [],
-    content: '',
-    img: '',
-  });
-  console.log(change);
+  const [view, setView] = useState({ change: true, num: 0 });
+  // console.log(view);
 
   return (
     <>
-      {change.edit ? (
-        <Window_UploadEdit setChange={setChange} data={change} />
+      {view.change ? (
+        <Window_UploadEdit setView={setView} />
       ) : (
-        <Window_UploadCheck />
+        <Window_UploadCheck setView={setView} num={view.num} />
       )}
     </>
   );

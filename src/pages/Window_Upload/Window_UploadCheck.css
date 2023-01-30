@@ -1,0 +1,8 @@
+.infoBox {
+  color: white;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 0 0 5px 10px;
+  text-align: left;
+}
