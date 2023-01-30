@@ -5,6 +5,7 @@ import { TweenOneGroup } from 'rc-tween-one';
 import dayjs from 'dayjs';
 import './Window_UploadEdit.css';
 import WindowBtn from '../../components/window/WindowBtn';
+import axios from 'axios';
 
 // CityInput 실시간 input값 확인
 // const handleChange = (value: string) => {
@@ -16,7 +17,7 @@ import WindowBtn from '../../components/window/WindowBtn';
 //   setContent(e.target.value);
 // };
 
-export default function Window_UploadEdit({ setChange, data }) {
+export default function Window_UploadEdit({ setView }) {
   // country, city 설정
   const [country, setCountry] = useState('');
   const countryChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -29,8 +30,9 @@ export default function Window_UploadEdit({ setChange, data }) {
 
   //image 설정
   const [img, setImg] = useState('');
+  const [imgUrl, setImgUrl] = useState('');
   const onChangeImg = (e) => {
-    setImg(e.target.files[0].name);
+    setImgUrl(e.target.files[0]);
     // FileReader 생성자를 사용하여 이미지 미리보기 기능 구현
     const reader = new FileReader();
     // readAsDataURL: 바이너리 파일을 Base64 Encode 문자열로 반환
@@ -38,7 +40,7 @@ export default function Window_UploadEdit({ setChange, data }) {
     // 읽기 동작이 성공적으로 완료되었을 때 발생
     reader.onload = () => {
       setImg(reader.result);
-      console.log('imgUrl: ', reader.result);
+      // console.log('imgUrl: ', reader.result);
     };
   };
 
@@ -53,8 +55,8 @@ export default function Window_UploadEdit({ setChange, data }) {
   // const date = new Date();
   // const Today =
   //   date.getFullYear() + '/' + (date.getMonth + 1) + '/' + date.getDate;
-  const dateChange = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
-    console.log(e);
+  const [date, setDate] = useState('');
+  const dateChange = (date: dayjs, dateString: string) => setDate(dateString);
 
   // tag 설정
   const [tags, setTags] = useState([]); // tag배열
@@ -109,6 +111,18 @@ export default function Window_UploadEdit({ setChange, data }) {
   const tagChild = tags.map(forMap);
 
   //server로 정보 전달
+  const windowBtnClick = () => {
+    const formData = new FormData();
+    formData.append('country', country);
+    formData.append('city', city);
+    formData.append('tags', tags);
+    formData.append('date', date);
+    formData.append('content', content);
+    formData.append('img', imgUrl);
+    axios
+      .post('http://localhost:4000/window/uploadConfirm', formData)
+      .then((res) => setView({ change: false, num: res.data.num }));
+  };
 
   return (
     <div className="fullBox">
@@ -210,27 +224,17 @@ export default function Window_UploadEdit({ setChange, data }) {
             showCount
             maxLength={100}
             onChange={textAreaChange}
-            style={{ height: 70, resize: 'none' }}
+            style={{ height: 50, resize: 'none' }}
             placeholder="코멘트를 남겨보세요!"
           />
 
           {/* button div */}
           <div className="uploadBtn">
             <WindowBtn
-              clickEvent={() =>
-                setChange({
-                  edit: false,
-                  country: country,
-                  city: city,
-                  tags: tags,
-                  date: '',
-                  content: content,
-                  img: img,
-                })
-              }
-              borderColor="#737373"
-              color="#737373"
-              hoverBackgroundColor="#434343"
+              clickEvent={windowBtnClick}
+              borderColor="#2C2C2A"
+              color="#2C2C2A"
+              hoverBackgroundColor="#2C2C2A"
               hoverBorderColor="#ffffff"
               hoverColor="#ffffff"
               text="Upload"

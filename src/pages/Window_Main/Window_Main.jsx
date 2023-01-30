@@ -20,7 +20,7 @@ const StyledGeography = styled(Geography)`
   stroke: #ffffff;
   stroke-width: 0.5;
   &:hover {
-    fill: #ceb9ff;
+    fill: #c2cca8;
     outline: none !important;
   }
 `;
@@ -46,9 +46,9 @@ export default function Window_Main() {
       <div className="shareWindowBtn">
         <WindowBtn
           clickEvent={() => navigate('/window/upload')}
-          borderColor="#737373"
-          color="#737373"
-          hoverBackgroundColor="#cbcbcb"
+          borderColor="#C2CCA8"
+          color="#C2CCA8"
+          hoverBackgroundColor="#C2CCA8"
           hoverBorderColor="#ffffff"
           hoverColor="#ffffff"
           text="share your WINDOW"
