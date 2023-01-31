@@ -3,7 +3,8 @@ const express = require('express');
 const window = require('../controller/window');
 const router = express.Router();
 
-router.post('/uploadConfirm', window.imgUpload, window.postUploadConfrim);
-router.get('/uploadCheck', window.getUploadCheck);
+router.post('/postupload', window.imgUpload, window.postUpload);
+router.get('/postedit', window.postEdit);
+router.get('/imgfind', window.ImgFind);
 
 module.exports = router;
