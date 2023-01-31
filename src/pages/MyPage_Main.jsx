@@ -1,5 +1,11 @@
-import React from "react";
+import React from 'react';
+import DrawerToggler from '../components/common/DrawerToggler';
 
 export default function MyPage_Main() {
-  return <div>MyPage_Main</div>;
+  return (
+    <div>
+      <DrawerToggler />
+      MyPage_Main
+    </div>
+  );
 }
