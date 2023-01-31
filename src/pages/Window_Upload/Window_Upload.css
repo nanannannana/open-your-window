@@ -1,0 +1,77 @@
+/* window_upload CSS 정리 */
+/* Page div 배치 정리 */
+.fullBox {
+  padding: 50px 270px 0 170px;
+}
+.uploadBox {
+  display: flex;
+  justify-content: space-between;
+}
+.detailBox {
+  height: auto;
+  text-align: left;
+  margin-top: -20px;
+}
+
+/* Page Title style 지정 */
+.windowUploadTitle {
+  font-weight: bolder;
+  text-align: left;
+}
+
+/* Upload imgDiv style 지정 */
+.imgDiv {
+  width: 400px;
+  height: 400px;
+  background-color: #c2cca8;
+  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bolder;
+}
+.imgDiv:hover {
+  color: #ffffff;
+}
+.upLoadImgDiv {
+  width: 400px;
+  height: 400px;
+  object-fit: cover;
+}
+.upLoadImgDiv:hover {
+  opacity: 0.9;
+}
+
+/* countryeSelect태그, cityInput태그 style 지정 */
+.countrySelect {
+  display: inline-block;
+}
+.cityInput {
+  display: inline-block;
+  margin-left: 15px;
+}
+
+/* Upload 버튼 style 지정 */
+.uploadBtn {
+  margin-top: 40px;
+  text-align: right;
+}
+
+/* window_PostEdit CSS 정리 */
+.iconBox {
+  text-align: right;
+  padding: 7px 8px 3px 0;
+  background-color: rgba(0, 0, 0, 0.256);
+  display: flex;
+  justify-content: space-between;
+}
+
+.infoBox {
+  color: white;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 10px 0 0 10px;
+  text-align: left;
+  background-color: rgba(0, 0, 0, 0.256);
+}
