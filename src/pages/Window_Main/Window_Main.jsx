@@ -1,59 +1,48 @@
 import React, { useState } from 'react';
+import Window_Map from './Window_Map';
+import Window_Tag from './Window_Tag';
+import { Switch, Space } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import {
-  ComposableMap,
-  Geographies,
-  Geography,
-  Marker,
-  ZoomableGroup,
-} from 'react-simple-maps';
-import styled from 'styled-components';
-import WindowBtn from '../../components/window/WindowBtn';
-import './Window_Main.css';
-// import { Tooltip as ReactTooltip } from 'react-tooltip';
-
-const getUrl =
-  'https://raw.githubusercontent.com/deldersveld/topojson/master/world-countries-sans-antarctica.json';
-
-const StyledGeography = styled(Geography)`
-  fill: #cbcbcb;
-  stroke: #ffffff;
-  stroke-width: 0.5;
-  &:hover {
-    fill: #ceb9ff;
-    outline: none !important;
-  }
-`;
+import { useDispatch, useSelector } from 'react-redux';
+import { back, reverse } from '../../store/modules/window';
 
 export default function Window_Main() {
+  const change = useSelector((state) => state.window.change);
+  console.log(change);
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  const SwitchClick = (e) => {
+    // e = true/false;
+    if (e) {
+      navigate('/window');
+      dispatch(reverse());
+    } else {
+      navigate('/window/tag');
+      dispatch(back());
+    }
+    // map 페이지에서 버튼 클릭(false) -> navigate(tag페이지)
+    // tag 페이지에서 버튼 클릭(true) -> navigate(map페이지)
+  };
   return (
-    <div>
-      <ComposableMap data-tip="">
-        <Geographies geography={getUrl}>
-          {({ geographies }) =>
-            geographies.map((geo) => (
-              <StyledGeography
-                key={geo.rsmKey}
-                geography={geo}
-                onClick={() => console.log(geo.properties.name)}
-              />
-            ))
-          }
-        </Geographies>
-      </ComposableMap>
-      <div className="shareWindowBtn">
-        <WindowBtn
-          clickEvent={() => navigate('/window/upload')}
-          borderColor="#737373"
-          color="#737373"
-          hoverBackgroundColor="#cbcbcb"
-          hoverBorderColor="#ffffff"
-          hoverColor="#ffffff"
-          text="share your WINDOW"
-        />
-      </div>
-    </div>
+    <>
+      {change === 1 ? (
+        <Space direction="vertical">
+          <Switch
+            checkedChildren="Map"
+            unCheckedChildren="Tag"
+            defaultChecked
+            onClick={SwitchClick}
+          />
+        </Space>
+      ) : (
+        <Space direction="vertical">
+          <Switch
+            checkedChildren="Map"
+            unCheckedChildren="Tag"
+            onClick={SwitchClick}
+          />
+        </Space>
+      )}
+    </>
   );
 }

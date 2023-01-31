@@ -1,6 +1,7 @@
-// import { combineReducers } from 'redux';
-// import checkHM from './modules/hm';
+import { combineReducers } from 'redux';
+import window from './modules/window';
 
-// export default combineReducers({
-//   checkHM,
-// });
+export default combineReducers({
+  window,
+});
+

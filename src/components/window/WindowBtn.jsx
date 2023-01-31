@@ -1,10 +1,12 @@
 import React from 'react';
 import { Button, Space } from 'antd';
 import styled from 'styled-components';
+import GlobalStyle from '../GlobalStyle';
 
 const MyButton = styled(Button)`
   border-color: ${(props) => props.border_color} !important;
   color: ${(props) => props.color} !important;
+  font-family: 'SDSwaggerTTF';
   &:hover {
     background-color: ${(props) => props.hover_background_color} !important;
     border-color: ${(props) => props.hover_border_color} !important;
@@ -23,6 +25,7 @@ export default function WindowBtn({
 }) {
   return (
     <>
+      <GlobalStyle />
       <Space className="site-button-ghost-wrapper" wrap>
         <MyButton
           ghost
