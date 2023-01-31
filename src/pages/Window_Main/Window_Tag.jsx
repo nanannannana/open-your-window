@@ -3,33 +3,26 @@ import queryString from 'query-string';
 import { Col, Row } from 'antd';
 import WindowBtn from '../../components/window/WindowBtn';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { numchange, reverse } from '../../store/modules/window';
 
-export default function Window_Tag() {
-  // console.log(queryString.parse(location.search).country);
-  const [imgArr, setImgArr] = useState([]);
+export default function Window_Tag({ imgArr }) {
   const navigate = useNavigate();
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        await axios
-          .get('http://localhost:4000/window/imgfind', {
-            params: { country: queryString.parse(location.search).country },
-          })
-          .then((res) => setImgArr(res.data.result));
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    fetchData();
-  }, []);
-  // console.log('이미지 배열', imgArr);
+  const dispatch = useDispatch();
+
   return (
     <div className="TagFullBox">
       <Row gutter={[15, 15]}>
-        {imgArr.map((v) => (
+        {imgArr.map((v, i) => (
           <Col key={v[1]} span={v[0]}>
-            <img src={v[1]} className="TagImg" />
+            <img
+              src={v[1]}
+              className="TagImg"
+              onClick={() => {
+                dispatch(reverse());
+                dispatch(numchange(i));
+              }}
+            />
           </Col>
         ))}
       </Row>

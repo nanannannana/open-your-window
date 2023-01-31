@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Input, Divider, Space, Tag, Select, DatePicker } from 'antd';
+import { Input, Divider, Space, Tag, Select, DatePicker, Col, Row } from 'antd';
 import { PlusCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { TweenOneGroup } from 'rc-tween-one';
 import dayjs from 'dayjs';
@@ -112,7 +112,7 @@ export default function Window_Upload() {
   const tagChild = tags.map(forMap);
   const navigate = useNavigate();
   //server로 정보 전달
-  const windowBtnClick = () => {
+  const windowBtnClick = async () => {
     const formData = new FormData();
     formData.append('country', country);
     formData.append('city', city);
@@ -120,11 +120,15 @@ export default function Window_Upload() {
     formData.append('date', date);
     formData.append('content', content);
     formData.append('img', imgUrl);
-    axios
+    await axios
       .post('http://localhost:4000/window/postupload', formData)
       .then((res) => {
         if (res.status === 200)
-          navigate('/window/postedit', { replace: true, state: res.data.num });
+          // navigate(`/window/postedit?num=${res.data.num}`);
+          navigate('/window/postedit', {
+            replace: true,
+            state: { num: res.data.num },
+          });
       })
       .catch((err) => console.log(err));
   };
@@ -133,120 +137,124 @@ export default function Window_Upload() {
     <div className="fullBox">
       <p className="windowUploadTitle">Upload</p>
       {/* img upload div */}
-      <div className="uploadBox">
-        <label htmlFor="file">
-          {img === '' ? (
-            <div className="imgDiv">Image Upload</div>
-          ) : (
-            <img src={img} className="upLoadImgDiv" />
-          )}
-        </label>
-        <input
-          type="file"
-          accept="image/*"
-          id="file"
-          style={{ display: 'none' }}
-          onChange={onChangeImg}
-        />
-        <div className="detailBox">
-          {/* Country, City div */}
-          <Divider orientation="left">Where</Divider>
-          <div>
-            <div className="countrySelect">
-              <Space wrap>
-                <Select
-                  placeholder="Country"
-                  style={{ width: 120 }}
-                  // onChange={handleChange}
-                  onChange={countryChange}
-                  options={[
-                    { value: 'United States of America', label: 'USA' },
-                    { value: 'Australia', label: 'Australia' },
-                    { value: 'South Korea', label: 'South Korea' },
-                    { value: 'Brazil', label: 'Brazil' },
-                  ]}
-                />
-              </Space>
-            </div>
-            <div className="cityInput">
-              <Input size="medium" placeholder="City" onChange={cityChange} />
-            </div>
-          </div>
-
-          {/* date div */}
-          <Divider orientation="left">Date</Divider>
-          <div>
-            <DatePicker
-              onChange={dateChange}
-              format={'YYYY/MM/DD'}
-              placeholder="YYYY/MM/DD"
-            />
-          </div>
-
-          {/* tag div */}
-          <Divider orientation="left">Tags</Divider>
-          <div>
-            <div style={{ marginBottom: 16 }}>
-              <TweenOneGroup
-                enter={{
-                  scale: 0.8,
-                  opacity: 0,
-                  type: 'from',
-                  duration: 100,
-                }}
-                onEnd={(e) => {
-                  if (e.type === 'appear' || e.type === 'enter') {
-                    e.target.style = 'display: inline-block';
-                  }
-                }}
-                leave={{ opacity: 0, width: 0, scale: 0, duration: 200 }}
-                appear={false}
-              >
-                {tagChild}
-              </TweenOneGroup>
-            </div>
-            {inputVisible ? (
-              <Input
-                ref={inputRef}
-                type="text"
-                size="small"
-                style={{ width: 78 }}
-                value={inputValue}
-                onChange={handleInputChange}
-                onBlur={handleInputConfirm}
-                onPressEnter={handleInputConfirm}
-              />
+      <Row gutter={100} height="100%">
+        <Col span={14}>
+          <label htmlFor="file">
+            {img === '' ? (
+              <div className="imgDiv">Image Upload</div>
             ) : (
-              <Tag onClick={showInput}>
-                <PlusCircleOutlined /> New Tag
-              </Tag>
+              <img src={img} className="upLoadImgDiv" />
             )}
-          </div>
-
-          {/* Content div */}
-          <Divider orientation="left">Content</Divider>
-          <TextArea
-            showCount
-            maxLength={100}
-            onChange={textAreaChange}
-            style={{ height: 50, resize: 'none' }}
-            placeholder="코멘트를 남겨보세요!"
+          </label>
+          <input
+            type="file"
+            accept="image/*"
+            id="file"
+            style={{ display: 'none' }}
+            onChange={onChangeImg}
           />
+        </Col>
+        <Col span={10}>
+          <div className="detailBox">
+            {/* Country, City div */}
+            <Divider orientation="left">Where</Divider>
+            <div>
+              <div className="countrySelect">
+                <Space wrap>
+                  <Select
+                    placeholder="Country"
+                    style={{ width: 120 }}
+                    // onChange={handleChange}
+                    onChange={countryChange}
+                    options={[
+                      { value: 'United States of America', label: 'USA' },
+                      { value: 'Australia', label: 'Australia' },
+                      { value: 'South Korea', label: 'South Korea' },
+                      { value: 'Brazil', label: 'Brazil' },
+                    ]}
+                  />
+                </Space>
+              </div>
+              <div className="cityInput">
+                <Input size="medium" placeholder="City" onChange={cityChange} />
+              </div>
+            </div>
 
-          {/* button div */}
-          <div className="uploadBtn">
-            <WindowBtn
-              clickEvent={windowBtnClick}
-              borderColor="#2C2C2A"
-              color="#2C2C2A"
-              hoverBackgroundColor="#2C2C2A"
-              hoverBorderColor="#ffffff"
-              hoverColor="#ffffff"
-              text="Upload"
+            {/* date div */}
+            <Divider orientation="left">Date</Divider>
+            <div>
+              <DatePicker
+                onChange={dateChange}
+                format={'YYYY/MM/DD'}
+                placeholder="YYYY/MM/DD"
+              />
+            </div>
+
+            {/* tag div */}
+            <Divider orientation="left">Tags</Divider>
+            <div>
+              <div style={{ marginBottom: 16 }}>
+                <TweenOneGroup
+                  enter={{
+                    scale: 0.8,
+                    opacity: 0,
+                    type: 'from',
+                    duration: 100,
+                  }}
+                  onEnd={(e) => {
+                    if (e.type === 'appear' || e.type === 'enter') {
+                      e.target.style = 'display: inline-block';
+                    }
+                  }}
+                  leave={{ opacity: 0, width: 0, scale: 0, duration: 200 }}
+                  appear={false}
+                >
+                  {tagChild}
+                </TweenOneGroup>
+              </div>
+              {inputVisible ? (
+                <Input
+                  ref={inputRef}
+                  type="text"
+                  size="small"
+                  style={{ width: 78 }}
+                  value={inputValue}
+                  onChange={handleInputChange}
+                  onBlur={handleInputConfirm}
+                  onPressEnter={handleInputConfirm}
+                />
+              ) : (
+                <Tag onClick={showInput}>
+                  <PlusCircleOutlined /> New Tag
+                </Tag>
+              )}
+            </div>
+
+            {/* Content div */}
+            <Divider orientation="left">Content</Divider>
+            <TextArea
+              showCount
+              maxLength={100}
+              onChange={textAreaChange}
+              style={{ height: 50, resize: 'none' }}
+              placeholder="코멘트를 남겨보세요!"
             />
+
+            {/* button div */}
+            <div className="uploadBtn">
+              <WindowBtn
+                clickEvent={windowBtnClick}
+                borderColor="#2C2C2A"
+                color="#2C2C2A"
+                hoverBackgroundColor="#2C2C2A"
+                hoverBorderColor="#ffffff"
+                hoverColor="#ffffff"
+                text="Upload"
+              />
+            </div>
           </div>
-        </div>
-      </div>
+        </Col>
+      </Row>
     </div>
   );
 }

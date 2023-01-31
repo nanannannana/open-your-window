@@ -9,7 +9,7 @@ const development = {
 };
 
 const production = {
-  host: env.PUBLIC_IP,
+  host: 'localhost',
   database: env.DB,
   username: env.DB_USER,
   password: env.DB_PASSWORD,

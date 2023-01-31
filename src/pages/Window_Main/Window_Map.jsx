@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import {
   ComposableMap,
   Geographies,
@@ -10,15 +11,17 @@ import {
 import styled from 'styled-components';
 import WindowBtn from '../../components/window/WindowBtn';
 import './Window_Main.css';
+import { Switch, Space } from 'antd';
+import GlobalStyle from '../../components/GlobalStyle';
 // import { Tooltip as ReactTooltip } from 'react-tooltip';
 
 const getUrl =
   'https://raw.githubusercontent.com/deldersveld/topojson/master/world-countries-sans-antarctica.json';
 
 const StyledGeography = styled(Geography)`
-  fill: #cbcbcb;
+  fill: #797284;
   stroke: #ffffff;
-  stroke-width: 0.5;
+  stroke-width: 0.1;
   &:hover {
     fill: #c2cca8;
     outline: none !important;
@@ -27,8 +30,24 @@ const StyledGeography = styled(Geography)`
 
 export default function Window_Map() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   return (
     <div>
+      <GlobalStyle />
+      <div className="switchCss">
+        <Space direction="vertical">
+          <Switch
+            checkedChildren="Map"
+            unCheckedChildren="Tag"
+            defaultChecked
+            onClick={() => {
+              navigate('/window/tag');
+              dispatch(back());
+            }}
+          />
+        </Space>
+      </div>
+
       <ComposableMap data-tip="">
         <Geographies geography={getUrl}>
           {({ geographies }) =>

@@ -1,9 +1,10 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import './Window_Upload.css';
 import { BsFillPencilFill, BsFillTrashFill, BsX } from 'react-icons/bs';
 import { useLocation, useNavigate } from 'react-router-dom';
+import queryString from 'query-string';
+import GlobalStyle from '../../components/GlobalStyle';
 
 const FullImg = styled.div`
   height: 100vh;
@@ -13,31 +14,17 @@ const FullImg = styled.div`
   background-size: cover;
   background-position: center;
 `;
-const NickName = styled.span`
-  padding-right: 10px;
-  font-size: 1.5em;
-  font-weight: bold;
-`;
-const Comment = styled.p`
-  padding-top: 10px;
-`;
-const TrashIcon = styled.div`
-  margin-left: 8px;
-  display: inline-block;
-`;
-const XIcon = styled.div`
-  margin-top: -5px;
-`;
 
 export default function Window_PostEdit() {
   const { state } = useLocation();
+  // console.log(queryString.parse(location.search).num);
   const [dataArr, setDataArr] = useState([]);
   useEffect(() => {
     async function fetchData() {
       try {
         await axios
           .get('http://localhost:4000/window/postedit', {
-            params: { num: state },
+            params: { num: state.num },
           })
           .then((res) => setDataArr(res.data.result));
         console.log('데이터', dataArr);
@@ -52,25 +39,26 @@ export default function Window_PostEdit() {
 
   return (
     <FullImg background_img={img}>
+      <GlobalStyle />
       <div className="iconBox">
-        <XIcon onClick={() => navigate('/window')}>
+        <div onClick={() => navigate('/window')}>
           <BsX className="icon" color="#fff" size="30" />
-        </XIcon>
+        </div>
 
-        <div>
+        <div className="iconBoxChild">
           <BsFillPencilFill className="icon" color="#fff" size="20" />
-          <TrashIcon>
+          <div className="trashIcon">
             <BsFillTrashFill className="icon" color="#fff" size="20" />
-          </TrashIcon>
+          </div>
         </div>
       </div>
 
       <div className="infoBox">
-        <NickName>nickName</NickName>
+        <span className="nickName">nickName</span>
         <span>
           {country}, {city}
         </span>
-        <Comment>{comment}</Comment>
+        <p className="comment">{comment}</p>
       </div>
     </FullImg>
   );
