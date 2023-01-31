@@ -62,5 +62,5 @@ exports.ImgFind = async (req, res) => {
     limit: 8,
   });
   let arr = [10, 14, 9, 7, 8, 5, 12, 7];
-  res.send({ result: result.map((v, i) => [arr[i], v.img]) });
+  res.send({ result: result.map((v, i) => [arr[i], v.img]), info: result });
 };

@@ -7,8 +7,8 @@ import Universe_Main from './pages/Universe_Main';
 import Window_Main from './pages/Window_Main/Window_Main';
 import Window_Upload from './pages/Window_Upload/Window_Upload';
 import Window_PostEdit from './pages/Window_Upload/Window_PostEdit';
-import Window_Tag from './pages/Window_Main/Window_Tag';
 import Window_Map from './pages/Window_Main/Window_Map';
+import Window_TagMain from './pages/Window_Main/Window_TagMain';
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
         <Route path="/universe" element={<Universe_Main />} />
         {/* <Route path="/window/" element={<Window_Main />} /> */}
         <Route path="/window/" element={<Window_Map />} />
-        <Route path="/window/tag/" element={<Window_Tag />} />
+        <Route path="/window/tag/" element={<Window_TagMain />} />
         <Route path="/window/upload" element={<Window_Upload />} />
         <Route path="/window/postedit" element={<Window_PostEdit />} />
         <Route path="/mypage" element={<MyPage_Main />} />
