@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { BsFillPencilFill, BsFillTrashFill, BsX } from 'react-icons/bs';
 import { useLocation, useNavigate } from 'react-router-dom';
 import queryString from 'query-string';
-import GlobalStyle from '../../components/GlobalStyle';
+import GlobalStyle from '../../components/common/GlobalStyle';
 
 const FullImg = styled.div`
   height: 100vh;

@@ -10,11 +10,28 @@
 }
 .detailBox {
   text-align: left;
-  margin-top: -20px;
+  margin-top: -15px;
   height: 800px;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  overflow: scroll;
+}
+.detailBox::-webkit-scrollbar {
+  display: block !important;
+}
+.detailBox::-webkit-scrollbar {
+  width: 7px; /* 스크롤바의 너비 */
+  margin-right: 5px;
+}
+
+.detailBox::-webkit-scrollbar-thumb {
+  background: #bebebe; /* 스크롤바의 색상 */
+  border-radius: 10px;
+}
+
+.detailBox::-webkit-scrollbar-track {
+  background: #fff; /*스크롤바 뒷 배경 색상*/
 }
 
 /* Page Title style 지정 */
@@ -22,6 +39,13 @@
   font-weight: bolder;
   text-align: left;
 }
+
+/* post info 값 box style 지정 */
+/* .scroll {
+  overflow: auto;
+  height: 400px;
+  display: inline-block;
+} */
 
 /* Upload imgDiv style 지정 */
 .imgDiv {
@@ -33,6 +57,7 @@
   justify-content: center;
   align-items: center;
   font-weight: bolder;
+  font-family: 'SDSwaggerTTF';
 }
 .imgDiv:hover {
   color: #ffffff;
@@ -63,12 +88,18 @@
 
 @media (max-width: 1440px) {
   .fullBox {
-    padding: 50px 270px 0 270px;
+    padding: 50px 220px 0 180px !important;
   }
   .imgDiv {
-    height: 100%;
+    height: 400px !important;
   }
   .upLoadImgDiv {
-    height: 400px;
+    height: 400px !important;
+  }
+  .detailBox {
+    height: 400px !important;
+  }
+  .cityInput {
+    width: 150px !important;
   }
 }

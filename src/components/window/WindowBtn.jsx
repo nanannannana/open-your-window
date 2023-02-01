@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Space } from 'antd';
 import styled from 'styled-components';
-import GlobalStyle from '../GlobalStyle';
+import GlobalStyle from '../common/GlobalStyle';
 
 const MyButton = styled(Button)`
   border-color: ${(props) => props.border_color} !important;
@@ -35,6 +35,7 @@ export default function WindowBtn({
           hover_background_color={hoverBackgroundColor}
           hover_border_color={hoverBorderColor}
           hover_color={hoverColor}
+          htmlType="submit"
         >
           {text}
         </MyButton>

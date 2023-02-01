@@ -1,0 +1,53 @@
+.rsm-svg {
+  margin-top: -100px;
+}
+
+.shareWindowBtn {
+  padding: 0 20px 20px 0;
+  text-align: right;
+}
+.TagFullBox {
+  padding: 100px 300px 0 300px;
+}
+.TagPageWindowBtn {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding: 0 15px 15px 0;
+  z-index: 100;
+}
+/* .TagImg {
+  object-fit: cover;
+  width: 100%;
+  height: 350px;
+}
+.TagImg:hover {
+  opacity: 0.8;
+} */
+/* .PaginationCss {
+  position: fixed;
+  margin: 0 auto;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0 0 15px 0;
+  text-align: center;
+} */
+
+@media (max-width: 1440px) {
+  /* .TagImg {
+    height: 140px !important;
+  } */
+  .TagFullBox {
+    padding: 20px 120px 0 120px !important;
+  }
+  .TagPageWindowBtn {
+    padding-top: 10px !important;
+  }
+}
+
+/* .CarouselImg {
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+} */

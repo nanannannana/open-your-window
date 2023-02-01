@@ -2,6 +2,8 @@
 const { Window } = require('../model');
 const multer = require('multer');
 const path = require('path');
+const sequelize = require('sequelize');
+const Op = sequelize.Op;
 
 const upload = multer({
   storage: multer.diskStorage({
@@ -23,14 +25,14 @@ exports.postUpload = async (req, res) => {
   let sqlInputDate = req.body.date
     ? req.body.date
     : date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
-  console.log(image);
-  console.log(sqlInputDate);
+  console.log('tags 확인', req.body.tags);
   const result = await Window.create({
     country: req.body.country,
     city: req.body.city,
     window_date: sqlInputDate,
     img: image,
     comment: req.body.content,
+    tags: req.body.tags,
     user_id: 'hello12',
   });
   res.send({ num: result.num });
@@ -59,8 +61,27 @@ exports.ImgFind = async (req, res) => {
   const result = await Window.findAll({
     raw: true,
     where: { country: req.query.country },
-    limit: 8,
   });
-  let arr = [10, 14, 9, 7, 8, 5, 12, 7];
-  res.send({ result: result.map((v, i) => [arr[i], v.img]), info: result });
+  console.log(req.query.country);
+  console.log(result);
+  res.send({ countryTag: result });
+};
+
+exports.basicTag = async (req, res) => {
+  const result = await Window.findAll({
+    raw: true,
+  });
+  res.send({ basicTag: result });
+};
+
+exports.searchTag = async (req, res) => {
+  const result = await Window.findAll({
+    raw: true,
+    where: {
+      tags: {
+        [Op.like]: '%' + req.query.tag + '%',
+      },
+    },
+  });
+  res.send({ searchTag: result });
 };
