@@ -95,7 +95,7 @@ export default function Window_Posts() {
       {change === 1 ? (
         country.length !== 0 ? (
           <PostPagination arr={country} />
-        ) : searchTag.length !== 0 ? (
+        ) : queryString.parse(location.search).search ? (
           <PostPagination arr={searchTag} />
         ) : (
           <PostPagination arr={basicTag} />

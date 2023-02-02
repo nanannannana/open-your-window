@@ -8,6 +8,7 @@ import locale from 'antd/locale/ko_KR';
 import { InfinitySpin } from 'react-loader-spinner';
 import DrawerToggler from '../common/DrawerToggler';
 import UniverseBtn from './UniverseBtn';
+import GlobalStyle from '../common/GlobalStyle';
 
 // const myDate = '2013/11/15'.match(/\d+/g).join('-');
 // console.log(myDate);
@@ -45,8 +46,7 @@ export default function Viewer() {
       className="Univ_ViewContainer"
       style={{ backgroundImage: `url('${url}')` }}
     >
-      {' '}
-      <DrawerToggler />
+      <GlobalStyle /> <DrawerToggler />
       <UniverseBtn isGame={false} url={url} />
       <div className="Univ_loader">
         {asyncLoading && <InfinitySpin width="100" color=" cornflowerblue" />}
