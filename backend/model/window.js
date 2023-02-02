@@ -34,6 +34,9 @@ const window = (Sequelize, DataTypes) => {
       like_num: {
         type: DataTypes.INTEGER,
       },
+      tags: {
+        type: DataTypes.TEXT('medium'),
+      },
     },
     {
       charset: 'utf8mb4',
