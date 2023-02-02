@@ -1,6 +1,6 @@
 import React from 'react';
 import './UniverseDate.css';
-import { ConfigProvider, DatePickerProps } from 'antd';
+import { ConfigProvider } from 'antd';
 import { DatePicker } from 'antd';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
@@ -14,7 +14,7 @@ const newDate = (_, date) => {
   console.log(date);
 };
 
-const UniverseDate: React.FC = () => (
+const UniverseDate = () => (
   <ConfigProvider locale={locale}>
     <DatePicker
       defaultValue={dayjs(new Date())}

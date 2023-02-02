@@ -113,7 +113,6 @@ export default function UniverseHMPlayer() {
       </ABCbtn>
     ));
   };
-  // const openModal = () => setIsModal(true);
 
   // UI 시작 ////////////////////////////////
   return (

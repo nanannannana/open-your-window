@@ -39,13 +39,18 @@ export default function Viewer() {
   //   location.href = '/universe/hangman';
   //   // setShowGame(!showGame);
   // };
+  const disabledDate = (current) => {
+    return (
+      current > dayjs().endOf('day') ||
+      current < dayjs('1995 / 06 / 16').endOf('day')
+    );
+  };
 
   return (
     <div
       className="Univ_ViewContainer"
       style={{ backgroundImage: `url('${url}')` }}
     >
-      {' '}
       <DrawerToggler />
       <UniverseBtn isGame={false} url={url} />
       <div className="Univ_loader">
@@ -65,7 +70,8 @@ export default function Viewer() {
             className="Univ_datepicker"
             defaultValue={dayjs(new Date())}
             format={'YYYY/MM/DD'}
-            size={'large'}
+            disabledDate={disabledDate}
+            // size={'large'}
             onChange={dateUpdate}
           />
         </ConfigProvider>

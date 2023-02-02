@@ -87,12 +87,12 @@ export default function DrawerToggler() {
             </NavLink>
           </NavLi>
           <NavLi>
-            <NavLink to="/mypage" style={NavLinkSt}>
+            <NavLink to="/user/mypage" style={NavLinkSt}>
               My Page
             </NavLink>
           </NavLi>
           <SignBtn>
-            <NavLink to="/signin_up" style={NavLinkSt}>
+            <NavLink to="/user/signin_up" style={NavLinkSt}>
               SignUp/SignIn
             </NavLink>
           </SignBtn>
