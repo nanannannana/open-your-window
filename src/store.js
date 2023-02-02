@@ -1,6 +1,9 @@
 // import { createStore, applyMiddleware, compose } from 'redux';
 // import modules from './modules';
 
+import { configureStore } from '@reduxjs/toolkit';
+import { asyncThunkSlice } from './store/modules/apod';
+
 // const configure = () => {
 //   const devTools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 //   const composeEnhancers = devTools || compose;
@@ -16,3 +19,9 @@
 // };
 
 // export default configure;
+
+export const store = configureStore({
+  reducer: {
+    asyncThunk: asyncThunkSlice.reducer,
+  },
+});

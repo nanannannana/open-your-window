@@ -9,10 +9,10 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 
 dayjs.extend(customParseFormat);
 
-// const dateStyle = {
-//   backgroundColor: '#2B2B2B',
-//   color: 'white',
-// };
+const newDate = (_, date) => {
+  //date,dateString 중 dateString(YYYY/MM/DD)을 date로 받음
+  console.log(date);
+};
 
 const UniverseDate: React.FC = () => (
   <ConfigProvider locale={locale}>
@@ -20,7 +20,8 @@ const UniverseDate: React.FC = () => (
       defaultValue={dayjs(new Date())}
       format={'YYYY/MM/DD'}
       size={'large'}
-      // style={dateStyle}
+      onChange={newDate}
+      style={{ marginTop: '200px' }}
     />
   </ConfigProvider>
 );

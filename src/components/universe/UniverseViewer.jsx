@@ -1,55 +1,79 @@
-// import React, { Component } from 'react';
-// import Viewer from './Viewer';
-// import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
-// import * as apodActions from '../../../store/modules/apod';
+import React, { useEffect } from 'react';
+import './UniverseViewer.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { asyncUpFetch } from '../../store/modules/apod';
+import { ConfigProvider, DatePicker } from 'antd';
+import dayjs from 'dayjs';
+import locale from 'antd/locale/ko_KR';
+import { InfinitySpin } from 'react-loader-spinner';
+import DrawerToggler from '../common/DrawerToggler';
+import UniverseBtn from './UniverseBtn';
 
-// class ViewerContainer extends Component {
-//   req = null;
+// const myDate = '2013/11/15'.match(/\d+/g).join('-');
+// console.log(myDate);
+// const MyBtn = styled(Button)`
+//   float: right;
+//   margin: 20px 100px 0 0;
+//   transform: scale(1.2);
+// `;
 
-//   getApod = async () => {
-//     const { ApodActions, loading, date } = this.props;
-//     loading && this.req.cancel(); // 로딩중이라면 취소하기
+export default function Viewer() {
+  const { title, explanation, url } = useSelector((state) => {
+    return state.asyncThunk.data;
+  });
+  const asyncLoading = useSelector((state) => {
+    return state.asyncThunk.loading;
+  });
+  const dispatch = useDispatch();
 
-//     try {
-//       // this.req 에 Promise 담기
-//       this.req = ApodActions.getApod(date || '');
-//       await this.req; // 끝날 때 까지 대기
-//       // console.log(this.props.url);
-//     } catch (e) {
-//       console.log(e);
-//     }
-//   };
+  useEffect(() => {
+    dispatch(asyncUpFetch());
+  }, []);
 
-//   componentDidMount() {
-//     // 컴포넌트가 처음 나타날 때 요청
-//     this.getApod();
-//   }
+  const dateUpdate = (_, newDate) => {
+    //date,dateString 중 dateString(YYYY/MM/DD)을 date로 받음
+    dispatch(asyncUpFetch(newDate.match(/\d+/g).join('-')));
+    console.log(newDate);
+  };
+  // const goPage = () => {
+  //   location.href = '/universe/hangman';
+  //   // setShowGame(!showGame);
+  // };
 
-//   componentDidUpdate(prevProps, prevState) {
-//     // date 가 변경되면 요청
-//     if (this.props.date !== prevProps.date) {
-//       this.getApod();
-//     }
-//   }
-
-//   render() {
-//     const { date, url, mediaType, loading } = this.props;
-//     return (
-//       <Viewer />
-//       // <Viewer date={date} url={url} mediaType={mediaType} loading={loading} />
-//     );
-//   }
-// }
-
-// export default connect(
-//   ({ apod, pender }) => ({
-//     date: apod.get('date'),
-//     url: apod.get('url'),
-//     mediaType: apod.get('mediaType'),
-//     loading: pender.pending['apod/GET_APOD'],
-//   }),
-//   (dispatch) => ({
-//     ApodActions: bindActionCreators(apodActions, dispatch),
-//   })
-// )(ViewerContainer);
+  return (
+    <div
+      className="Univ_ViewContainer"
+      style={{ backgroundImage: `url('${url}')` }}
+    >
+      {' '}
+      <DrawerToggler />
+      <UniverseBtn isGame={false} url={url} />
+      <div className="Univ_loader">
+        {asyncLoading && <InfinitySpin width="100" color=" cornflowerblue" />}
+      </div>
+      {/* <Tooltip title="GO Game">
+        <MyBtn
+          ghost
+          size="large"
+          icon={<EastOutlined color="white" />}
+          onClick={goPage}
+        />
+      </Tooltip> */}
+      <div className="Univ_dateContainer">
+        <ConfigProvider locale={locale}>
+          <DatePicker
+            className="Univ_datepicker"
+            defaultValue={dayjs(new Date())}
+            format={'YYYY/MM/DD'}
+            size={'large'}
+            onChange={dateUpdate}
+          />
+        </ConfigProvider>
+      </div>
+      <div className="Univ_textContainer">
+        <div className="Univ_title">{title}</div>
+        <div className="Univ_explanation">{explanation}</div>
+      </div>
+    </div>
+  );
+}
