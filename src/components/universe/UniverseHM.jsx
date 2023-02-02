@@ -1,10 +1,21 @@
 import React, { useState } from 'react';
-import UniverseHMWords from './UniverseHMWords';
+import UniverseHMPlayer from './UniverseHMPlayer';
 import Button from 'antd/lib/button';
 import styled from 'styled-components';
+const HMContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
-const MyBtn = styled(Button)`
-  margin-top: 20px;
+const HMBtn = styled(Button)`
+  width: 300px;
+  height: 50px;
+  font-size: 30px;
+  font-weight: bold;
+  font-family: Georgia, 'Times New Roman', Times, serif;
 `;
 
 export default function UniverseHM() {
@@ -15,11 +26,11 @@ export default function UniverseHM() {
   };
 
   return (
-    <>
-      <MyBtn size={'large'} shape="round" onClick={startGame}>
-        {game ? 'Quit' : 'Start HangMan'}
-      </MyBtn>
-      {game && <UniverseHMWords />}
-    </>
+    <HMContainer>
+      <HMBtn type="text" shape="round" onClick={startGame}>
+        {game ? 'Quit' : 'Play HANGMAN'}
+      </HMBtn>
+      {game && <UniverseHMPlayer />}
+    </HMContainer>
   );
 }

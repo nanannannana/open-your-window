@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import 'antd/dist/reset.css';
 import { Provider } from 'react-redux';
+import { applyMiddleware } from '@reduxjs/toolkit';
 import { configureStore } from '@reduxjs/toolkit';
 import rootReducer from './store/index';
 
@@ -19,11 +20,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 const store = configureStore({ reducer: rootReducer });
 
 root.render(
-  <BrowserRouter>
-    <Provider store={store}>
+  <Provider store={store}>
+    <BrowserRouter>
       <App />
-    </Provider>
-  </BrowserRouter>
+    </BrowserRouter>
+  </Provider>
 );
 
 reportWebVitals();

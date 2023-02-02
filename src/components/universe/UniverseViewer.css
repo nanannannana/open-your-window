@@ -1,0 +1,54 @@
+.Univ_ViewContainer {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  text-align: justify;
+}
+
+.Univ_dateContainer {
+  position: absolute;
+  top: 10px;
+  left: 100px;
+}
+.Univ_datepicker {
+  width: 200px;
+  height: 50px;
+  background-color: transparent;
+  font-size: 20px;
+}
+/* .css-dev-only-do-not-override-1n7nwfa.ant-picker:hover,
+.css-dev-only-do-not-override-1n7nwfa.ant-picker-focused {
+  outline-color: aliceblue;
+} */
+.Univ_loader {
+  position: absolute;
+  z-index: 500;
+  top: 50%;
+  left: 45%;
+}
+.Univ_loader svg {
+  transform: scale(3);
+}
+
+.Univ_textContainer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 80px;
+}
+
+.Univ_title {
+  margin: 0 0 20px 50px;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: xx-large;
+  font-weight: bolder;
+  color: rgb(116, 141, 129);
+}
+.Univ_explanation {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: larger;
+  font-weight: lighter;
+  color: rgb(67, 87, 77);
+}

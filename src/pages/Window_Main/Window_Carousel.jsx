@@ -19,7 +19,7 @@ export default function Window_Carousel({ country, basicTag, searchTag }) {
           <BsX className="icon" color="#fff" size="30" />
         </div>
 
-        {/* 
+        {/*
         user_id 있을 때 나타나기!!!
         <div className="iconBoxChild">
           <BsFillPencilFill className="icon" color="#fff" size="20" />
