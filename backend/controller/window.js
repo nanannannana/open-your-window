@@ -33,7 +33,7 @@ exports.postUpload = async (req, res) => {
     img: image,
     comment: req.body.content,
     tags: req.body.tags,
-    user_id: 'hello12',
+    user_id: 'hello12@naver.com',
   });
   res.send({ num: result.num });
 };
@@ -43,17 +43,6 @@ exports.postEdit = async (req, res) => {
     raw: true,
     where: { num: req.query.num },
   });
-  //   console.log(result);
-  //   {
-  //     num: 21,
-  //     country: 'United States of America',
-  //     city: 'd',
-  //     win_date: 2023-01-25T15:00:00.000Z,
-  //     img: '1675062995740.jpg',
-  //     comment: 'd',
-  //     user_id: 'hello12',
-  //     like_num: 0
-  //   }
   res.send({ result: result });
 };
 
