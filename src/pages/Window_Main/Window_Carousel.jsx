@@ -6,6 +6,7 @@ import './Window.css';
 import { BsFillPencilFill, BsFillTrashFill, BsX } from 'react-icons/bs';
 import GlobalStyle from '../../components/common/GlobalStyle';
 import CarouselChange from '../../components/window/CarouselChange';
+import queryString from 'query-string';
 
 export default function Window_Carousel({ country, basicTag, searchTag }) {
   const dispatch = useDispatch();
@@ -38,7 +39,7 @@ export default function Window_Carousel({ country, basicTag, searchTag }) {
       >
         {country.length !== 0
           ? country.map((v) => <CarouselChange data={v} />)
-          : searchTag.length !== 0
+          : queryString.parse(location.search).search
           ? searchTag.map((v) => <CarouselChange data={v} />)
           : basicTag.map((v) => <CarouselChange data={v} />)}
       </Carousel>

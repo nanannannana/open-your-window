@@ -3,6 +3,7 @@ import { Drawer } from 'antd';
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import GlobalStyle from './GlobalStyle';
 
 const MyToggler = styled.div`
   position: absolute;
@@ -12,8 +13,10 @@ const MyToggler = styled.div`
 
 const NavLi = styled.div`
   padding: 30px 0 30px 0;
+  font-family: 'YUniverse-B';
 `;
 const SignBtn = styled.div`
+  font-family: 'YUniverse-B';
   position: absolute;
   bottom: 20px;
   right: 20px;
@@ -35,6 +38,7 @@ export default function DrawerToggler() {
   };
   return (
     <>
+      <GlobalStyle />
       {/* 좌측상단 이모지 absolute */}
       <div
         style={{

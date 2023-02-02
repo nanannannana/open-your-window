@@ -15,10 +15,12 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 
 const windowRouter = require('./routes/windowRoute');
+const mypageRouter = require('./routes/mypageRoute');
 
 app.get('/', (req, res) => {
   res.status(200).send('server');
 });
 app.use('/window', windowRouter);
+app.use('/mypage', mypageRouter);
 
 app.listen(port, () => console.log(port, '번 작동중'));

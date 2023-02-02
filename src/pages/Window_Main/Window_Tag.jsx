@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import DrawerToggler from '../../components/common/DrawerToggler';
 import styled from 'styled-components';
 import PaginationImg from '../../components/window/PaginationImg';
+import queryString from 'query-string';
 
 const Toggle = styled.div`
   position: fixed;
@@ -24,7 +25,7 @@ export default function Window_Tag({ country, basicTag, searchTag }) {
       <Row gutter={[15, 15]}>
         {country.length !== 0
           ? country.map((v, i) => <PaginationImg data={v} arr={arr} i={i} />)
-          : searchTag.length !== 0
+          : queryString.parse(location.search).search
           ? searchTag.map((v, i) => <PaginationImg data={v} arr={arr} i={i} />)
           : basicTag.map((v, i) => <PaginationImg data={v} arr={arr} i={i} />)}
       </Row>
@@ -36,6 +37,8 @@ export default function Window_Tag({ country, basicTag, searchTag }) {
           hoverBackgroundColor="#C2CCA8"
           hoverBorderColor="#ffffff"
           hoverColor="#ffffff"
+          fontSize="1.5em"
+          height="auto"
           text="share your WINDOW"
         />
       </div>
