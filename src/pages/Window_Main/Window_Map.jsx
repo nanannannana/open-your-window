@@ -10,9 +10,11 @@ import {
 } from 'react-simple-maps';
 import styled from 'styled-components';
 import WindowBtn from '../../components/window/WindowBtn';
-import './Window_Main.css';
+import './Window.css';
 import { Switch, Space } from 'antd';
-import GlobalStyle from '../../components/GlobalStyle';
+import GlobalStyle from '../../components/common/GlobalStyle';
+import { switching } from '../../store/modules/window';
+import DrawerToggler from '../../components/common/DrawerToggler';
 // import { Tooltip as ReactTooltip } from 'react-tooltip';
 
 const getUrl =
@@ -27,6 +29,14 @@ const StyledGeography = styled(Geography)`
     outline: none !important;
   }
 `;
+// const MapBox = styled.div`
+//   width: 100%;
+//   height: 100%;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+// `;
 
 export default function Window_Map() {
   const navigate = useNavigate();
@@ -34,6 +44,7 @@ export default function Window_Map() {
   return (
     <div>
       <GlobalStyle />
+      <DrawerToggler />
       <div className="switchCss">
         <Space direction="vertical">
           <Switch
@@ -42,27 +53,29 @@ export default function Window_Map() {
             defaultChecked
             onClick={() => {
               navigate('/window/tag');
-              dispatch(back());
+              dispatch(switching());
             }}
           />
         </Space>
       </div>
+      <div className="mapCss">
+        <ComposableMap data-tip="" viewBox="0 0 850 500">
+          <Geographies geography={getUrl}>
+            {({ geographies }) =>
+              geographies.map((geo) => (
+                <StyledGeography
+                  key={geo.rsmKey}
+                  geography={geo}
+                  onClick={() =>
+                    navigate(`/window/tag?country=${geo.properties.name}`)
+                  }
+                />
+              ))
+            }
+          </Geographies>
+        </ComposableMap>
+      </div>
 
-      <ComposableMap data-tip="">
-        <Geographies geography={getUrl}>
-          {({ geographies }) =>
-            geographies.map((geo) => (
-              <StyledGeography
-                key={geo.rsmKey}
-                geography={geo}
-                onClick={() =>
-                  navigate(`/window/tag?country=${geo.properties.name}`)
-                }
-              />
-            ))
-          }
-        </Geographies>
-      </ComposableMap>
       <div className="shareWindowBtn">
         <WindowBtn
           clickEvent={() => navigate('/window/upload')}

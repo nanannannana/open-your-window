@@ -2,14 +2,15 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { back } from '../../store/modules/window';
 import Carousel from 'react-material-ui-carousel';
-import './Window_Main.css';
+import './Window.css';
 import { BsFillPencilFill, BsFillTrashFill, BsX } from 'react-icons/bs';
-import GlobalStyle from '../../components/GlobalStyle';
+import GlobalStyle from '../../components/common/GlobalStyle';
+import CarouselChange from '../../components/window/CarouselChange';
 
-export default function Window_Carousel({ imgArr, windowInfo }) {
+export default function Window_Carousel({ country, basicTag, searchTag }) {
   const dispatch = useDispatch();
   const num = useSelector((state) => state.window.carouselNum);
-  // console.log(windowInfo);
+
   return (
     <div>
       <GlobalStyle />
@@ -35,29 +36,11 @@ export default function Window_Carousel({ imgArr, windowInfo }) {
         navButtonsAlwaysVisible={true}
         index={num}
       >
-        {imgArr.map((v, i) => (
-          <div key={v[1]}>
-            <div className="infoBox">
-              <span className="nickName">nickName</span>
-              <span>
-                {windowInfo[i].country}, {windowInfo[i].city}
-              </span>
-              <p className="comment">{windowInfo[i].comment}</p>
-            </div>
-            <img src={v[1]} className="CarouselImg" />
-          </div>
-        ))}
-        {/* <div>
-          <img src="/img/1675143132258.jpg" />
-        </div>
-        <div>
-          <img src="/img/1675143490497.jpg" />
-          <p className="legend">Legend 2</p>
-        </div>
-        <div>
-          <img src="/img/1675143878886.jpg" />
-          <p className="legend">Legend 3</p>
-        </div> */}
+        {country.length !== 0
+          ? country.map((v) => <CarouselChange data={v} />)
+          : searchTag.length !== 0
+          ? searchTag.map((v) => <CarouselChange data={v} />)
+          : basicTag.map((v) => <CarouselChange data={v} />)}
       </Carousel>
     </div>
   );

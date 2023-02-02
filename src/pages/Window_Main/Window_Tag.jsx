@@ -1,30 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import queryString from 'query-string';
-import { Col, Row } from 'antd';
+import React from 'react';
+import { Row } from 'antd';
 import WindowBtn from '../../components/window/WindowBtn';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { numchange, reverse } from '../../store/modules/window';
+import DrawerToggler from '../../components/common/DrawerToggler';
+import styled from 'styled-components';
+import PaginationImg from '../../components/window/PaginationImg';
 
-export default function Window_Tag({ imgArr }) {
+const Toggle = styled.div`
+  position: fixed;
+  right: 0;
+  top: 0;
+`;
+
+export default function Window_Tag({ country, basicTag, searchTag }) {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const arr = [10, 14, 9, 7, 8, 5, 12, 7];
 
   return (
     <div className="TagFullBox">
+      <Toggle>
+        <DrawerToggler />
+      </Toggle>
       <Row gutter={[15, 15]}>
-        {imgArr.map((v, i) => (
-          <Col key={v[1]} span={v[0]}>
-            <img
-              src={v[1]}
-              className="TagImg"
-              onClick={() => {
-                dispatch(reverse());
-                dispatch(numchange(i));
-              }}
-            />
-          </Col>
-        ))}
+        {country.length !== 0
+          ? country.map((v, i) => <PaginationImg data={v} arr={arr} i={i} />)
+          : searchTag.length !== 0
+          ? searchTag.map((v, i) => <PaginationImg data={v} arr={arr} i={i} />)
+          : basicTag.map((v, i) => <PaginationImg data={v} arr={arr} i={i} />)}
       </Row>
       <div className="TagPageWindowBtn">
         <WindowBtn
