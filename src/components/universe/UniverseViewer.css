@@ -16,7 +16,12 @@
   width: 200px;
   height: 50px;
   background-color: transparent;
+}
+.Univ_datepicker .ant-picker-input > input,
+.Univ_datepicker .ant-picker-input > span {
   font-size: 20px;
+  color: #8ca79a;
+  background-color: transparent;
 }
 /* .css-dev-only-do-not-override-1n7nwfa.ant-picker:hover,
 .css-dev-only-do-not-override-1n7nwfa.ant-picker-focused {
@@ -43,10 +48,11 @@
   margin: 0 0 20px 50px;
   font-size: xx-large;
   font-weight: bolder;
-  color: rgb(116, 141, 129);
+  color: #8ca79a;
 }
 .Univ_explanation {
   font-size: larger;
   font-weight: lighter;
-  color: rgb(67, 87, 77);
+  color: #60746a;
+  /* color: rgb(67, 87, 77); */
 }

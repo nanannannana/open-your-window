@@ -1,29 +1,66 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import './SignIn_SignUp.css';
-import { Button, Form, Input, InputNumber, Space } from 'antd';
-import { EyeTwoTone, UserOutlined } from '@ant-design/icons';
+import { Form, Input, Checkbox, Button } from 'antd';
+import axios from 'axios';
+
+const formItemLayout = {
+  labelCol: {
+    xs: {
+      span: 24,
+    },
+    sm: {
+      span: 8,
+    },
+  },
+  wrapperCol: {
+    xs: {
+      span: 24,
+    },
+    sm: {
+      span: 16,
+    },
+  },
+};
+const tailFormItemLayout = {
+  wrapperCol: {
+    xs: {
+      span: 24,
+      offset: 0,
+    },
+    sm: {
+      span: 16,
+      offset: 8,
+    },
+  },
+};
 
 export default function SignIn_SignUp() {
   const [form] = Form.useForm();
-  const onFinish = (values) => {
+
+  // 회원가입
+  const onFinish = async (values) => {
     console.log('Received values of form: ', values);
+    await axios
+      .post('http://localhost:4000/user/signUp', {
+        email: values.email,
+        pw: values.password,
+        nickname: values.nickname,
+        phone: values.phone,
+      })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   };
-  const [autoCompleteResult, setAutoCompleteResult] = useState([]);
-  const onWebsiteChange = (value) => {
-    if (!value) {
-      setAutoCompleteResult([]);
-    } else {
-      setAutoCompleteResult(
-        ['.com', '.org', '.net'].map((domain) => `${value}${domain}`)
-      );
-    }
-  };
-  const websiteOptions = autoCompleteResult.map((website) => ({
-    label: website,
-    value: website,
-  }));
+
+  //// UI 시작/////////////////
   return (
-    <div className="signContainer">
+    <Form
+      {...formItemLayout}
+      form={form}
+      name="register"
+      onFinish={onFinish}
+      style={{ maxWidth: 600 }}
+      scrollToFirstError
+    >
       <Form.Item
         name="email"
         label="E-mail"
@@ -110,6 +147,28 @@ export default function SignIn_SignUp() {
           }}
         />
       </Form.Item>
-    </div>
+      <Form.Item
+        name="agreement"
+        valuePropName="checked"
+        rules={[
+          {
+            validator: (_, value) =>
+              value
+                ? Promise.resolve()
+                : Promise.reject(new Error('Should accept agreement')),
+          },
+        ]}
+        {...tailFormItemLayout}
+      >
+        <Checkbox>
+          I have read the <a href="">agreement</a>
+        </Checkbox>
+      </Form.Item>
+      <Form.Item {...tailFormItemLayout}>
+        <Button type="primary" htmlType="submit">
+          Register
+        </Button>
+      </Form.Item>
+    </Form>
   );
 }
