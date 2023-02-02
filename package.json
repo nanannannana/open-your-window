@@ -12,7 +12,6 @@
     "@testing-library/user-event": "^13.5.0",
     "antd": "^5.1.6",
     "axios": "^1.2.6",
-<<<<<<< Updated upstream
     "body-parser": "^1.20.1",
     "cors": "^2.8.5",
     "dayjs": "^1.11.7",
@@ -24,9 +23,6 @@
     "mysql2": "^3.0.1",
     "query-string": "^8.1.0",
     "rc-tween-one": "^3.0.6",
-=======
-    "immutable": "^4.2.2",
->>>>>>> Stashed changes
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
@@ -41,16 +37,13 @@
     "react-tooltip": "^5.7.1",
     "redux": "^4.2.1",
     "redux-actions": "^2.6.5",
-<<<<<<< Updated upstream
     "redux-devtools-extension": "^2.13.9",
     "redux-logger": "^3.0.6",
     "redux-pender": "^2.0.12",
     "redux-thunk": "^2.4.2",
     "sequelize": "^6.28.0",
     "sequelize-cli": "^6.6.0",
-=======
     "redux-pender": "^2.0.12",
->>>>>>> Stashed changes
     "styled-components": "^5.3.6",
     "web-vitals": "^2.1.4"
   },
