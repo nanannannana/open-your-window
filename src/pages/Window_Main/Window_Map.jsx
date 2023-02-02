@@ -84,6 +84,8 @@ export default function Window_Map() {
           hoverBackgroundColor="#C2CCA8"
           hoverBorderColor="#ffffff"
           hoverColor="#ffffff"
+          fontSize="1.5em"
+          height="auto"
           text="share your WINDOW"
         />
       </div>

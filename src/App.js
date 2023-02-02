@@ -11,8 +11,9 @@ import Window_PostEdit from './pages/Window_Upload/Window_PostEdit';
 import Window_Map from './pages/Window_Main/Window_Map';
 // import Window_TagMain from './pages/Window_Main/Window_TagMain';
 import UniverseViewer from './components/universe/UniverseViewer';
-import Window_Posts from './pages/Window_Main/Window_Posts';
 import SignIn_Main from './pages/SignIn_Main';
+import Window_Posts from './pages/Window_Main/Window_Posts';
+import SearchBar from './components/common/SearchBar';
 
 function App() {
   return (
@@ -28,6 +29,8 @@ function App() {
         {/* <Route path="/user/signin_up" element={<SignIn_SignUp_Main />} /> */}
         <Route path="/user/signin" element={<SignIn_Main />} />
         <Route path="/user/mypage" element={<MyPage_Main />} />
+        <Route path="/mypage" element={<MyPage_Main />} />
+        <Route path="/search" element={<SearchBar />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
