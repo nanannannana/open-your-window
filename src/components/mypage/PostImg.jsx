@@ -17,11 +17,16 @@ const ImgDiv = styled.div`
   text-align: left;
   padding: 15px 25px;
   text-shadow: 2px 2px 1px #000;
+  @media (max-width: 1440px) {
+    height: 160px;
+    font-size: 1.2em;
+    padding: 10px 15px;
+  }
 `;
 
 export default function PostImg({ pagi }) {
   const postArr = pagi.filter((v) => pagi.indexOf(v) !== 0);
-  console.log('postArr', postArr);
+  // console.log('postArr', postArr);
   return (
     <>
       {pagi.length !== 0 ? (

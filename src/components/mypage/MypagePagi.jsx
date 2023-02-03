@@ -6,6 +6,9 @@ import styled from 'styled-components';
 
 const PaginationCss = styled.div`
   padding: 40px 0 0 0;
+  @media (max-width: 1440px) {
+    padding: 15px 0 0 0;
+  }
 `;
 
 export default function MypagePagi({ arr }) {

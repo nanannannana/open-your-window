@@ -5,9 +5,9 @@ const initState = {
 };
 
 // 액션 타입 설정
-const UPDATE = 'user/UPDATE';
-const CHANGE = 'user/CHANGE';
-const CHANGERESET = 'user/CHANGERESET';
+const UPDATE = 'mypage/UPDATE';
+const CHANGE = 'mypage/CHANGE';
+const CHANGERESET = 'mypage/CHANGERESET';
 
 // 액션 생성 함수 설정
 export const update = (data) => ({ type: UPDATE, payload: data });

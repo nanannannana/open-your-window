@@ -3,6 +3,7 @@ import { Button, Form, Input } from 'antd';
 import styled from 'styled-components';
 import WindowBtn from '../window/WindowBtn';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const InfoBox = styled.div`
   display: flex;
@@ -10,19 +11,32 @@ const InfoBox = styled.div`
 `;
 
 export default function MyInfo() {
-  //useEffect 작성
+  const mypost = useSelector((state) => state.mypage.mypost);
+  console.log('mypost', mypost);
+  console.log('user_id', mypost[0]['user.user_id']);
 
   const onFinish = async (values) => {
+    console.log('values', values);
     // update문
-    // await axios
-    //   .patch('http://localhost:4000/', values)
-    //   .then((res) => console.log(res.data))
-    //   .catch((err) => console.log(err));
+    await axios
+      .patch('http://localhost:4000/mypage/userInfoUd', values)
+      .then(() => alert('회원정보가 수정되었습니다.'))
+      .catch((err) => console.log(err));
   };
 
   return (
     <InfoBox>
-      <Form name="userInfo" onFinish={onFinish} style={{ width: 500 }}>
+      <Form
+        name="userInfo"
+        onFinish={onFinish}
+        initialValues={{
+          user_id: mypost[0]['user.user_id'],
+          user_pw: mypost[0]['user.user_pw'],
+          user_name: mypost[0]['user.user_name'],
+          phone: mypost[0]['user.phone'],
+        }}
+        style={{ width: 500 }}
+      >
         <Form.Item
           name="user_id"
           label="email"
@@ -38,14 +52,14 @@ export default function MyInfo() {
           <Input size="large" type="password" placeholder="Password" />
         </Form.Item>
         <Form.Item
-          name="nickName"
+          name="user_name"
           label="nickName"
           rules={[{ required: true, message: '' }]}
         >
           <Input size="large" placeholder="Nickname" />
         </Form.Item>
         <Form.Item
-          name="phoneNum"
+          name="phone"
           label="phoneNumber"
           rules={[{ required: true, message: '' }]}
         >

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import DrawerToggler from '../components/common/DrawerToggler';
 import MyPost from '../components/mypage/MyPost';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeReset, update, goInfo } from '../store/modules/user';
+import { changeReset, update, goInfo } from '../store/modules/mypage';
 import { pagereset } from '../store/modules/window';
 import { BsFillPencilFill, BsBrightnessHighFill } from 'react-icons/bs';
 import MyInfo from '../components/mypage/MyInfo';
@@ -12,10 +12,17 @@ import MyInfo from '../components/mypage/MyInfo';
 const OutBox = styled.div`
   padding: 170px 300px;
   height: 100vh;
+  @media (max-width: 1440px) {
+    padding: 50px 200px 0 200px;
+  }
 `;
 const Username = styled.div`
   font-size: 3em;
   margin: 0 0 10px 0;
+  @media (max-width: 1440px) {
+    font-size: 2.5em;
+    margin: 0 0 5px 0;
+  }
 `;
 const UserEmail = styled.div`
   font-size: 1em;
@@ -32,8 +39,8 @@ const EmailandIconBox = styled.div`
 export default function MyPage_Main() {
   const dispatch = useDispatch();
   const user_id = 'hello12@naver.com';
-  const mypost = useSelector((state) => state.user.mypost);
-  const change = useSelector((state) => state.user.change);
+  const mypost = useSelector((state) => state.mypage.mypost);
+  const change = useSelector((state) => state.mypage.change);
 
   useEffect(() => {
     async function fectchData() {
