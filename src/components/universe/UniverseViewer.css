@@ -20,6 +20,7 @@
 .Univ_datepicker .ant-picker-input > input,
 .Univ_datepicker .ant-picker-input > span {
   font-size: 20px;
+  font-family: 'YUniverse-B';
   color: #8ca79a;
   background-color: transparent;
 }

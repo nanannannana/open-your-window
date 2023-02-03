@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './Universe_Main.css';
-import UniverseHM from '../../components/universe/UniverseHM';
 import styled from 'styled-components';
 import Button from 'antd/lib/button';
 import UniverseBtn from '../../components/universe/UniverseBtn';

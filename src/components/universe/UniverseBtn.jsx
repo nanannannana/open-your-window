@@ -12,12 +12,6 @@ const MyBtn = styled(Button)`
   transform: scale(1.7);
 `;
 
-// const goPage = () => {
-//   props.isGame
-//     ? (location.href = '/universe/hangman')
-//     : (location.href = '/universe');
-// };
-
 export default function UniverseBtn(props) {
   const { isGame } = props;
   const navigate = useNavigate();

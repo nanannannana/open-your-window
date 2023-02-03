@@ -4,3 +4,27 @@
   justify-content: center;
   align-items: center;
 }
+
+.FormContainer input[type='checkbox'] {
+  background-color: #c2cca8;
+  border-color: #c2cca8;
+}
+
+.FormContainer a {
+  color: #c2cca8;
+}
+
+/* .css-dev-only-do-not-override-1n7nwfa
+  .ant-modal-confirm
+  .ant-modal-confirm-body
+  .ant-modal-confirm-title {
+  font-family: 'YUniverse-B';
+  font-size: 20px;
+} */
+
+/* .confModal span,
+.errModal span {
+   {
+    fontfamily: 'YUniverse-B';
+  }
+} */

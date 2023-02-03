@@ -1,7 +1,8 @@
+import { Row } from 'antd';
 import React from 'react';
 import styled from 'styled-components';
 
-const ErrorAlert = styled.div`
+const ErrorAlert = styled(Row)`
   height: 100vh;
   font-size: 100px;
   font-weight: bolder;
@@ -10,5 +11,9 @@ const ErrorAlert = styled.div`
 `;
 
 export default function NotFound() {
-  return <ErrorAlert>NotFound</ErrorAlert>;
+  return (
+    <ErrorAlert align="middle" justify="center">
+      NotFound
+    </ErrorAlert>
+  );
 }

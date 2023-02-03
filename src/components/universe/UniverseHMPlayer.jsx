@@ -9,9 +9,9 @@ import UniverseHMReset from './UniverseHMReset';
 
 // setTwoToneColor('slateblue');
 
-const Div1 = styled.div`
-  width: 100%;
-  height: 100%;
+const HMContainer = styled.div`
+  width: 100vw;
+  height: 95vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -23,8 +23,9 @@ const Div1 = styled.div`
 const HintBtn = styled(Button)`
   color: rgb(116, 141, 129);
   font-size: xx-large;
+  font-family: 'YUniverse-B';
 `;
-const MyDiv = styled.div`
+const WordArr = styled.div`
   height: 30vh;
   width: 100vw;
   display: flex;
@@ -37,11 +38,13 @@ const MySpan = styled.span`
   font-size: 8em;
   font-weight: bolder;
   margin: 0 15px 0 15px;
+  font-family: 'YUniverse-B';
 `;
 
 const ABCbtn = styled(Button)`
   display: inline-block;
   font-size: xx-large;
+  font-family: 'YUniverse-B';
   color: slateblue;
   width: 100px;
   height: 100px;
@@ -113,15 +116,15 @@ export default function UniverseHMPlayer() {
     ));
   };
 
-  // UI 시작 ////////////////////////////////
+  /////// UI 시작 ////////////////////////////////
   return (
-    <Div1>
+    <HMContainer>
       <HintBtn type="link" onClick={showHint}>
         {hint}
       </HintBtn>
-      <MyDiv>
+      <WordArr>
         <MySpan>{showWord()}</MySpan>
-      </MyDiv>
+      </WordArr>
       <div
         style={{
           fontSize: '30px',
@@ -135,7 +138,7 @@ export default function UniverseHMPlayer() {
           [...Array(count + 1)].map((_, i) => (
             <span key={i}>
               <FavoriteOutlined
-                style={{ fontSize: '70px', margin: '0 5px 0 5px' }}
+                style={{ fontSize: '70px', margin: '0 5px 5px 5px' }}
               />
             </span>
           ))
@@ -143,6 +146,6 @@ export default function UniverseHMPlayer() {
       </div>
       <BtnArr>{btnGernerator1()}</BtnArr>
       <BtnArr>{btnGernerator2()}</BtnArr>
-    </Div1>
+    </HMContainer>
   );
 }
