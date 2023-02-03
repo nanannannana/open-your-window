@@ -1,9 +1,12 @@
 import { MenuOutlined } from '@ant-design/icons';
 import { Drawer } from 'antd';
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import GlobalStyle from './GlobalStyle';
+import { useDispatch, useSelector } from 'react-redux';
+import { delUser } from '../../store/modules/users';
+import DeleteUser from '../mypage/DeleteUser';
 
 const MyToggler = styled.div`
   position: absolute;
@@ -11,7 +14,7 @@ const MyToggler = styled.div`
   text-align: center;
 `;
 
-const NavLi = styled.div`
+const NavEl = styled.div`
   padding: 30px 0 30px 0;
   font-family: 'YUniverse-B';
 `;
@@ -20,7 +23,12 @@ const SignBtn = styled.div`
   position: absolute;
   bottom: 20px;
   right: 20px;
+  color: 'lavender';
+  font-size: 'xx-large';
+  font-weight: 'bolder';
+  margin: '30px 0 30px 0';
 `;
+
 const NavLinkSt = {
   color: 'lavender',
   fontSize: 'xx-large',
@@ -30,6 +38,10 @@ const NavLinkSt = {
 
 export default function DrawerToggler() {
   const [open, setOpen] = useState(false);
+  // const userid = useSelector((state) => state.users.userid);
+  const userid = localStorage.getItem('userid');
+  console.log(userid);
+  const dispatch = useDispatch();
   const showDrawer = () => {
     setOpen(true);
   };
@@ -75,31 +87,53 @@ export default function DrawerToggler() {
           open={open}
           style={{ position: 'absolute', zIndex: '500' }}
         >
-          <NavLi>
-            <NavLink to="/" style={NavLinkSt}>
+          <NavEl>{userid ? <DeleteUser /> : '탈퇴버튼안보임'}</NavEl>
+          <NavEl>
+            <Link to="/" style={NavLinkSt}>
               Home
-            </NavLink>
-          </NavLi>
-          <NavLi>
-            <NavLink to="/universe" style={NavLinkSt}>
+            </Link>
+          </NavEl>
+          <NavEl>
+            <Link to="/universe" style={NavLinkSt}>
               Universe
-            </NavLink>
-          </NavLi>
-          <NavLi>
-            <NavLink to="/window" style={NavLinkSt}>
+            </Link>
+          </NavEl>
+          <NavEl>
+            <Link to="/window" style={NavLinkSt}>
               Window
-            </NavLink>
-          </NavLi>
-          <NavLi>
-            <NavLink to="/user/mypage" style={NavLinkSt}>
-              My Page
-            </NavLink>
-          </NavLi>
-          <SignBtn>
-            <NavLink to="/user/signin_up" style={NavLinkSt}>
-              SignUp/SignIn
-            </NavLink>
-          </SignBtn>
+            </Link>
+          </NavEl>
+          {/* 로그인 시 마이페이지 & 로그아웃 보이기*/}
+          {userid ? (
+            <>
+              <NavEl>
+                <Link to="/user/mypage" style={NavLinkSt}>
+                  My Page
+                </Link>
+              </NavEl>
+              <SignBtn
+                onClick={() => {
+                  localStorage.clear();
+                }}
+              >
+                <Link
+                  to="/"
+                  style={NavLinkSt}
+                  onClick={() => {
+                    dispatch(delUser());
+                  }}
+                >
+                  Log Out
+                </Link>
+              </SignBtn>
+            </>
+          ) : (
+            <SignBtn>
+              <Link to="/user/signin" style={NavLinkSt}>
+                SignUp/SignIn
+              </Link>
+            </SignBtn>
+          )}
         </Drawer>
       </MyToggler>
     </>

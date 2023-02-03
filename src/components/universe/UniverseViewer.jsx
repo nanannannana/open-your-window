@@ -19,17 +19,16 @@ import GlobalStyle from '../common/GlobalStyle';
 // `;
 
 export default function Viewer() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(asyncUpFetch());
+  }, []);
   const { title, explanation, url } = useSelector((state) => {
     return state.asyncThunk.data;
   });
   const asyncLoading = useSelector((state) => {
     return state.asyncThunk.loading;
   });
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(asyncUpFetch());
-  }, []);
 
   const dateUpdate = (_, newDate) => {
     //date,dateString 중 dateString(YYYY/MM/DD)을 date로 받음
@@ -52,7 +51,7 @@ export default function Viewer() {
       className="Univ_ViewContainer"
       style={{ backgroundImage: `url('${url}')` }}
     >
-    <GlobalStyle /> <DrawerToggler />
+      <GlobalStyle /> <DrawerToggler />
       <UniverseBtn isGame={false} url={url} />
       <div className="Univ_loader">
         {asyncLoading && <InfinitySpin width="100" color=" cornflowerblue" />}

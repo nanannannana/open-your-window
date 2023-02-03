@@ -1,7 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { handleActions } from 'redux-actions';
-import { getAPOD } from '../../apis/Nasa_API';
 
 export const asyncUpFetch = createAsyncThunk(
   'asyncThunk/asyncUpFetch',
@@ -36,64 +34,3 @@ export const asyncThunkSlice = createSlice({
     });
   },
 });
-
-// const PENDING = 'apod/APOD_PENDING';
-// const SUCCESS = 'apod/APOD_SUCCESS';
-// const FAILURE = 'apod/APOD_FAILURE';
-
-// const initState = {
-//   pending: false,
-//   error: false,
-//   data: {
-//     title: '',
-//     explaination: '',
-//     url: '',
-//   },
-// };
-
-// export const getPost = (date) => (dispatch) => {
-//   // 요청의 시작 알림
-//   dispatch({ type: PENDING });
-
-//   return getAPOD(date)
-//     .then((res) => {
-//       // 요청 성공하면 응답 > payload (SUCCESS)
-//       dispatch({ type: SUCCESS, payload: res });
-//     })
-//     .catch((err) => {
-//       // 에러 발생하면 에러 > payload (FAILURE)
-//       dispatch({ type: FAILURE, payload: error });
-//       // error throw하여 추후 다시 catch할 수 있도록
-//       throw error;
-//     });
-// };
-
-// console.log(getPost('1993-11-15'));
-
-// export default handleActions(
-//   {
-//     [PENDING]: (state, action) => {
-//       return {
-//         ...state,
-//         pending: true,
-//         error: false,
-//       };
-//     },
-//     [SUCCESS]: (state, action) => {
-//       const { title, explaination, url } = action.payload.data;
-//       return {
-//         ...state,
-//         pending: false,
-//         data: {
-//           title,
-//           explaination,
-//           url,
-//         },
-//       };
-//     },
-//     [FAILURE]: (state, action) => {
-//       return { ...state, pending: false, error: true };
-//     },
-//   },
-//   initState
-// );
