@@ -5,6 +5,7 @@ import { asyncThunkSlice } from './modules/apod';
 import window from './modules/window';
 import mypage from './modules/mypage';
 import users from './modules/users';
+// import hmWords from './modules/hmWords';
 
 // const persistConfig = {
 //   key: 'root',
@@ -17,6 +18,7 @@ export default combineReducers({
   asyncThunk: asyncThunkSlice.reducer,
   users,
   mypage,
+  // hmWords,
 });
 
 // export default persistReducer(persistConfig, rootReducer);

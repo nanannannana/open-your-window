@@ -14,8 +14,10 @@ export default function SignIn() {
   const showConfirm = () => {
     Modal.success({
       width: 600,
+      wrapClassName: 'confModal',
       title: 'Welcome',
       content: 'Share your window right now !',
+      bodystyle: 'fontFamily: YUniverse-B',
       onOk() {
         navigate('/', { replace: true });
       },
@@ -25,17 +27,16 @@ export default function SignIn() {
   const showError = () => {
     Modal.warning({
       width: 600,
+      wrapClassName: 'errModal',
       title: 'Try Again',
       content: 'You entered wrong email or password',
       onOk() {
         console.log('OK');
       },
-      onCancel() {
-        console.log('Wrong');
-      },
     });
   };
-
+  // 로그인
+  // 성공시 localStorage에 {'userid': 'email'} 저장
   const onFinish = async (values) => {
     console.log('Received values of form: ', values);
     await axios
@@ -52,6 +53,8 @@ export default function SignIn() {
       })
       .catch((err) => console.log(err));
   };
+
+  //// UI 시작////////////////// 로그인 창
   return (
     <div className="FormContainer">
       <Form
@@ -111,6 +114,7 @@ export default function SignIn() {
             type="primary"
             htmlType="submit"
             className="login-form-button"
+            style={{ backgroundColor: '#C2CCA8' }}
           >
             Log in
           </Button>

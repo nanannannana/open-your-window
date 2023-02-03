@@ -30,15 +30,6 @@ export default function Universe_HM() {
       <div className="Univ_loader">
         {asyncLoading && <InfinitySpin width="100" color=" cornflowerblue" />}
       </div>
-
-      {/* <Tooltip title="Go UNIVERSE MAIN">
-        <MyBtn
-          ghost
-          size="large"
-          icon={<WestOutlined color="white" />}
-          onClick={goPage}
-        />
-      </Tooltip> */}
       <UniverseHMPlayer />
     </div>
   );

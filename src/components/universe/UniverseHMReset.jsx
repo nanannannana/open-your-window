@@ -1,49 +1,18 @@
-// import { Button, Modal, Space } from 'antd';
-// import React, { createContext } from 'react';
-
-// const ReachableContext = createContext(null);
-// const UnreachableContext = createContext(null);
-// const config = {
-//   title: 'DO you want to play HANGMAN again?',
-//   context: (
-//     <>
-//       <ReachableContext.Consumer>
-//         {(name) => `Reachable:${name}!`}
-//       </ReachableContext.Consumer>
-//       <br />
-//       <UnreachableContext.Consumer>
-//         {(name) => `Uneachable:${name}!`}
-//       </UnreachableContext.Consumer>
-//     </>
-//   ),
-// };
-
-// export default function UniverseHMReset() {
-//   const [modal, contextHolder] = Modal.useModal();
-//   return (
-//     <ReachableContext.Provider value="Replay">
-//       <Space>
-//         <Button
-//           onClick={() => {
-//             modal.confirm(config);
-//           }}
-//         >
-//           Confirm
-//         </Button>
-//       </Space>
-//       {contextHolder}
-//     </ReachableContext.Provider>
-//   );
-// }
 import { Modal } from 'antd';
 import React from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 
 export default function UniverseHMReset(props) {
   const navigate = useNavigate();
+  // const dispatch = useDispatch();
+  // const { idx, answer, hint } = useSelector((state) => state.hmWords);
   const { count, answer } = props;
+
   return (
     <Modal
+      bodyStyle={{ fontFamily: 'YUniverse-B', fontWeight: 'lighter' }}
+      width={600}
       title={count < 0 ? 'You LOSE !' : 'You WIN !'}
       open="true"
       onOk={() => {
@@ -55,12 +24,13 @@ export default function UniverseHMReset(props) {
         navigate('/universe', { replace: true });
       }}
     >
-      <p style={{ fontSize: 'xx-large', fontWeight: 'bold' }}>
-        {count < 0 ? `The answer was '${answer[0]}'` : 'You are a good player!'}
-      </p>
-      <p style={{ fontSize: 'xx-large', fontWeight: 'lighter' }}>
+      <span style={{ fontSize: 'x-large', fontWeight: 'bold' }}>
+        {count < 0 ? `The answer was '${answer[0]}'` : 'You did a GREAT JOB !'}
+      </span>
+      <br />
+      <span style={{ fontSize: 'x-large', fontWeight: 'lighter' }}>
         Do you want to play another HANGMAN ?{' '}
-      </p>
+      </span>
     </Modal>
   );
 }
