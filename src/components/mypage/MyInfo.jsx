@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import WindowBtn from '../window/WindowBtn';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import DeleteUser from './DeleteUser';
 
 const { success } = Modal;
 const InfoBox = styled.div`
@@ -93,8 +94,9 @@ export default function MyInfo() {
             hoverColor="#ffffff"
             fontSize="1.5em"
             height="auto"
-            text="Update"
+            text="정보 수정"
           />
+          <DeleteUser />
         </Form.Item>
       </Form>
     </InfoBox>

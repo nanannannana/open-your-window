@@ -220,10 +220,16 @@ export default function Window_Upload() {
                           // onChange={handleChange}
                           onChange={countryChange}
                           options={[
-                            { value: 'United States of America', label: 'USA' },
+                            { value: 'Argentina', label: 'Argentina' },
                             { value: 'Australia', label: 'Australia' },
-                            { value: 'South Korea', label: 'South Korea' },
                             { value: 'Brazil', label: 'Brazil' },
+                            { value: 'France', label: 'France' },
+                            { value: 'Singapore', label: 'Singapore' },
+                            { value: 'South Korea', label: 'South Korea' },
+                            { value: 'Spain', label: 'Spain' },
+                            { value: 'Taiwan', label: 'Taiwan' },
+                            { value: 'Thailand', label: 'Thailand' },
+                            { value: 'United States of America', label: 'USA' },
                           ]}
                         />
                       </Form.Item>
