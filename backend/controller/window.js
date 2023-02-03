@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { Window } = require('../model');
+const { Window, User } = require('../model');
 const multer = require('multer');
 const path = require('path');
 const sequelize = require('sequelize');
@@ -33,7 +33,7 @@ exports.postUpload = async (req, res) => {
     img: image,
     comment: req.body.content,
     tags: req.body.tags,
-    user_id: 'hello12@naver.com',
+    user_id: req.body.user_id,
   });
   res.send({ num: result.num });
 };
@@ -42,6 +42,13 @@ exports.postEdit = async (req, res) => {
   const result = await Window.findOne({
     raw: true,
     where: { num: req.query.num },
+    include: [
+      {
+        model: User,
+        required: true,
+        attributes: ['user_name'],
+      },
+    ],
   });
   res.send({ result: result });
 };
@@ -50,15 +57,29 @@ exports.ImgFind = async (req, res) => {
   const result = await Window.findAll({
     raw: true,
     where: { country: req.query.country },
+    include: [
+      {
+        model: User,
+        required: true,
+        attributes: ['user_name'],
+      },
+    ],
   });
-  console.log(req.query.country);
-  console.log(result);
+  // console.log(req.query.country);
+  // console.log(result);
   res.send({ countryTag: result });
 };
 
 exports.basicTag = async (req, res) => {
   const result = await Window.findAll({
     raw: true,
+    include: [
+      {
+        model: User,
+        required: true,
+        attributes: ['user_name'],
+      },
+    ],
   });
   res.send({ basicTag: result });
 };
@@ -71,6 +92,13 @@ exports.searchTag = async (req, res) => {
         [Op.like]: '%' + req.query.tag + '%',
       },
     },
+    include: [
+      {
+        model: User,
+        required: true,
+        attributes: ['user_name'],
+      },
+    ],
   });
   res.send({ searchTag: result });
 };

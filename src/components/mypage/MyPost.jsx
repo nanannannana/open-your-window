@@ -4,6 +4,7 @@ import { Row, Col } from 'antd';
 import PostImg from './PostImg';
 import { useSelector } from 'react-redux';
 import MypagePagi from './MypagePagi';
+import { useNavigate } from 'react-router';
 
 const MyPostDiv = styled.div`
   margin: 50px 0 0 0;
@@ -33,6 +34,7 @@ const ImgDiv = styled.div`
 `;
 
 export default function MyPost() {
+  const navigate = useNavigate();
   const mypost = useSelector((state) => state.mypage.mypost);
   const page = useSelector((state) => state.window.page);
   const pagination = mypost.slice(page * 5, page * 5 + 5);
@@ -42,7 +44,15 @@ export default function MyPost() {
       <Row gutter={{ md: 20, xxl: 30 }}>
         <Col span={12}>
           {mypost.length !== 0 ? (
-            <ImgDiv img={pagination[0].img}>
+            <ImgDiv
+              img={pagination[0].img}
+              onClick={() =>
+                navigate('/window/postedit', {
+                  replace: true,
+                  state: { num: pagination[0].num, mypage: 'mypage' },
+                })
+              }
+            >
               {pagination[0].country}, {pagination[0].city}
             </ImgDiv>
           ) : (
