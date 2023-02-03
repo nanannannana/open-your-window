@@ -9,12 +9,11 @@ export default function DeleteUser() {
   const userid = localStorage.getItem('userid');
   console.log(userid);
   //   const [checkPW, setCheckPW] = useState(false);
-  const { confirm } = Modal;
 
   const checkDelUser = () => {
-    confirm({
-      title: '아름다운 사진들을 더이상 볼 수 없어요',
-      icon: <ExclamationCircleFilled />,
+    Modal.info({
+      width: 600,
+      title: '아름다운 사진들을 더 이상 볼 수 없어요',
       content: '정말 탈퇴하시겠습니까?',
       onOk() {
         delUserInfo(userid);

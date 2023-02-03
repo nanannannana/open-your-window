@@ -40,11 +40,7 @@ const tailFormItemLayout = {
 export default function SignIn_SignUp() {
   const [form] = Form.useForm();
   const navigate = useNavigate();
-  const [reSign, setReSign] = useState(false);
 
-  useEffect(() => {
-    console.log('reSigned');
-  }, [reSign]);
   // 회원가입
   const onFinish = async (values) => {
     console.log('Received values of form: ', values);
@@ -59,11 +55,10 @@ export default function SignIn_SignUp() {
       .catch((err) => console.log(err));
   };
 
-  const { confirm } = Modal;
   const showConfirm = () => {
-    confirm({
+    Modal.success({
+      width: 600,
       title: '회원가입이 완료되었습니다.',
-      icon: <ExclamationCircleFilled />,
       content: '로그인 후 이용해주세요 !',
       onOk() {
         // form.resetFields();
@@ -71,14 +66,14 @@ export default function SignIn_SignUp() {
       },
     });
   };
-  //// UI 시작/////////////////
+  /////////// UI 시작/////////////////
   return (
     <Form
       {...formItemLayout}
       form={form}
       name="register"
       onFinish={onFinish}
-      style={{ maxWidth: 600 }}
+      style={{ minWidth: 500 }}
       scrollToFirstError
     >
       <Form.Item
@@ -95,7 +90,7 @@ export default function SignIn_SignUp() {
           },
         ]}
       >
-        <Input />
+        <Input size="large" />
       </Form.Item>
 
       <Form.Item
@@ -109,7 +104,7 @@ export default function SignIn_SignUp() {
         ]}
         hasFeedback
       >
-        <Input.Password />
+        <Input.Password size="large" />
       </Form.Item>
 
       <Form.Item
@@ -134,7 +129,7 @@ export default function SignIn_SignUp() {
           }),
         ]}
       >
-        <Input.Password />
+        <Input.Password size="large" />
       </Form.Item>
 
       <Form.Item
@@ -149,7 +144,7 @@ export default function SignIn_SignUp() {
           },
         ]}
       >
-        <Input />
+        <Input size="large" />
       </Form.Item>
       <Form.Item
         name="phone"
@@ -161,11 +156,7 @@ export default function SignIn_SignUp() {
           },
         ]}
       >
-        <Input
-          style={{
-            width: '100%',
-          }}
-        />
+        <Input size="large" />
       </Form.Item>
       <Form.Item
         name="agreement"
@@ -185,7 +176,7 @@ export default function SignIn_SignUp() {
         </Checkbox>
       </Form.Item>
       <Form.Item {...tailFormItemLayout}>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" size="large">
           Register
         </Button>
       </Form.Item>

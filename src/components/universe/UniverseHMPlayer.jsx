@@ -116,7 +116,7 @@ export default function UniverseHMPlayer() {
   // UI 시작 ////////////////////////////////
   return (
     <Div1>
-      <HintBtn type="text" onClick={showHint}>
+      <HintBtn type="link" onClick={showHint}>
         {hint}
       </HintBtn>
       <MyDiv>

@@ -14,11 +14,11 @@ export default function Universe_HM() {
   const asyncLoading = useSelector((state) => {
     return state.asyncThunk.loading;
   });
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(asyncUpFetch());
-  // }, []);
+  useEffect(() => {
+    dispatch(asyncUpFetch());
+  }, []);
 
   return (
     <div

@@ -43,8 +43,8 @@ export default function SignIn_Main() {
       <Toggler>
         <DrawerToggler />
       </Toggler>
-      <Row align="middle" justify="center">
-        <Col flex={2} align="center">
+      <Row align="middle" justify="space-around">
+        <Col span={4} align="center">
           {isUser && <SignIn />}
           {isUser || <SignIn_SignUp />}
           <div style={{ textAlign: 'right' }}>
@@ -59,8 +59,8 @@ export default function SignIn_Main() {
             </RegA>
           </div>
         </Col>
-        <Col flex={1} align="center">
-          <img src={signBG} style={{ objectFit: 'cover' }} />
+        <Col span={6} align="center">
+          <img src={signBG} style={{ height: '80vh' }} />
         </Col>
       </Row>
     </SignContainer>

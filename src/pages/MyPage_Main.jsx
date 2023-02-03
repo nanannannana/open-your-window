@@ -38,7 +38,8 @@ const EmailandIconBox = styled.div`
 
 export default function MyPage_Main() {
   const dispatch = useDispatch();
-  const user_id = 'hello12@naver.com';
+  // const user_id = 'hello12@naver.com';
+  const user_id = localStorage.getItem('userid');
   const mypost = useSelector((state) => state.mypage.mypost);
   const change = useSelector((state) => state.mypage.change);
 

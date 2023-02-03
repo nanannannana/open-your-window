@@ -107,7 +107,7 @@ export default function DrawerToggler() {
           {userid ? (
             <>
               <NavEl>
-                <Link to="/user/mypage" style={NavLinkSt}>
+                <Link to="/mypage" style={NavLinkSt}>
                   My Page
                 </Link>
               </NavEl>
