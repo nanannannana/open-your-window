@@ -25,7 +25,7 @@ export default function UniverseBtn(props) {
     <>
       <Tooltip title={isGame ? 'Go UNIVERSE MAIN' : 'GO Game'}>
         <MyBtn
-          ghost
+          type="text"
           size="large"
           icon={
             isGame ? (

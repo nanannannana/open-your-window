@@ -23,7 +23,6 @@ const Div1 = styled.div`
 const HintBtn = styled(Button)`
   color: rgb(116, 141, 129);
   font-size: xx-large;
-  font-weight: lighter;
 `;
 const MyDiv = styled.div`
   height: 30vh;

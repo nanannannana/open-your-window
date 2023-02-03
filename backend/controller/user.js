@@ -1,8 +1,19 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { User } = require('../model');
+const { Window } = require('../model');
 const path = require('path');
 const sequelize = require('sequelize');
 const Op = sequelize.Op;
+
+exports.signImg = async (req, res) => {
+  const result = await Window.findOne({
+    attributes: ['img'],
+    order: [['num', 'DESC']],
+    limit: 1,
+  });
+  console.log(result);
+  res.send(result);
+};
 
 exports.signUp = async (req, res) => {
   console.log(req.body);
@@ -22,6 +33,16 @@ exports.signIn = async (req, res) => {
       user_id: req.body.email,
     },
   });
-  //   result ? result.
-  res.send(result ? true : false);
+  console.log(result);
+  res.send(result ? (result.user_pw == req.body.pw ? true : false) : false);
+};
+
+exports.delUser = async (req, res) => {
+  console.log(req.body);
+  const result = await User.destroy({
+    where: {
+      user_id: req.body.email,
+    },
+  });
+  res.send(true);
 };

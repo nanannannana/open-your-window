@@ -1,7 +1,10 @@
-import React, { useRef, useState } from 'react';
-import './SignIn_SignUp.css';
-import { Form, Input, Checkbox, Button } from 'antd';
+import React, { useEffect, useState } from 'react';
+import './SingIn_SignUp.css';
+import { Form, Input, Checkbox, Button, Modal } from 'antd';
 import axios from 'axios';
+import { useNavigate } from 'react-router';
+import { ExclamationCircleFilled } from '@ant-design/icons';
+import { WindowTwoTone } from '@mui/icons-material';
 
 const formItemLayout = {
   labelCol: {
@@ -36,7 +39,12 @@ const tailFormItemLayout = {
 
 export default function SignIn_SignUp() {
   const [form] = Form.useForm();
+  const navigate = useNavigate();
+  const [reSign, setReSign] = useState(false);
 
+  useEffect(() => {
+    console.log('reSigned');
+  }, [reSign]);
   // 회원가입
   const onFinish = async (values) => {
     console.log('Received values of form: ', values);
@@ -47,10 +55,22 @@ export default function SignIn_SignUp() {
         nickname: values.nickname,
         phone: values.phone,
       })
-      .then((res) => console.log(res))
+      .then((res) => showConfirm())
       .catch((err) => console.log(err));
   };
 
+  const { confirm } = Modal;
+  const showConfirm = () => {
+    confirm({
+      title: '회원가입이 완료되었습니다.',
+      icon: <ExclamationCircleFilled />,
+      content: '로그인 후 이용해주세요 !',
+      onOk() {
+        // form.resetFields();
+        location.href = '/user/signin';
+      },
+    });
+  };
   //// UI 시작/////////////////
   return (
     <Form
