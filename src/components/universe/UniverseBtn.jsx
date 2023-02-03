@@ -1,15 +1,15 @@
 import React from 'react';
+import './UniverseBtn.css';
 import styled from 'styled-components';
 import Button from 'antd/lib/button';
 import Tooltip from 'antd/lib/tooltip';
-import { EastOutlined } from '@mui/icons-material';
-import { WestOutlined } from '@mui/icons-material';
+import { PictureFilled, RocketFilled } from '@ant-design/icons';
 import { useNavigate } from 'react-router';
 
 const MyBtn = styled(Button)`
   float: right;
   margin: 20px 100px 0 0;
-  transform: scale(1.2);
+  transform: scale(1.7);
 `;
 
 // const goPage = () => {
@@ -25,15 +25,10 @@ export default function UniverseBtn(props) {
     <>
       <Tooltip title={isGame ? 'Go UNIVERSE MAIN' : 'GO Game'}>
         <MyBtn
+          className="Univ_navBtn"
           type="text"
           size="large"
-          icon={
-            isGame ? (
-              <WestOutlined color="white" />
-            ) : (
-              <EastOutlined color="white" />
-            )
-          }
+          icon={isGame ? <PictureFilled /> : <RocketFilled />}
           onClick={() => {
             isGame
               ? navigate('/universe', { replace: true })

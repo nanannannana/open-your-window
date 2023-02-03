@@ -5,17 +5,16 @@ import axios from 'axios';
 import { useNavigate } from 'react-router';
 import { setUser } from '../../store/modules/users';
 import { useDispatch } from 'react-redux';
-import { ExclamationCircleFilled } from '@ant-design/icons';
+// import { ExclamationCircleFilled } from '@ant-design/icons';
 
 export default function SignIn() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { confirm } = Modal;
   const showConfirm = () => {
-    confirm({
+    Modal.success({
+      width: 600,
       title: 'Welcome',
-      icon: <ExclamationCircleFilled />,
       content: 'Share your window right now !',
       onOk() {
         navigate('/', { replace: true });
@@ -24,9 +23,9 @@ export default function SignIn() {
   };
 
   const showError = () => {
-    confirm({
+    Modal.warning({
+      width: 600,
       title: 'Try Again',
-      icon: <ExclamationCircleFilled />,
       content: 'You entered wrong email or password',
       onOk() {
         console.log('OK');
@@ -61,7 +60,7 @@ export default function SignIn() {
         initialValues={{
           remember: true,
         }}
-        style={{ maxWidth: 600 }}
+        style={{ width: 500 }}
         onFinish={onFinish}
         preserve={false}
       >
@@ -75,6 +74,7 @@ export default function SignIn() {
           ]}
         >
           <Input
+            size="large"
             prefix={<UserOutlined className="site-form-item-icon" />}
             placeholder="E-mail"
           />
@@ -89,6 +89,7 @@ export default function SignIn() {
           ]}
         >
           <Input
+            size="large"
             prefix={<LockOutlined className="site-form-item-icon" />}
             type="password"
             placeholder="Password"
@@ -106,6 +107,7 @@ export default function SignIn() {
 
         <Form.Item>
           <Button
+            size="large"
             type="primary"
             htmlType="submit"
             className="login-form-button"
