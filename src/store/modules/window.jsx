@@ -5,6 +5,7 @@ const initState = {
   carouselNum: 0,
   page: 0,
   searchTag: [],
+  userId: '',
 };
 
 // 액션 타입 설정
@@ -17,6 +18,7 @@ const PAGECHANGE = 'window/PAGECHANGE';
 const PAGERESET = 'window/PAGERESET';
 const TAGCHANGE = 'window/TAGCHANGE';
 const SEARCHRESET = 'window/SEARCHRESET';
+const USERID = 'window/USERID';
 
 // 액션 생성 함수 작성
 export const switching = () => ({ type: SWITCH });
@@ -28,6 +30,7 @@ export const pageChange = (page) => ({ type: PAGECHANGE, payload: page });
 export const pagereset = () => ({ type: PAGERESET });
 export const tagchange = (tag) => ({ type: TAGCHANGE, payload: tag });
 export const searchreset = () => ({ type: SEARCHRESET });
+export const userId = (userId) => ({ type: USERID, payload: userId });
 
 // 리듀서 설정
 export default function window(state = initState, action) {
@@ -50,6 +53,8 @@ export default function window(state = initState, action) {
       return { ...state, searchTag: action.payload };
     case SEARCHRESET:
       return { ...state, searchTag: [] };
+    case USERID:
+      return { ...state, userId: action.payload };
     default:
       return state;
   }

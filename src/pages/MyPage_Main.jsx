@@ -9,6 +9,13 @@ import { pagereset } from '../store/modules/window';
 import { BsFillPencilFill, BsBrightnessHighFill } from 'react-icons/bs';
 import MyInfo from '../components/mypage/MyInfo';
 
+const LoadingCss = styled.div`
+  height: 100vh;
+  weight: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 const OutBox = styled.div`
   padding: 170px 300px;
   height: 100vh;
@@ -38,22 +45,38 @@ const EmailandIconBox = styled.div`
 
 export default function MyPage_Main() {
   const dispatch = useDispatch();
-  // const user_id = 'hello12@naver.com';
   const user_id = localStorage.getItem('userid');
   const mypost = useSelector((state) => state.mypage.mypost);
   const change = useSelector((state) => state.mypage.change);
+  const [loading, setLoading] = useState(null);
+  console.log('mypost', mypost);
 
   useEffect(() => {
-    async function fectchData() {
-      return await axios
-        .post('http://localhost:4000/mypage/userinfofind', { user_id: user_id })
-        .then((res) => dispatch(update(res.data)))
-        .catch((err) => console.log(err));
+    try {
+      setLoading(true);
+      async function fectchData() {
+        return await axios
+          .post('http://localhost:4000/mypage/userinfofind', {
+            user_id: user_id,
+          })
+          .then((res) => dispatch(update(res.data)))
+          .catch((err) => console.log(err));
+      }
+      fectchData();
+      dispatch(pagereset());
+      dispatch(changeReset());
+    } catch (err) {
+      console.log(err);
     }
-    fectchData();
-    dispatch(pagereset());
-    dispatch(changeReset());
+    setLoading(false);
   }, []);
+
+  if (loading)
+    return (
+      <LoadingCss>
+        <BarLoader color="#C2CCA8" loading speedMultiplier={1} />
+      </LoadingCss>
+    );
 
   return (
     <>
@@ -61,9 +84,9 @@ export default function MyPage_Main() {
         <>
           <DrawerToggler />
           <OutBox>
-            <Username>Jeong SeSAC</Username>
+            <Username>{mypost[0]['user.user_name']}</Username>
             <EmailandIconBox>
-              <UserEmail>{mypost[0].user_id}</UserEmail>
+              <UserEmail>{user_id}</UserEmail>
               <PostIcon size="17" onClick={() => dispatch(changeReset())} />
               <BsFillPencilFill size="15" onClick={() => dispatch(goInfo(2))} />
             </EmailandIconBox>

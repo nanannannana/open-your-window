@@ -1,16 +1,18 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { back } from '../../store/modules/window';
+import { useSelector, useDispatch } from 'react-redux';
 import Carousel from 'react-material-ui-carousel';
 import './Window.css';
-import { BsFillPencilFill, BsFillTrashFill, BsX } from 'react-icons/bs';
 import GlobalStyle from '../../components/common/GlobalStyle';
 import CarouselChange from '../../components/window/CarouselChange';
 import queryString from 'query-string';
+import { BsFillPencilFill, BsFillTrashFill, BsX } from 'react-icons/bs';
+import { back, userId } from '../../store/modules/window';
 
 export default function Window_Carousel({ country, basicTag, searchTag }) {
-  const dispatch = useDispatch();
   const num = useSelector((state) => state.window.carouselNum);
+  const dispatch = useDispatch();
+  // const user_id = localStorage.getItem('userid');
+  // console.log('뭐임', country);
 
   return (
     <div>
@@ -20,16 +22,17 @@ export default function Window_Carousel({ country, basicTag, searchTag }) {
           <BsX className="icon" color="#fff" size="30" />
         </div>
 
-        {/*
-        user_id 있을 때 나타나기!!!
-        <div className="iconBoxChild">
-          <BsFillPencilFill className="icon" color="#fff" size="20" />
-          <div className="trashIcon">
-            <BsFillTrashFill className="icon" color="#fff" size="20" />
+        {/* {user_id === true ? (
+          <div className="iconBoxChild">
+            <BsFillPencilFill className="icon" color="#fff" size="20" />
+            <div className="trashIcon">
+              <BsFillTrashFill className="icon" color="#fff" size="20" />
+            </div>
           </div>
-        </div> */}
+        ) : (
+          true
+        )} */}
       </div>
-
       <Carousel
         showArrows={false}
         indicators={false}

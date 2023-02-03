@@ -11,7 +11,7 @@ export default function CarouselChange({ data }) {
   return (
     <div key={data.img}>
       <div className="infoBox">
-        <span className="nickName">nickName</span>
+        <span className="nickName">{data['user.user_name']}</span>
         <span>
           {data.country}, {data.city}
         </span>

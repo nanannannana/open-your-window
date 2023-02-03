@@ -19,7 +19,6 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'antd/es/form/Form';
 import DrawerToggler from '../../components/common/DrawerToggler';
-import type { RangePickerProps } from 'antd/es/date-picker';
 
 // CityInput 실시간 input값 확인
 // const handleChange = (value: string) => {
@@ -32,13 +31,15 @@ import type { RangePickerProps } from 'antd/es/date-picker';
 // };
 
 export default function Window_Upload() {
+  const user_id = localStorage.getItem('userid');
+
   // country, city 설정
   const [country, setCountry] = useState('');
-  const countryChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const countryChange = (e) => {
     setCountry(e);
   };
   const [city, setCity] = useState('');
-  const cityChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const cityChange = (e) => {
     setCity(e.target.value);
   };
 
@@ -62,7 +63,7 @@ export default function Window_Upload() {
   const { TextArea } = Input;
   //content 내용 저장
   const [content, setContent] = useState('');
-  const textAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const textAreaChange = (e) => {
     setContent(e.target.value);
   };
 
@@ -71,7 +72,7 @@ export default function Window_Upload() {
   // const Today =
   //   date.getFullYear() + '/' + (date.getMonth + 1) + '/' + date.getDate;
   const [date, setDate] = useState('');
-  const dateChange = (date: dayjs, dateString: string) => setDate(dateString);
+  const dateChange = (date, dateString) => setDate(dateString);
   // const dateRange = (currentDate: dayjs) => console.log(currentDate);
   // const dateRange = (current) => {
   //   // const day = new Date();
@@ -81,7 +82,7 @@ export default function Window_Upload() {
   //   const start = moment(dayjs(new Date()), 'YYYY-MM-DD');
   //   return current < start || current > moment();
   // };
-  const disabledDate: RangePickerProps['disabledDate'] = (current) => {
+  const disabledDate = (current) => {
     // 오늘 이후 날짜 선택 불가
     return current > dayjs().endOf('day');
   };
@@ -98,7 +99,7 @@ export default function Window_Upload() {
       inputRef.current.focus(); // inputVisible = true 일 때, input에 focus 설정
     }
   }, []);
-  const handleClose = (removedTag: string) => {
+  const handleClose = (removedTag) => {
     const newTags = tags.filter((tag) => tag !== removedTag);
     console.log(newTags);
     setTags(newTags); // 삭제한 태그를 제외하고 리렌더링
@@ -106,7 +107,7 @@ export default function Window_Upload() {
   const showInput = () => {
     setInputVisible(true);
   };
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
   const handleInputConfirm = () => {
@@ -116,7 +117,7 @@ export default function Window_Upload() {
     setInputVisible(false);
     setInputValue('');
   };
-  const forMap = (tag: string) => {
+  const forMap = (tag) => {
     const tagElem = (
       <Tag
         closable
@@ -153,6 +154,7 @@ export default function Window_Upload() {
     formData.append('tags', tags);
     formData.append('date', date);
     formData.append('content', content);
+    formData.append('user_id', user_id);
     formData.append('img', imgUrl);
     // console.log(formData);
     console.log(imgUrl);

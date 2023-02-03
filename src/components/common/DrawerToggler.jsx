@@ -7,6 +7,7 @@ import GlobalStyle from './GlobalStyle';
 import { useDispatch, useSelector } from 'react-redux';
 import { delUser } from '../../store/modules/users';
 import DeleteUser from '../mypage/DeleteUser';
+import SearchBar from '../common/SearchBar';
 
 const MyToggler = styled.div`
   position: absolute;
@@ -103,6 +104,14 @@ export default function DrawerToggler() {
               Window
             </Link>
           </NavEl>
+          {/* SearchBar */}
+          {userid ? (
+            true
+          ) : (
+            <NavEl>
+              <SearchBar />
+            </NavEl>
+          )}
           {/* 로그인 시 마이페이지 & 로그아웃 보이기*/}
           {userid ? (
             <>
@@ -110,6 +119,10 @@ export default function DrawerToggler() {
                 <Link to="/mypage" style={NavLinkSt}>
                   My Page
                 </Link>
+              </NavEl>
+              {/* SearchBar */}
+              <NavEl>
+                <SearchBar />
               </NavEl>
               <SignBtn
                 onClick={() => {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {
@@ -11,7 +11,7 @@ import {
 import styled from 'styled-components';
 import WindowBtn from '../../components/window/WindowBtn';
 import './Window.css';
-import { Switch, Space } from 'antd';
+import { Switch, Space, Modal } from 'antd';
 import GlobalStyle from '../../components/common/GlobalStyle';
 import { switching } from '../../store/modules/window';
 import DrawerToggler from '../../components/common/DrawerToggler';
@@ -29,18 +29,28 @@ const StyledGeography = styled(Geography)`
     outline: none !important;
   }
 `;
-// const MapBox = styled.div`
-//   width: 100%;
-//   height: 100%;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: center;
-// `;
+const { warning } = Modal;
 
 export default function Window_Map() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const user_id = localStorage.getItem('userid');
+  // console.log('user_id', user_id);
+
+  const btnClick = () => {
+    if (user_id === null) {
+      warning({
+        title: '로그인이 필요합니다!',
+        content: '버튼을 누르면 로그인 페이지로 이동합니다.',
+        onOk() {
+          navigate('/user/signin');
+        },
+      });
+    } else {
+      navigate('/window/upload');
+    }
+  };
+
   return (
     <div>
       <GlobalStyle />
@@ -78,7 +88,7 @@ export default function Window_Map() {
 
       <div className="shareWindowBtn">
         <WindowBtn
-          clickEvent={() => navigate('/window/upload')}
+          clickEvent={btnClick}
           borderColor="#C2CCA8"
           color="#C2CCA8"
           hoverBackgroundColor="#C2CCA8"

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row } from 'antd';
+import { Row, Modal } from 'antd';
 import WindowBtn from '../../components/window/WindowBtn';
 import { useNavigate } from 'react-router-dom';
 import DrawerToggler from '../../components/common/DrawerToggler';
@@ -12,10 +12,26 @@ const Toggle = styled.div`
   right: 0;
   top: 0;
 `;
+const { warning } = Modal;
 
 export default function Window_Tag({ country, basicTag, searchTag }) {
   const navigate = useNavigate();
   const arr = [10, 14, 9, 7, 8, 5, 12, 7];
+  const user_id = localStorage.getItem('userid');
+
+  const btnClick = () => {
+    if (user_id === null) {
+      warning({
+        title: '로그인이 필요합니다!',
+        content: '버튼을 누르면 로그인 페이지로 이동합니다.',
+        onOk() {
+          navigate('/user/signin');
+        },
+      });
+    } else {
+      navigate('/window/upload');
+    }
+  };
 
   return (
     <div className="TagFullBox">
@@ -31,7 +47,7 @@ export default function Window_Tag({ country, basicTag, searchTag }) {
       </Row>
       <div className="TagPageWindowBtn">
         <WindowBtn
-          clickEvent={() => navigate('/window/upload')}
+          clickEvent={btnClick}
           borderColor="#C2CCA8"
           color="#C2CCA8"
           hoverBackgroundColor="#C2CCA8"

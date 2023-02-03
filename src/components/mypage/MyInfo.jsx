@@ -1,26 +1,36 @@
 import React, { useState } from 'react';
-import { Button, Form, Input } from 'antd';
+import { Modal, Form, Input } from 'antd';
+import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import styled from 'styled-components';
 import WindowBtn from '../window/WindowBtn';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 
+const { success } = Modal;
 const InfoBox = styled.div`
   display: flex;
   justify-content: center;
+  padding: 150px 0 0 0;
+  @media (max-width: 1440px) {
+    padding: 50px 0 0 0;
+  }
 `;
 
 export default function MyInfo() {
   const mypost = useSelector((state) => state.mypage.mypost);
-  console.log('mypost', mypost);
-  console.log('user_id', mypost[0]['user.user_id']);
+  // console.log('mypost', mypost);
+  // console.log('user_id', mypost[0]['user.user_id']);
 
+  const showAlert = () => {
+    success({
+      title: '회원정보가 수정되었습니다!',
+    });
+  };
   const onFinish = async (values) => {
-    console.log('values', values);
-    // update문
+    // console.log('values', values);
     await axios
       .patch('http://localhost:4000/mypage/userInfoUd', values)
-      .then(() => alert('회원정보가 수정되었습니다.'))
+      .then(() => showAlert())
       .catch((err) => console.log(err));
   };
 
@@ -42,14 +52,21 @@ export default function MyInfo() {
           label="email"
           rules={[{ required: true, type: 'email', message: '' }]}
         >
-          <Input size="large" placeholder="Email" />
+          <Input size="large" placeholder="Email" disabled />
         </Form.Item>
         <Form.Item
           name="user_pw"
           label="password"
           rules={[{ required: true, message: '' }]}
         >
-          <Input size="large" type="password" placeholder="Password" />
+          <Input.Password
+            size="large"
+            type="password"
+            placeholder="Password"
+            iconRender={(visible) =>
+              visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+            }
+          />
         </Form.Item>
         <Form.Item
           name="user_name"
@@ -65,9 +82,10 @@ export default function MyInfo() {
         >
           <Input size="large" placeholder="phoneNumber" />
         </Form.Item>
-
+        <br />
         <Form.Item>
           <WindowBtn
+            // onClick={showAlert}
             borderColor="#2C2C2A"
             color="#2C2C2A"
             hoverBackgroundColor="#2C2C2A"
@@ -75,7 +93,7 @@ export default function MyInfo() {
             hoverColor="#ffffff"
             fontSize="1.5em"
             height="auto"
-            text="Submit"
+            text="Update"
           />
         </Form.Item>
       </Form>
