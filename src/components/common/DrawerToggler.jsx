@@ -88,7 +88,6 @@ export default function DrawerToggler() {
           open={open}
           style={{ position: 'absolute', zIndex: '500' }}
         >
-          <NavEl>{userid ? <DeleteUser /> : '탈퇴버튼안보임'}</NavEl>
           <NavEl>
             <Link to="/" style={NavLinkSt}>
               Home
@@ -104,14 +103,7 @@ export default function DrawerToggler() {
               Window
             </Link>
           </NavEl>
-          {/* SearchBar */}
-          {userid ? (
-            true
-          ) : (
-            <NavEl>
-              <SearchBar />
-            </NavEl>
-          )}
+
           {/* 로그인 시 마이페이지 & 로그아웃 보이기*/}
           {userid ? (
             <>

@@ -3,6 +3,18 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { ExclamationCircleFilled } from '@ant-design/icons';
 import { useNavigate } from 'react-router';
+import styled from 'styled-components';
+
+const BtnCss = styled(Button)`
+  margin-left: 10px;
+  border: 1px solid #2c2c2a;
+  color: #2c2c2a;
+  font-family: 'YUniverse-B' !important;
+  &:hover {
+    background-color: #2c2c2a !important;
+    color: #fff !important;
+  }
+`;
 
 export default function DeleteUser() {
   const navigate = useNavigate();
@@ -36,14 +48,14 @@ export default function DeleteUser() {
   return (
     <>
       {/* {checkPW || ( */}
-      <Button
+      <BtnCss
         onClick={() => {
           checkDelUser(userid);
           //   setCheckPW(!checkPW);
         }}
       >
         회원 탈퇴
-      </Button>
+      </BtnCss>
       {/* )} */}
     </>
   );
