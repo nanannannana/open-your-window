@@ -2,39 +2,76 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import DrawerToggler from '../components/common/DrawerToggler';
+import MyPost from '../components/mypage/MyPost';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeReset, update, goInfo } from '../store/modules/mypage';
+import { pagereset } from '../store/modules/window';
+import { BsFillPencilFill, BsBrightnessHighFill } from 'react-icons/bs';
+import MyInfo from '../components/mypage/MyInfo';
 
 const OutBox = styled.div`
-  padding: 200px 200px;
+  padding: 170px 300px;
   height: 100vh;
+  @media (max-width: 1440px) {
+    padding: 50px 200px 0 200px;
+  }
 `;
 const Username = styled.div`
   font-size: 3em;
   margin: 0 0 10px 0;
+  @media (max-width: 1440px) {
+    font-size: 2.5em;
+    margin: 0 0 5px 0;
+  }
 `;
 const UserEmail = styled.div`
   font-size: 1em;
+  display: inline;
+  margin-right: 5px;
+`;
+const PostIcon = styled(BsBrightnessHighFill)`
+  margin-right: 5px;
+`;
+const EmailandIconBox = styled.div`
+  text-align: center;
 `;
 
 export default function MyPage_Main() {
-  const [mypost, setMypost] = useState([]);
-  const user_id = 'hello12';
+  const dispatch = useDispatch();
+  const user_id = 'hello12@naver.com';
+  const mypost = useSelector((state) => state.mypage.mypost);
+  const change = useSelector((state) => state.mypage.change);
+
   useEffect(() => {
     async function fectchData() {
       return await axios
         .post('http://localhost:4000/mypage/userinfofind', { user_id: user_id })
-        .then((res) => console.log(res.data))
+        .then((res) => dispatch(update(res.data)))
         .catch((err) => console.log(err));
     }
     fectchData();
+    dispatch(pagereset());
+    dispatch(changeReset());
   }, []);
 
   return (
     <>
-      <DrawerToggler />
-      <OutBox>
-        <Username>Jeong SeSAC</Username>
-        <UserEmail>jsesac@gmail.com</UserEmail>
-      </OutBox>
+      {mypost.length !== 0 ? (
+        <>
+          <DrawerToggler />
+          <OutBox>
+            <Username>Jeong SeSAC</Username>
+            <EmailandIconBox>
+              <UserEmail>{mypost[0].user_id}</UserEmail>
+              <PostIcon size="17" onClick={() => dispatch(changeReset())} />
+              <BsFillPencilFill size="15" onClick={() => dispatch(goInfo(2))} />
+            </EmailandIconBox>
+            {change === 1 ? <MyPost /> : <MyInfo />}
+          </OutBox>
+        </>
+      ) : (
+        true
+      )}
     </>
   );
 }
