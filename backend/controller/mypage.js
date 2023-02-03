@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { Window } = require('../model');
+const { Window, User } = require('../model');
 
 exports.userInfoFind = async (req, res) => {
   console.log('user_id', req.body.user_id);
@@ -10,4 +10,8 @@ exports.userInfoFind = async (req, res) => {
     },
   });
   res.send(result);
+};
+exports.userInfoUd = async (req, res) => {
+  console.log(req.body);
+  // update문
 };
