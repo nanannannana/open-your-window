@@ -31,7 +31,7 @@ export default function SignIn_Main() {
 
   const getSignImg = async () => {
     await axios
-      .get('http://localhost:4000/user/signin')
+      .get('http://localhost:4000/user/signImg')
       .then((res) =>
         setSignBG(
           res.data.img ||
@@ -40,7 +40,6 @@ export default function SignIn_Main() {
       )
       .catch((err) => console.log(err));
   };
-  console.log('1', signBG);
   useEffect(() => {
     getSignImg();
   }, []);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import './SignIn_SignUp.css';
 import { Form, Input, Checkbox, Button, Modal } from 'antd';
 import axios from 'axios';
@@ -36,6 +36,50 @@ const tailFormItemLayout = {
 
 export default function SignIn_SignUp() {
   const [form] = Form.useForm();
+  const [newE, setNewE] = useState('');
+  const [showOK, setShowOK] = useState(false);
+  const [showErr, setShowErr] = useState(false);
+
+  const getE = useRef();
+
+  const getNewE = (e) => {
+    console.log(e.currentTarget.value);
+    setNewE(e.currentTarget.value);
+  };
+  // email 중복 확인
+  const checkE = async () => {
+    await axios
+      .post('http://localhost:4000/user/checkEmail', {
+        email: newE,
+      })
+      .then((res) => {
+        res.data === true ? setShowOK(true) : setShowErr(true);
+        console.log(res.data === true);
+      });
+  };
+
+  const idSuccess = () => {
+    Modal.success({
+      width: 600,
+      content: 'You can use this Email',
+      onOk() {
+        // getE.current.disabled = true;
+        // getE.current.focus();
+        console.log('OK');
+      },
+    });
+  };
+  const idError = () => {
+    Modal.warning({
+      width: 600,
+      content: 'This email is already taken !',
+      onOk() {
+        console.log('Fail');
+        // getE.current.disabled = true;
+        // getE.current.focus();
+      },
+    });
+  };
 
   // 회원가입
   const onFinish = async (values) => {
@@ -62,6 +106,7 @@ export default function SignIn_SignUp() {
       },
     });
   };
+
   /////////// UI 시작/////////////////
   return (
     <div className="FormContainer">
@@ -87,8 +132,21 @@ export default function SignIn_SignUp() {
             },
           ]}
         >
-          <Input size="large" />
+          <Input size="large" ref={getE} onChange={getNewE} />
         </Form.Item>
+        <Form.Item>
+          <Button
+            type="primary"
+            size="large"
+            style={{ backgroundColor: '#C2CCA8' }}
+            onClick={checkE}
+          >
+            Check Email
+          </Button>
+        </Form.Item>
+
+        {showOK && idSuccess()}
+        {showErr && idError()}
 
         <Form.Item
           name="password"

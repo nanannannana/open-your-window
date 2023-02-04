@@ -7,7 +7,7 @@ import styled from 'styled-components';
 const TagImg = styled.img`
   object-fit: cover;
   width: 100%;
-  height: 350px;
+  height: 300px;
   &:hover {
     opacity: 0.8;
   }
