@@ -11,8 +11,20 @@ exports.signImg = async (req, res) => {
     order: [['num', 'DESC']],
     limit: 1,
   });
-  console.log(result);
   res.send(result);
+};
+
+exports.checkEmail = async (req, res) => {
+  console.log(req.body);
+  const result = await User.findOne({
+    where: {
+      user_id: req.body.email,
+    },
+  });
+  console.log('2', result == null);
+  console.log('3', result === null);
+
+  res.send(result === null ? true : false);
 };
 
 exports.signUp = async (req, res) => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, Modal } from 'antd';
 import axios from 'axios';
@@ -82,6 +82,7 @@ export default function SignIn() {
             placeholder="E-mail"
           />
         </Form.Item>
+
         <Form.Item
           name="password"
           rules={[
@@ -103,9 +104,7 @@ export default function SignIn() {
             <Checkbox>Remember me</Checkbox>
           </Form.Item>
 
-          <a className="login-form-forgot" href="#">
-            Forgot password
-          </a>
+          <span className="login-form-forgot">Forgot password</span>
         </Form.Item>
 
         <Form.Item>
