@@ -7,11 +7,12 @@ const Op = sequelize.Op;
 
 const upload = multer({
   storage: multer.diskStorage({
+    // 이미지 저장 경로: public/img
     destination(req, file, done) {
       done(null, '../public/img');
     },
     filename(req, file, done) {
-      // 이름이 겹치지 않기 위해 timestamp로 파일 이름 지정
+      // 파일명 겹침 방지를 위해 timestamp로 파일명 지정
       done(null, Date.now() + path.extname(file.originalname));
     },
   }),
@@ -22,16 +23,21 @@ exports.imgUpload = upload.single('img');
 exports.postUpload = async (req, res) => {
   let image = '/img/' + req.file.filename;
   const date = new Date();
-  let sqlInputDate = req.body.date
+  //전달 받은 data의 date값이 빈 값이 아닌 경우, return 전달 받은 값
+  // 빈 값일 경우, return 업로드 한 날짜
+  let uploadDate = req.body.date
     ? req.body.date
     : date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
-  console.log('tags 확인', req.body.tags);
+  let uploadContent = req.body.content === 'undefined' ? '' : req.body.content;
+  // console.log(req.file);
+  console.log('전달 내용 확인', req.body);
+  // console.log('이미지 경로', image);
   const result = await Window.create({
     country: req.body.country,
     city: req.body.city,
-    window_date: sqlInputDate,
+    window_date: uploadDate,
     img: image,
-    comment: req.body.content,
+    comment: uploadContent,
     tags: req.body.tags,
     user_id: req.body.user_id,
   });
@@ -51,6 +57,30 @@ exports.postEdit = async (req, res) => {
     ],
   });
   res.send({ result: result });
+};
+
+exports.postUpdate = async (req, res) => {
+  let image = '/img/' + req.file.filename;
+  const date = new Date();
+  //전달 받은 data의 date값이 빈 값이 아닌 경우, return 전달 받은 값
+  // 빈 값일 경우, return 업로드 한 날짜
+  let uploadDate = req.body.date
+    ? req.body.date
+    : date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
+  let uploadContent = req.body.content === 'undefined' ? '' : req.body.content;
+  const result = await Window.update(
+    {
+      country: req.body.country,
+      city: req.body.city,
+      window_date: uploadDate,
+      img: image,
+      comment: uploadContent,
+      tags: req.body.tags,
+      user_id: req.body.user_id,
+    },
+    { where: { num: req.body.num } }
+  );
+  console.log('update', result);
 };
 
 exports.ImgFind = async (req, res) => {

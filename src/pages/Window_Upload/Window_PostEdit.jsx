@@ -3,8 +3,9 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { BsFillPencilFill, BsFillTrashFill, BsX } from 'react-icons/bs';
 import { useLocation, useNavigate } from 'react-router-dom';
-import queryString from 'query-string';
+// import queryString from 'query-string';
 import GlobalStyle from '../../components/common/GlobalStyle';
+import BarLoader from 'react-spinners/BarLoader';
 
 const LoadingCss = styled.div`
   height: 100vh;
@@ -52,7 +53,14 @@ export default function Window_PostEdit() {
   }, []);
   const { country, city, img, comment } = dataArr;
   const navigate = useNavigate();
-  console.log(state.mypage);
+  // console.log(state.mypage);
+
+  const postEditClick = () => {
+    navigate('/window/upload', {
+      replace: true,
+      state: { num: state.num },
+    });
+  };
 
   if (loading)
     return (
@@ -75,7 +83,12 @@ export default function Window_PostEdit() {
         </div>
 
         <div className="iconBoxChild">
-          <BsFillPencilFill className="icon" color="#fff" size="20" />
+          <BsFillPencilFill
+            className="icon"
+            color="#fff"
+            size="20"
+            onClick={postEditClick}
+          />
           <div className="trashIcon">
             <BsFillTrashFill className="icon" color="#fff" size="20" />
           </div>

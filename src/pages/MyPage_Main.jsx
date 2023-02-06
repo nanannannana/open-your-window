@@ -8,6 +8,7 @@ import { changeReset, update, goInfo } from '../store/modules/mypage';
 import { pagereset } from '../store/modules/window';
 import { BsFillPencilFill, BsBrightnessHighFill } from 'react-icons/bs';
 import MyInfo from '../components/mypage/MyInfo';
+import BarLoader from 'react-spinners/BarLoader';
 
 const LoadingCss = styled.div`
   height: 100vh;
