@@ -41,7 +41,7 @@ export default function DrawerToggler() {
   const [open, setOpen] = useState(false);
   // const userid = useSelector((state) => state.users.userid);
   const userid = localStorage.getItem('userid');
-  console.log(userid);
+  // console.log(userid);
   const dispatch = useDispatch();
   const showDrawer = () => {
     setOpen(true);
