@@ -9,6 +9,7 @@ import {
   Row,
   Form,
   Space,
+  Modal,
 } from 'antd';
 import { PlusCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { TweenOneGroup } from 'rc-tween-one';
@@ -47,6 +48,7 @@ const TagCss = styled.div`
   }
 `;
 const { TextArea } = Input;
+const { success, warning } = Modal;
 
 export default function Window_Upload() {
   const navigate = useNavigate();
@@ -176,7 +178,7 @@ export default function Window_Upload() {
         for (var v in data) formData.append(`${v}`, data[v]);
         await axios
           .patch('http://localhost:4000/window/postupdate', formData)
-          .then(() => alert('게시글 수정 완료!'))
+          .then(() => success({ title: '게시글이 수정되었습니다!' }))
           .catch((err) => console.log(err));
       } else {
         //4-2)
@@ -190,7 +192,7 @@ export default function Window_Upload() {
         };
         await axios
           .patch('http://localhost:4000/window/postupdate2', data)
-          .then(() => alert('게시글 수정 완료!'))
+          .then(() => success({ title: '게시글이 수정되었습니다!' }))
           .catch((err) => console.log(err));
       }
     } else {
@@ -214,7 +216,10 @@ export default function Window_Upload() {
               })
             )
             .catch((err) => console.log(err))
-        : alert('country, city, img 필수 입력!');
+        : warning({
+            title: '필수 정보를 모두 입력해주세요.',
+            content: 'country, city 입력 및 image 업로드 필수!',
+          });
     }
   };
 

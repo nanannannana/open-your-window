@@ -66,7 +66,7 @@ exports.postUpdate = async (req, res) => {
     ? req.body.date
     : date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
   let uploadContent = req.body.content === 'undefined' ? '' : req.body.content;
-  const result = await Window.update(
+  await Window.update(
     {
       country: req.body.country,
       city: req.body.city,
@@ -78,7 +78,7 @@ exports.postUpdate = async (req, res) => {
     },
     { where: { num: req.body.num } }
   );
-  console.log('update', result);
+  res.send(true);
 };
 exports.postUpdate2 = async (req, res) => {
   const date = new Date();
@@ -87,7 +87,7 @@ exports.postUpdate2 = async (req, res) => {
     : date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
   let updateContent = req.body.content === 'undefined' ? '' : req.body.content;
   let updateTags = req.body.tags.length === 0 ? '' : req.body.tags.join(',');
-  const result = await Window.update(
+  await Window.update(
     {
       country: req.body.country,
       city: req.body.city,
@@ -99,7 +99,7 @@ exports.postUpdate2 = async (req, res) => {
     },
     { where: { num: req.body.num } }
   );
-  console.log('update2', result);
+  res.send(true);
 };
 
 exports.ImgFind = async (req, res) => {
