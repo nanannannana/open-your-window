@@ -19,6 +19,7 @@ import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import DrawerToggler from '../../components/common/DrawerToggler';
 import styled from 'styled-components';
+import { DataArrayRounded } from '@mui/icons-material';
 
 const FullBox = styled.div`
   padding: 200px 270px 0 270px;
@@ -157,29 +158,44 @@ export default function Window_Upload() {
 
   //4. server로 정보 전달
   const onFinish = async (values) => {
-    const formData = new FormData();
     if (state) {
-      const data = {
-        ...values,
-        date: date,
-        tags: tags,
-        user_id: user_id,
-        num: state.num,
-        img: imgUrl,
-      };
-      for (var v in data) formData.append(`${v}`, data[v]);
-      imgUrl
-        ? await axios
-            .patch('http://localhost:4000/window/postupdate', formData)
-            .then((res) =>
-              navigate('/window/postedit', {
-                replace: true,
-                state: { num: res.data.num },
-              })
-            )
-            .catch((err) => console.log(err))
-        : alert('country, city, img 필수 입력!');
+      //4-1) Update - 이미지를 변경하는 경우,
+      //4-2) Update - 이미지를 변경하지 않는 경우,
+      //4-3) Upload - 게시글을 처음 upload하는 경우,
+      if (imgUrl) {
+        //4-1)
+        const formData = new FormData();
+        const data = {
+          ...values,
+          date: date,
+          tags: tags,
+          user_id: user_id,
+          num: state.num,
+          img: imgUrl,
+        };
+        for (var v in data) formData.append(`${v}`, data[v]);
+        await axios
+          .patch('http://localhost:4000/window/postupdate', formData)
+          .then(() => alert('게시글 수정 완료!'))
+          .catch((err) => console.log(err));
+      } else {
+        //4-2)
+        const data = {
+          ...values,
+          date: date,
+          tags: tags,
+          user_id: user_id,
+          num: state.num,
+          img: img,
+        };
+        await axios
+          .patch('http://localhost:4000/window/postupdate2', data)
+          .then(() => alert('게시글 수정 완료!'))
+          .catch((err) => console.log(err));
+      }
     } else {
+      //4-3)
+      const formData = new FormData();
       const data = {
         ...values,
         date: date,

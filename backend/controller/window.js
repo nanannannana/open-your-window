@@ -62,8 +62,6 @@ exports.postEdit = async (req, res) => {
 exports.postUpdate = async (req, res) => {
   let image = '/img/' + req.file.filename;
   const date = new Date();
-  //전달 받은 data의 date값이 빈 값이 아닌 경우, return 전달 받은 값
-  // 빈 값일 경우, return 업로드 한 날짜
   let uploadDate = req.body.date
     ? req.body.date
     : date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
@@ -81,6 +79,27 @@ exports.postUpdate = async (req, res) => {
     { where: { num: req.body.num } }
   );
   console.log('update', result);
+};
+exports.postUpdate2 = async (req, res) => {
+  const date = new Date();
+  let updateDate = req.body.date
+    ? req.body.date
+    : date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
+  let updateContent = req.body.content === 'undefined' ? '' : req.body.content;
+  let updateTags = req.body.tags.length === 0 ? '' : req.body.tags.join(',');
+  const result = await Window.update(
+    {
+      country: req.body.country,
+      city: req.body.city,
+      window_date: updateDate,
+      img: req.body.img,
+      comment: updateContent,
+      tags: updateTags,
+      user_id: req.body.user_id,
+    },
+    { where: { num: req.body.num } }
+  );
+  console.log('update2', result);
 };
 
 exports.ImgFind = async (req, res) => {
