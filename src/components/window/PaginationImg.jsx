@@ -7,12 +7,12 @@ import styled from 'styled-components';
 const TagImg = styled.img`
   object-fit: cover;
   width: 100%;
-  height: 300px;
+  height: 24vh;
   &:hover {
     opacity: 0.8;
   }
   @media (max-width: 1440px) {
-    height: 140px;
+    /* height: 140px; */
   }
 `;
 

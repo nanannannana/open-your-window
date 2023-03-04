@@ -7,7 +7,8 @@
   text-align: right;
 }
 .TagFullBox {
-  padding: 100px 300px 0 300px;
+  /* padding: 100px 300px 0 300px; */
+  padding: 5% 12%;
 }
 .TagPageWindowBtn {
   position: fixed;
@@ -38,11 +39,13 @@
   /* .TagImg {
     height: 140px !important;
   } */
-  .TagFullBox {
-    padding: 20px 120px 0 120px !important;
-  }
   .TagPageWindowBtn {
     padding-top: 10px !important;
+  }
+}
+@media (max-width: 769px) {
+  .TagFullBox {
+    padding: 12% 12%;
   }
 }
 

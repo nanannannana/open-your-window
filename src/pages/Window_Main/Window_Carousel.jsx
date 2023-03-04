@@ -41,10 +41,10 @@ export default function Window_Carousel({ country, basicTag, searchTag }) {
         index={num}
       >
         {country.length !== 0
-          ? country.map((v) => <CarouselChange data={v} />)
+          ? country.map((v, i) => <CarouselChange data={v} key={i} />)
           : queryString.parse(location.search).search
-          ? searchTag.map((v) => <CarouselChange data={v} />)
-          : basicTag.map((v) => <CarouselChange data={v} />)}
+          ? searchTag.map((v, i) => <CarouselChange data={v} key={i} />)
+          : basicTag.map((v, i) => <CarouselChange data={v} key={i} />)}
       </Carousel>
     </div>
   );
