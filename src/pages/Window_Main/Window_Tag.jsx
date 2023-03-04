@@ -40,10 +40,16 @@ export default function Window_Tag({ country, basicTag, searchTag }) {
       </Toggle>
       <Row gutter={[15, 15]}>
         {country.length !== 0
-          ? country.map((v, i) => <PaginationImg data={v} arr={arr} i={i} />)
+          ? country.map((v, i) => (
+              <PaginationImg data={v} arr={arr} i={i} key={i} />
+            ))
           : queryString.parse(location.search).search
-          ? searchTag.map((v, i) => <PaginationImg data={v} arr={arr} i={i} />)
-          : basicTag.map((v, i) => <PaginationImg data={v} arr={arr} i={i} />)}
+          ? searchTag.map((v, i) => (
+              <PaginationImg data={v} arr={arr} i={i} key={i} />
+            ))
+          : basicTag.map((v, i) => (
+              <PaginationImg data={v} arr={arr} i={i} key={i} />
+            ))}
       </Row>
       <div className="TagPageWindowBtn">
         <WindowBtn

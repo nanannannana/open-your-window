@@ -12,7 +12,7 @@ import BarLoader from 'react-spinners/BarLoader';
 
 const LoadingCss = styled.div`
   height: 100vh;
-  weight: 100vh;
+  width: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -49,12 +49,12 @@ export default function MyPage_Main() {
   const user_id = localStorage.getItem('userid');
   const mypost = useSelector((state) => state.mypage.mypost);
   const change = useSelector((state) => state.mypage.change);
-  const [loading, setLoading] = useState(null);
+  const [loading, setLoading] = useState(true);
   console.log('mypost', mypost);
 
   useEffect(() => {
     try {
-      setLoading(true);
+      // setLoading(true);
       async function fectchData() {
         return await axios
           .post('http://localhost:4000/mypage/userinfofind', {

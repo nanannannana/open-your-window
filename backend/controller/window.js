@@ -103,6 +103,7 @@ exports.postUpdate2 = async (req, res) => {
 };
 
 exports.ImgFind = async (req, res) => {
+  console.log(req.query.country);
   const result = await Window.findAll({
     raw: true,
     where: { country: req.query.country },

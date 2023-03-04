@@ -33,9 +33,8 @@ export default function PostImg({ pagi }) {
     <>
       {pagi.length !== 0 ? (
         postArr.map((v) => (
-          <Col span={12}>
+          <Col span={12} key={v.img}>
             <ImgDiv
-              key={v.img}
               img={v.img}
               onClick={() =>
                 navigate('/window/postedit', {
