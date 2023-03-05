@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Modal, Form, Input } from 'antd';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import styled from 'styled-components';
 import WindowBtn from '../window/WindowBtn';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import DeleteUser from './DeleteUser';
+import { infochange } from '../../store/modules/mypage';
 
 const { success } = Modal;
 const InfoBox = styled.div`
@@ -18,9 +19,8 @@ const InfoBox = styled.div`
 `;
 
 export default function MyInfo() {
-  const mypost = useSelector((state) => state.mypage.mypost);
-  // console.log('mypost', mypost);
-  // console.log('user_id', mypost[0]['user.user_id']);
+  const dispatch = useDispatch();
+  const userInfo = useSelector((state) => state.mypage.userInfo);
 
   const showAlert = () => {
     success({
@@ -31,7 +31,10 @@ export default function MyInfo() {
     // console.log('values', values);
     await axios
       .patch('http://localhost:4000/mypage/userInfoUd', values)
-      .then(() => showAlert())
+      .then((res) => {
+        showAlert();
+        dispatch(infochange(res.data));
+      })
       .catch((err) => console.log(err));
   };
 
@@ -41,10 +44,10 @@ export default function MyInfo() {
         name="userInfo"
         onFinish={onFinish}
         initialValues={{
-          user_id: mypost[0]['user.user_id'],
-          user_pw: mypost[0]['user.user_pw'],
-          user_name: mypost[0]['user.user_name'],
-          phone: mypost[0]['user.phone'],
+          user_id: userInfo['user_id'],
+          user_pw: userInfo['user_pw'],
+          user_name: userInfo['user_name'],
+          phone: userInfo['phone'],
         }}
         style={{ width: 500 }}
       >

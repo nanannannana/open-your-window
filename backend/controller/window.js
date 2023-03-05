@@ -1,37 +1,27 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { Window, User } = require('../model');
-const multer = require('multer');
-const path = require('path');
 const sequelize = require('sequelize');
 const Op = sequelize.Op;
-
-const upload = multer({
-  storage: multer.diskStorage({
-    // 이미지 저장 경로: public/img
-    destination(req, file, done) {
-      done(null, '../public/img');
-    },
-    filename(req, file, done) {
-      // 파일명 겹침 방지를 위해 timestamp로 파일명 지정
-      done(null, Date.now() + path.extname(file.originalname));
-    },
-  }),
-});
-
-exports.imgUpload = upload.single('img');
+const fs = require('fs');
 
 exports.postUpload = async (req, res) => {
   let image = '/img/' + req.file.filename;
   const date = new Date();
-  //전달 받은 data의 date값이 빈 값이 아닌 경우, return 전달 받은 값
-  // 빈 값일 경우, return 업로드 한 날짜
-  let uploadDate = req.body.date
-    ? req.body.date
-    : date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
+  // 사용자가 date 미선택 시, 기본값 default
+  // 전달받은 date값이 default일 경우, 현재 날짜 저장
+  let uploadDate =
+    req.body.date !== 'default'
+      ? req.body.date
+      : date.getFullYear() +
+        '-' +
+        (date.getMonth() + 1) +
+        '-' +
+        (date.getDate() + 1);
+  console.log('날짜 확인: ', uploadDate);
+  // 사용자가 content 미작성 시, 기본값 undefined
+  // 전달받은 content값이 undefined일 경우, 빈 값 저장
   let uploadContent = req.body.content === 'undefined' ? '' : req.body.content;
-  // console.log(req.file);
-  console.log('전달 내용 확인', req.body);
-  // console.log('이미지 경로', image);
+
   const result = await Window.create({
     country: req.body.country,
     city: req.body.city,
@@ -56,21 +46,17 @@ exports.postEdit = async (req, res) => {
       },
     ],
   });
-  res.send({ result: result });
+  res.send(result);
 };
 
 exports.postUpdate = async (req, res) => {
   let image = '/img/' + req.file.filename;
-  const date = new Date();
-  let uploadDate = req.body.date
-    ? req.body.date
-    : date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
   let uploadContent = req.body.content === 'undefined' ? '' : req.body.content;
   await Window.update(
     {
       country: req.body.country,
       city: req.body.city,
-      window_date: uploadDate,
+      window_date: req.body.date,
       img: image,
       comment: uploadContent,
       tags: req.body.tags,
@@ -81,17 +67,13 @@ exports.postUpdate = async (req, res) => {
   res.send(true);
 };
 exports.postUpdate2 = async (req, res) => {
-  const date = new Date();
-  let updateDate = req.body.date
-    ? req.body.date
-    : date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
   let updateContent = req.body.content === 'undefined' ? '' : req.body.content;
   let updateTags = req.body.tags.length === 0 ? '' : req.body.tags.join(',');
   await Window.update(
     {
       country: req.body.country,
       city: req.body.city,
-      window_date: updateDate,
+      window_date: req.body.date,
       img: req.body.img,
       comment: updateContent,
       tags: updateTags,
@@ -151,4 +133,14 @@ exports.searchTag = async (req, res) => {
     ],
   });
   res.send({ searchTag: result });
+};
+
+exports.postDelete = async (req, res) => {
+  console.log('삭제 데이터: ', req.body.delPost);
+  const result = await Window.destroy({
+    where: { img: req.body.delPost.img },
+  });
+  console.log('삭제: ', result);
+  fs.unlinkSync(`../public${req.body.delPost.img}`);
+  res.send(true);
 };

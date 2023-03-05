@@ -16,7 +16,6 @@ const { warning } = Modal;
 
 export default function Window_Tag({ country, basicTag, searchTag }) {
   const navigate = useNavigate();
-  const arr = [10, 14, 9, 7, 8, 5, 12, 7];
   const user_id = localStorage.getItem('userid');
 
   const btnClick = () => {
@@ -40,22 +39,21 @@ export default function Window_Tag({ country, basicTag, searchTag }) {
       </Toggle>
       <Row gutter={[15, 15]}>
         {country.length !== 0
-          ? country.map((v, i) => (
-              <PaginationImg data={v} arr={arr} i={i} key={i} />
-            ))
+          ? country.map((v, i) => <PaginationImg data={v} i={i} key={i} />)
           : queryString.parse(location.search).search
-          ? searchTag.map((v, i) => (
-              <PaginationImg data={v} arr={arr} i={i} key={i} />
-            ))
-          : basicTag.map((v, i) => (
-              <PaginationImg data={v} arr={arr} i={i} key={i} />
-            ))}
+          ? searchTag.map((v, i) => <PaginationImg data={v} i={i} key={i} />)
+          : basicTag.length !== 0
+          ? basicTag.map((v, i) => <PaginationImg data={v} i={i} key={i} />)
+          : Array(8)
+              .fill(0)
+              .map((v, i) => <PaginationImg data="" i={i} key={i} />)}
       </Row>
       <div className="TagPageWindowBtn">
         <WindowBtn
           clickEvent={btnClick}
           borderColor="#C2CCA8"
           color="#C2CCA8"
+          backgroundColor="#ffffffac"
           hoverBackgroundColor="#C2CCA8"
           hoverBorderColor="#ffffff"
           hoverColor="#ffffff"
