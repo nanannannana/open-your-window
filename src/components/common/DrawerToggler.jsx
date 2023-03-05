@@ -6,8 +6,8 @@ import styled from 'styled-components';
 import GlobalStyle from './GlobalStyle';
 import { useDispatch, useSelector } from 'react-redux';
 import { delUser } from '../../store/modules/users';
-import DeleteUser from '../mypage/DeleteUser';
 import SearchBar from '../common/SearchBar';
+import { mypageclear } from '../../store/modules/mypage';
 
 const MyToggler = styled.div`
   position: absolute;
@@ -53,7 +53,7 @@ export default function DrawerToggler() {
     <>
       <GlobalStyle />
       {/* 좌측상단 이모지 absolute */}
-      <div
+      {/* <div
         style={{
           position: 'absolute',
           top: '10px',
@@ -68,7 +68,7 @@ export default function DrawerToggler() {
             height: '50px',
           }}
         />
-      </div>
+      </div> */}
       {/* 우측상단 토글버튼, Navbar absolute */}
 
       <MyToggler>
@@ -126,6 +126,7 @@ export default function DrawerToggler() {
                   style={NavLinkSt}
                   onClick={() => {
                     dispatch(delUser());
+                    dispatch(mypageclear());
                   }}
                 >
                   Log Out

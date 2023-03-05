@@ -1,9 +1,10 @@
 import { Button, Modal } from 'antd';
 import axios from 'axios';
-import React, { useState } from 'react';
-import { ExclamationCircleFilled } from '@ant-design/icons';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
+import { mypageclear } from '../../store/modules/mypage';
 
 const BtnCss = styled(Button)`
   margin-left: 10px;
@@ -17,6 +18,7 @@ const BtnCss = styled(Button)`
 `;
 
 export default function DeleteUser() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const userid = localStorage.getItem('userid');
   console.log(userid);
@@ -41,6 +43,7 @@ export default function DeleteUser() {
       .then((res) => {
         console.log(res);
         localStorage.clear();
+        dispatch(mypageclear());
         navigate('/', { replace: true });
       });
   };

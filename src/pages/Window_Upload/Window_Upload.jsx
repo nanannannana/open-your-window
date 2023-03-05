@@ -20,7 +20,7 @@ import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import DrawerToggler from '../../components/common/DrawerToggler';
 import styled from 'styled-components';
-import { DataArrayRounded } from '@mui/icons-material';
+// import { DataArrayRounded } from '@mui/icons-material';
 
 const FullBox = styled.div`
   padding: 200px 270px 0 270px;
@@ -67,17 +67,18 @@ export default function Window_Upload() {
           .then((res) => {
             // useState 사용X, form.setFieldsValue를 사용하여 초기값 변경
             form.setFieldsValue({
-              country: res.data.result.country,
-              city: res.data.result.city,
-              content: res.data.result.comment,
+              country: res.data.country,
+              city: res.data.city,
+              content: res.data.comment,
             });
-            setImg(res.data.result.img);
-            if (res.data.result.tags !== '')
-              setTags(res.data.result.tags.split(','));
-            setDate(dayjs(res.data.result.window_date));
+            setImg(res.data.img);
+            if (res.data.tags !== '') setTags(res.data.tags.split(','));
+            setDate(dayjs(res.data.window_date));
           });
       }
       fetchData();
+    } else {
+      setDate('default');
     }
   }, []);
 
@@ -101,10 +102,20 @@ export default function Window_Upload() {
   };
 
   //2. Date 설정
-  //2-1) date의 초기값은 빈값, dateChange: date에 값이 들어왔을 때 값을 문자열로 변환
+  //2-1) 현재 날짜 추출
+  const dateSet = new Date();
+  const today =
+    dateSet.getFullYear() +
+    '-' +
+    (dateSet.getMonth() + 1) +
+    '-' +
+    dateSet.getDate();
+  //2-2) date의 초기값은 빈값, dateChange: date에 값이 들어왔을 때 값을 문자열로 변환
   const [date, setDate] = useState('');
-  const dateChange = (date, dateString) => setDate(dateString);
-  //2-2) 오늘 이후 날짜 선택 불가하게 설정
+  const dateChange = (date, dateString) => {
+    if (dateString !== '') setDate(dateString);
+  };
+  //2-3) 오늘 이후 날짜 선택 불가하게 설정
   const disabledDate = (current) => {
     return current > dayjs().endOf('day');
   };
@@ -169,7 +180,7 @@ export default function Window_Upload() {
         const formData = new FormData();
         const data = {
           ...values,
-          date: date,
+          date: typeof date === 'object' ? date.format('YYYY-MM-DD') : date,
           tags: tags,
           user_id: user_id,
           num: state.num,
@@ -184,7 +195,7 @@ export default function Window_Upload() {
         //4-2)
         const data = {
           ...values,
-          date: date,
+          date: typeof date === 'object' ? date.format('YYYY-MM-DD') : date,
           tags: tags,
           user_id: user_id,
           num: state.num,
@@ -200,7 +211,7 @@ export default function Window_Upload() {
       const formData = new FormData();
       const data = {
         ...values,
-        date: date,
+        date: typeof date === 'object' ? date.format('YYYY-MM-DD') : date,
         tags: tags,
         user_id: user_id,
         img: imgUrl,
@@ -222,7 +233,9 @@ export default function Window_Upload() {
           });
     }
   };
+  console.log('date', date);
 
+  if (date === '') return true;
   return (
     <>
       <DrawerToggler />
@@ -294,13 +307,23 @@ export default function Window_Upload() {
 
                 {/* 이미지 datePicker */}
                 <Divider orientation="left">Date</Divider>
-                <DatePicker
-                  value={dayjs(date)}
-                  format={'YYYY/MM/DD'}
-                  placeholder="YYYY/MM/DD"
-                  onChange={dateChange}
-                  disabledDate={disabledDate}
-                />
+                {date === 'default' ? (
+                  <DatePicker
+                    defaultValue={dayjs(today)}
+                    format={'YYYY-MM-DD'}
+                    placeholder="YYYY-MM-DD"
+                    onChange={dateChange}
+                    disabledDate={disabledDate}
+                  />
+                ) : (
+                  <DatePicker
+                    defaultValue={dayjs(date)}
+                    format={'YYYY-MM-DD'}
+                    placeholder="YYYY-MM-DD"
+                    onChange={dateChange}
+                    disabledDate={disabledDate}
+                  />
+                )}
 
                 {/* Tags */}
                 <Divider orientation="left">Tags</Divider>

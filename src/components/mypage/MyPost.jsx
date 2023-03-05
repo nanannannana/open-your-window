@@ -7,30 +7,21 @@ import MypagePagi from './MypagePagi';
 import { useNavigate } from 'react-router';
 
 const MyPostDiv = styled.div`
-  margin: 50px 0 0 0;
-  @media (max-width: 1440px) {
-    margin: 30px 0 0 0;
-  }
+  margin: 3% 0;
 `;
 const ImgDiv = styled.div`
   background-image: url(${(props) => props.img});
-  background-color: #797284;
+  background-color: lavender;
   color: #fff;
   font-size: 2.5em;
   font-family: 'YUniverse-B';
   text-align: left;
-  padding: 20px 50px;
+  padding: 4% 5%;
   background-size: cover;
   background-position: center;
-  height: 800px;
+  height: 63vh;
   border-radius: 7%;
   text-shadow: 2px 2px 1px #000;
-
-  @media (max-width: 1440px) {
-    height: 350px;
-    font-size: 1.2em;
-    padding: 10px 15px;
-  }
 `;
 
 export default function MyPost() {

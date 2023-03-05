@@ -5,12 +5,9 @@ import { pageChange } from '../../store/modules/window';
 import { useDispatch, useSelector } from 'react-redux';
 
 const PaginationCss = styled.div`
-  position: fixed;
   margin: 0 auto;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 0 0 15px 0;
+  /* padding: 0 0 15px 0; */
+  padding-bottom: 1.5%;
   text-align: center;
 `;
 
