@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { asyncUpFetch } from '../../store/modules/apod';
 import { InfinitySpin } from 'react-loader-spinner';
 import UniverseBtn from '../../components/universe/UniverseBtn';
-import UniverseHMPlayer from '../../components/universe/UniverseHMPlayer';
+import HMPlayer from '../../components/universe/HMPlayer';
 
 export default function Universe_HM() {
   const { url } = useSelector((state) => {
@@ -30,7 +30,7 @@ export default function Universe_HM() {
       <div className="Univ_loader">
         {asyncLoading && <InfinitySpin width="100" color=" cornflowerblue" />}
       </div>
-      <UniverseHMPlayer />
+      <HMPlayer />
     </div>
   );
 }

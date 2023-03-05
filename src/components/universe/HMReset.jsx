@@ -3,7 +3,7 @@ import React from 'react';
 // import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 
-export default function UniverseHMReset(props) {
+export default function HMReset(props) {
   const navigate = useNavigate();
   // const dispatch = useDispatch();
   // const { idx, answer, hint } = useSelector((state) => state.hmWords);
