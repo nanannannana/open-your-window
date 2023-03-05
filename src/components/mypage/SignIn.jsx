@@ -3,7 +3,12 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, Modal } from 'antd';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
+import { setUser } from '../../store/modules/users';
+import { useDispatch } from 'react-redux';
 // import { ExclamationCircleFilled } from '@ant-design/icons';
+
+
+const KAKAO_OAUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&response_type=code&scope=account_email,talk_message,openid`;
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -44,7 +49,9 @@ export default function SignIn() {
       .then((res) => {
         console.log(res);
         res.data
-          ? (localStorage.setItem('userid', `${values.email}`), showConfirm())
+          ? (localStorage.setItem('userid', `${values.email}`),
+            dispatch(setUser({ userid: `${values.email}` })),
+            showConfirm())
           : showError();
         console.log(res.data);
       })
@@ -114,6 +121,11 @@ export default function SignIn() {
           >
             Log in
           </Button>
+          <img
+            src="/img/kakao_login_medium.png"
+            style={{ transform: 'scale(0.9)', marginBottom: '5px' }}
+            onClick={() => (location.href = KAKAO_OAUTH_URL)}
+          />
         </Form.Item>
       </Form>
     </div>

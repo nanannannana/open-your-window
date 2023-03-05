@@ -1,3 +1,9 @@
+const initState = {
+  idx: 0,
+  newAnswer: '',
+  newHint: '',
+};
+
 const wordList = [
   [
     'MERCURY',
@@ -43,28 +49,26 @@ const hintArr = [
   'You can see or feel this on Earth',
 ];
 
-const initState = {
-  idx: 0,
-  answer: '',
-  hint: '',
-};
-
 // ACTION TYPE
-const GETWORD = 'user/GETWORD';
+const GETWORD = 'hmWords/GETWORD';
 
 // 액션 생성 함수
-export const getWord = () => ({ type: GETWORD });
+export const getWord = (idx) => ({ type: GETWORD, payload: idx });
 
 //REDUCER
 export default function hmWords(state = initState, action) {
   switch (action.type) {
-    case GEETWORD:
+    case GETWORD:
       return {
         ...state,
-        idx: ~~(Math.random() * (wordList.length - 0.01)),
-        answer:
-          wordList[idx][~~(Math.random() * (wordList[idx].length - 0.01))],
-        hint: hintArr[idx],
+        idx: action.payload.idx,
+        newAnswer:
+          wordList[action.payload.idx][
+            ~~(Math.random() * (wordList[action.payload.idx].length - 0.01))
+          ],
+        newHint: hintArr[action.payload.idx],
       };
+    default:
+      return state;
   }
 }

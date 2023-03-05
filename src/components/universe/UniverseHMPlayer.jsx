@@ -2,12 +2,10 @@ import Button from 'antd/lib/button';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { UniverseHMWords } from './UniverseHMWords';
-// import { HeartTwoTone, setTwoToneColor } from '@ant-design/icons';
 import { FavoriteOutlined } from '@mui/icons-material';
 // import { Modal } from 'antd';
 import UniverseHMReset from './UniverseHMReset';
-
-// setTwoToneColor('slateblue');
+import { useDispatch } from 'react-redux';
 
 const HMContainer = styled.div`
   width: 100vw;
@@ -62,10 +60,8 @@ export default function UniverseHMPlayer() {
   const [answer, setAnswer] = useState(UniverseHMWords());
   const [hint, setHint] = useState('HINT');
   const [guessed, setGuessed] = useState([]);
-  // const [isModal, setIsModal] = useState(false);
-
+  const dispatch = useDispatch();
   const showWord = () => {
-    console.log('1', guessed);
     return [...answer[0]].map((el) => (guessed.includes(el) ? el : ' _ '));
   };
 
@@ -83,8 +79,6 @@ export default function UniverseHMPlayer() {
     let letter = e.currentTarget.value;
     setGuessed([...guessed, letter]);
     answer[0].includes(letter) ? showWord() : setCount(count - 1);
-    console.log('2', letter);
-    console.log(count);
   }
 
   const btnGernerator1 = () => {

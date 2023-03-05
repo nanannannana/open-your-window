@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import { mypageclear } from '../../store/modules/mypage';
 
+const KKLogOut = `https://kauth.kakao.com/oauth/logout?client_id=${process.env.REACT_APP_REST_API_KEY}&logout_redirect_uri=${process.env.REACT_APP_LOGOUT_REDIRECT_URI}`;
+
 const BtnCss = styled(Button)`
   margin-left: 10px;
   border: 1px solid #2c2c2a;
@@ -44,7 +46,9 @@ export default function DeleteUser() {
         console.log(res);
         localStorage.clear();
         dispatch(mypageclear());
-        navigate('/', { replace: true });
+        res.data
+          ? (location.href = KKLogOut)
+          : navigate('/', { replace: true });
       });
   };
 
