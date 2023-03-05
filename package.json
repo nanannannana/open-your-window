@@ -13,6 +13,7 @@
     "antd": "^5.1.6",
     "axios": "^1.2.6",
     "body-parser": "^1.20.1",
+    "concurrently": "^7.6.0",
     "cors": "^2.8.5",
     "dayjs": "^1.11.7",
     "dotenv": "^16.0.3",
@@ -51,7 +52,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "backend": "nodemon server --prefix backend",
+    "dev": "concurrently \"npm run backend\" \"npm run start\""
   },
   "eslintConfig": {
     "extends": [
