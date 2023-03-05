@@ -64,8 +64,8 @@ export default function FirstPage({ setMain }) {
       </FirstDiv>
 
       <Carousel autoplay dots={false} effect={'fade'} autoPlaySpeed={4000}>
-        {img.map((v) => (
-          <Img src={v} />
+        {img.map((v, i) => (
+          <Img src={v} key={i} />
         ))}
       </Carousel>
     </>

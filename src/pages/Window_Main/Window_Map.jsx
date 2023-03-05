@@ -5,8 +5,8 @@ import {
   ComposableMap,
   Geographies,
   Geography,
-  Marker,
-  ZoomableGroup,
+  // Marker,
+  // ZoomableGroup,
 } from 'react-simple-maps';
 import styled from 'styled-components';
 import WindowBtn from '../../components/window/WindowBtn';
@@ -31,7 +31,7 @@ const StyledGeography = styled(Geography)`
 `;
 const { warning } = Modal;
 
-export default function Window_Map() {
+export default function Window_Map({ viewBox }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user_id = localStorage.getItem('userid');
@@ -69,7 +69,7 @@ export default function Window_Map() {
         </Space>
       </div>
       <div className="mapCss">
-        <ComposableMap data-tip="" viewBox="0 0 850 500">
+        <ComposableMap data-tip="" viewBox={viewBox}>
           <Geographies geography={getUrl}>
             {({ geographies }) =>
               geographies.map((geo) => (
@@ -91,6 +91,7 @@ export default function Window_Map() {
           clickEvent={btnClick}
           borderColor="#C2CCA8"
           color="#C2CCA8"
+          backgroundColor="#ffffffac"
           hoverBackgroundColor="#C2CCA8"
           hoverBorderColor="#ffffff"
           hoverColor="#ffffff"
