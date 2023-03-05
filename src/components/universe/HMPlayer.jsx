@@ -1,11 +1,9 @@
 import Button from 'antd/lib/button';
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { UniverseHMWords } from './UniverseHMWords';
+import { HMWords } from './HMWords';
 import { FavoriteOutlined } from '@mui/icons-material';
-// import { Modal } from 'antd';
-import UniverseHMReset from './UniverseHMReset';
-import { useDispatch } from 'react-redux';
+import HMReset from './HMReset';
 
 const HMContainer = styled.div`
   width: 100vw;
@@ -55,12 +53,11 @@ const BtnArr = styled.div`
   padding: 20px 0 20px 0;
 `;
 // Component 시작 ///////////////
-export default function UniverseHMPlayer() {
+export default function HMPlayer() {
   const [count, setCount] = useState(5);
-  const [answer, setAnswer] = useState(UniverseHMWords());
+  const [answer, setAnswer] = useState(HMWords());
   const [hint, setHint] = useState('HINT');
   const [guessed, setGuessed] = useState([]);
-  const dispatch = useDispatch();
   const showWord = () => {
     return [...answer[0]].map((el) => (guessed.includes(el) ? el : ' _ '));
   };
@@ -127,7 +124,7 @@ export default function UniverseHMPlayer() {
         }}
       >
         {count < 0 || answer[0] === showWord().join('') ? (
-          <UniverseHMReset count={count} answer={answer} />
+          <HMReset count={count} answer={answer} />
         ) : (
           [...Array(count + 1)].map((_, i) => (
             <span key={i}>
