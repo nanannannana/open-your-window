@@ -2,17 +2,14 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { BsFillPencilFill, BsFillTrashFill, BsX } from 'react-icons/bs';
+import { Modal } from 'antd';
 import { useLocation, useNavigate } from 'react-router-dom';
-import queryString from 'query-string';
+// import queryString from 'query-string';
 import GlobalStyle from '../../components/common/GlobalStyle';
+import { useDispatch } from 'react-redux';
+import { mypageclear } from '../../store/modules/mypage';
 
-const LoadingCss = styled.div`
-  height: 100vh;
-  weight: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+const { success } = Modal;
 
 const FullImg = styled.div`
   height: 100vh;
@@ -25,20 +22,29 @@ const FullImg = styled.div`
 
 export default function Window_PostEdit() {
   const { state } = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   // console.log(queryString.parse(location.search).num);
   const [dataArr, setDataArr] = useState([]);
-  const [loading, setLoading] = useState(null);
+  const deleteSuccess = () => {
+    success({
+      title: '삭제가 완료되었습니다!',
+      onOk() {
+        dispatch(mypageclear());
+        navigate('/mypage');
+      },
+    });
+  };
 
   useEffect(() => {
     try {
-      setLoading(true);
       async function fetchData() {
         try {
           await axios
             .get('http://localhost:4000/window/postedit', {
               params: { num: state.num },
             })
-            .then((res) => setDataArr(res.data.result));
+            .then((res) => setDataArr(res.data));
           // console.log('데이터', dataArr);
         } catch (err) {
           console.log(err);
@@ -48,18 +54,24 @@ export default function Window_PostEdit() {
     } catch (err) {
       console.log(err);
     }
-    setLoading(false);
   }, []);
   const { country, city, img, comment } = dataArr;
-  const navigate = useNavigate();
-  console.log(state.mypage);
+  // console.log(state.mypage);
 
-  if (loading)
-    return (
-      <LoadingCss>
-        <BarLoader color="#C2CCA8" loading speedMultiplier={1} />
-      </LoadingCss>
-    );
+  const postEditClick = () => {
+    navigate('/window/upload', {
+      replace: true,
+      state: { num: state.num },
+    });
+  };
+
+  const delPost = () => {
+    axios
+      .delete('http://localhost:4000/window/postDelete', {
+        data: { delPost: dataArr },
+      })
+      .then(() => deleteSuccess());
+  };
 
   return (
     <FullImg background_img={img}>
@@ -75,9 +87,19 @@ export default function Window_PostEdit() {
         </div>
 
         <div className="iconBoxChild">
-          <BsFillPencilFill className="icon" color="#fff" size="20" />
+          <BsFillPencilFill
+            className="icon"
+            color="#fff"
+            size="20"
+            onClick={postEditClick}
+          />
           <div className="trashIcon">
-            <BsFillTrashFill className="icon" color="#fff" size="20" />
+            <BsFillTrashFill
+              className="icon"
+              color="#fff"
+              size="20"
+              onClick={delPost}
+            />
           </div>
         </div>
       </div>

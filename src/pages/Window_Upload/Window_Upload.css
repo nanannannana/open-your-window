@@ -1,9 +1,4 @@
 /* window_upload CSS 정리 */
-/* Page div 배치 정리 */
-.fullBox {
-  padding: 200px 270px 0 270px;
-}
-
 .uploadBox {
   display: flex;
   justify-content: space-between;
@@ -71,15 +66,6 @@
   opacity: 0.9;
 }
 
-/* countryeSelect태그, cityInput태그 style 지정 */
-.countrySelect {
-  display: inline-block;
-}
-.cityInput {
-  display: inline-block;
-  margin-left: 15px;
-}
-
 /* Upload 버튼 style 지정 */
 .uploadBtn {
   margin-top: 40px;
@@ -87,9 +73,6 @@
 }
 
 @media (max-width: 1440px) {
-  .fullBox {
-    padding: 50px 220px 0 180px !important;
-  }
   .imgDiv {
     height: 400px !important;
   }
@@ -98,8 +81,5 @@
   }
   .detailBox {
     height: 400px !important;
-  }
-  .cityInput {
-    width: 150px !important;
   }
 }

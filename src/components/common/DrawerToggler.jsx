@@ -6,9 +6,10 @@ import styled from 'styled-components';
 import GlobalStyle from './GlobalStyle';
 import { useDispatch, useSelector } from 'react-redux';
 import { delUser } from '../../store/modules/users';
-import DeleteUser from '../mypage/DeleteUser';
 import SearchBar from '../common/SearchBar';
 import axios from 'axios';
+import { mypageclear } from '../../store/modules/mypage';
+
 const KKLogOut = `https://kauth.kakao.com/oauth/logout?client_id=${process.env.REACT_APP_REST_API_KEY}&logout_redirect_uri=${process.env.REACT_APP_LOGOUT_REDIRECT_URI}`;
 
 const MyToggler = styled.div`
@@ -45,7 +46,6 @@ export default function DrawerToggler() {
   userid = localStorage.getItem('userid');
   const isKakao = localStorage.getItem('isKakao');
 
-  // userid ? console.log(userid) : false;
   const dispatch = useDispatch();
   const showDrawer = () => {
     setOpen(true);
@@ -57,7 +57,7 @@ export default function DrawerToggler() {
     <>
       <GlobalStyle />
       {/* 좌측상단 이모지 absolute */}
-      <div
+      {/* <div
         style={{
           position: 'absolute',
           top: '10px',
@@ -72,7 +72,7 @@ export default function DrawerToggler() {
             height: '50px',
           }}
         />
-      </div>
+      </div> */}
       {/* 우측상단 토글버튼, Navbar absolute */}
 
       <MyToggler>
@@ -130,6 +130,7 @@ export default function DrawerToggler() {
                   onClick={() => {
                     dispatch(delUser());
                     localStorage.clear();
+                    dispatch(mypageclear());
                   }}
                 >
                   Log Out

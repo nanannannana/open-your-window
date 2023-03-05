@@ -14,6 +14,7 @@ import UniverseViewer from './components/universe/UniverseViewer';
 import SignIn_Main from './pages/SignIn_Main';
 import Window_Posts from './pages/Window_Main/Window_Posts';
 import KakaoRedirectHandler from './components/mypage/KakaoRedirectHandler';
+import Map_Responsive from './pages/Window_Main/Map_Responsive';
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
         <Route path="/" element={<Intro_FirstPage />} />
         <Route path="/universe" element={<UniverseViewer />} />
         <Route path="/universe/hangman" element={<Universe_HM />} />
-        <Route path="/window/" element={<Window_Map />} />
+        <Route path="/window/" element={<Map_Responsive />} />
         <Route path="/window/tag" element={<Window_Posts />} />
         <Route path="/window/upload" element={<Window_Upload />} />
         <Route path="/window/postedit" element={<Window_PostEdit />} />

@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import DrawerToggler from '../components/common/DrawerToggler';
 import GlobalStyle from '../components/common/GlobalStyle';
 import FirstPage from '../components/intro/FirstPage';
 import SecondPage from '../components/intro/SecondPage';

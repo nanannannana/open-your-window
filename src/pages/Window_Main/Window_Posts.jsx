@@ -14,7 +14,7 @@ import styled from 'styled-components';
 
 const LoaderCss = styled.div`
   height: 100vh;
-  weight: 100vh;
+  width: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,7 +23,7 @@ const LoaderCss = styled.div`
 export default function Window_Posts() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   // db에서 가져온 데이터 state
   const [country, setCountry] = useState([]);
@@ -44,7 +44,7 @@ export default function Window_Posts() {
 
   useEffect(() => {
     try {
-      setLoading(true);
+      // setLoading(true);
       async function fetchData() {
         if (queryString.parse(location.search).country) {
           return await axios
@@ -68,7 +68,7 @@ export default function Window_Posts() {
     }
     setLoading(false);
   }, []);
-  console.log('loading', loading);
+  // console.log('loading', loading);
 
   if (loading) {
     return (

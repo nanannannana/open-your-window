@@ -96,7 +96,7 @@ export default function SignIn_SignUp() {
         nickname: values.nickname,
         phone: values.phone,
       })
-      .then((res) => showConfirm())
+      .then(() => showConfirm())
       .catch((err) => console.log(err));
   };
 

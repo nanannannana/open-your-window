@@ -1,9 +1,11 @@
 import { Button, Modal } from 'antd';
 import axios from 'axios';
-import React, { useState } from 'react';
-import { ExclamationCircleFilled } from '@ant-design/icons';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
+import { mypageclear } from '../../store/modules/mypage';
+
 const KKLogOut = `https://kauth.kakao.com/oauth/logout?client_id=${process.env.REACT_APP_REST_API_KEY}&logout_redirect_uri=${process.env.REACT_APP_LOGOUT_REDIRECT_URI}`;
 
 const BtnCss = styled(Button)`
@@ -18,6 +20,7 @@ const BtnCss = styled(Button)`
 `;
 
 export default function DeleteUser() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const userid = localStorage.getItem('userid');
   console.log(userid);
@@ -42,6 +45,7 @@ export default function DeleteUser() {
       .then((res) => {
         console.log(res);
         localStorage.clear();
+        dispatch(mypageclear());
         res.data
           ? (location.href = KKLogOut)
           : navigate('/', { replace: true });

@@ -2,22 +2,17 @@
 const { Window, User } = require('../model');
 
 exports.userInfoFind = async (req, res) => {
-  console.log('user_id', req.body.user_id);
-  const result = await Window.findAll({
+  const showPosts = await Window.findAll({
     raw: true,
-    include: [
-      {
-        model: User,
-        required: true,
-        attributes: ['user_id', 'user_pw', 'user_name', 'phone'],
-      },
-    ],
-    where: {
-      user_id: req.body.user_id,
-    },
+    where: { user_id: req.body.user_id },
   });
-  console.log('확인', result);
-  res.send(result);
+  const userInfo = await User.findOne({
+    raw: true,
+    where: { user_id: req.body.user_id },
+  });
+  if (showPosts.length !== 0)
+    return res.send({ showPosts: showPosts, userInfo: userInfo });
+  res.send({ userInfo: userInfo });
 };
 exports.userInfoUd = async (req, res) => {
   console.log(req.body);
@@ -30,5 +25,9 @@ exports.userInfoUd = async (req, res) => {
     },
     { where: { user_id: req.body.user_id } }
   );
-  res.send(true);
+  const userInfo = await User.findOne({
+    raw: true,
+    where: { user_id: req.body.user_id },
+  });
+  res.send(userInfo);
 };

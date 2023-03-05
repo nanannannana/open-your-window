@@ -1,15 +1,16 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, Modal } from 'antd';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 import { setUser } from '../../store/modules/users';
 import { useDispatch } from 'react-redux';
+// import { ExclamationCircleFilled } from '@ant-design/icons';
+
 
 const KAKAO_OAUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&response_type=code&scope=account_email,talk_message,openid`;
 
 export default function SignIn() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const showConfirm = () => {
