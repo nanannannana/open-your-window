@@ -36,25 +36,27 @@ const tailFormItemLayout = {
 
 export default function SignIn_SignUp() {
   const [form] = Form.useForm();
-  const [newE, setNewE] = useState('');
+  // const [newE, setNewE] = useState('');
   const [showOK, setShowOK] = useState(false);
   const [showErr, setShowErr] = useState(false);
-
+  const [idFix, setIdFix] = useState(false);
   const getE = useRef();
 
-  const getNewE = (e) => {
-    console.log(e.currentTarget.value);
-    setNewE(e.currentTarget.value);
-  };
+  // const getNewE = (e) => {
+  //   console.log(e.currentTarget.value);
+  //   setNewE(e.currentTarget.value);
+  // };
   // email 중복 확인
   const checkE = async () => {
+    console.log(getE.current.input.value);
+
     await axios
       .post('http://localhost:4000/user/checkEmail', {
-        email: newE,
+        email: getE.current.input.value,
       })
       .then((res) => {
-        res.data === true ? setShowOK(true) : setShowErr(true);
-        console.log(res.data === true);
+        res.data ? setShowOK(true) : setShowErr(true);
+        console.log(res.data);
       });
   };
 
@@ -65,6 +67,8 @@ export default function SignIn_SignUp() {
       onOk() {
         // getE.current.disabled = true;
         // getE.current.focus();
+        setIdFix(true);
+        setShowOK(false);
         console.log('OK');
       },
     });
@@ -75,6 +79,7 @@ export default function SignIn_SignUp() {
       content: 'This email is already taken !',
       onOk() {
         console.log('Fail');
+        setShowErr(false);
         // getE.current.disabled = true;
         // getE.current.focus();
       },
@@ -132,7 +137,7 @@ export default function SignIn_SignUp() {
             },
           ]}
         >
-          <Input size="large" ref={getE} onChange={getNewE} />
+          <Input size="large" ref={getE} disabled={idFix} />
         </Form.Item>
         <Form.Item>
           <Button

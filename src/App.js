@@ -13,6 +13,7 @@ import Window_Map from './pages/Window_Main/Window_Map';
 import UniverseViewer from './components/universe/UniverseViewer';
 import SignIn_Main from './pages/SignIn_Main';
 import Window_Posts from './pages/Window_Main/Window_Posts';
+import KakaoRedirectHandler from './components/mypage/KakaoRedirectHandler';
 
 function App() {
   return (
@@ -27,6 +28,8 @@ function App() {
         <Route path="/window/postedit" element={<Window_PostEdit />} />
         {/* <Route path="/user/signin_up" element={<SignIn_SignUp_Main />} /> */}
         <Route path="/user/signin" element={<SignIn_Main />} />
+        <Route path="/user/kakaoLogin" element={<KakaoRedirectHandler />} />
+
         <Route path="/mypage" element={<MyPage_Main />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

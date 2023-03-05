@@ -21,11 +21,14 @@ exports.checkEmail = async (req, res) => {
       user_id: req.body.email,
     },
   });
-  console.log('2', result == null);
-  console.log('3', result === null);
-
+  console.log(result);
   res.send(result === null ? true : false);
 };
+
+// exports.kakaoLogin = async (req, res) => {
+//   console.log(req.body);
+//   res.send(true);
+// };
 
 exports.signUp = async (req, res) => {
   console.log(req.body);
@@ -51,10 +54,17 @@ exports.signIn = async (req, res) => {
 
 exports.delUser = async (req, res) => {
   console.log(req.body);
+  let isKakao;
+  const checkPW = await User.findOne({
+    where: {
+      user_id: req.body.email,
+    },
+  });
+  isKakao = checkPW.user_pw === 'kakao' ? true : false;
   const result = await User.destroy({
     where: {
       user_id: req.body.email,
     },
   });
-  res.send(true);
+  res.send(isKakao);
 };

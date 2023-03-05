@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { delUser } from '../../store/modules/users';
 import DeleteUser from '../mypage/DeleteUser';
 import SearchBar from '../common/SearchBar';
+import axios from 'axios';
+const KKLogOut = `https://kauth.kakao.com/oauth/logout?client_id=${process.env.REACT_APP_REST_API_KEY}&logout_redirect_uri=${process.env.REACT_APP_LOGOUT_REDIRECT_URI}`;
 
 const MyToggler = styled.div`
   position: absolute;
@@ -39,9 +41,11 @@ const NavLinkSt = {
 
 export default function DrawerToggler() {
   const [open, setOpen] = useState(false);
-  // const userid = useSelector((state) => state.users.userid);
-  const userid = localStorage.getItem('userid');
-  console.log(userid);
+  let userid = useSelector((state) => state.users.userid);
+  userid = localStorage.getItem('userid');
+  const isKakao = localStorage.getItem('isKakao');
+
+  // userid ? console.log(userid) : false;
   const dispatch = useDispatch();
   const showDrawer = () => {
     setOpen(true);
@@ -103,6 +107,9 @@ export default function DrawerToggler() {
               Window
             </Link>
           </NavEl>
+          {/* <NavEl>
+            <Link to={KKLogOut}>Kakao Logout</Link>
+          </NavEl> */}
 
           {/* 로그인 시 마이페이지 & 로그아웃 보이기*/}
           {userid ? (
@@ -116,16 +123,13 @@ export default function DrawerToggler() {
               <NavEl>
                 <SearchBar />
               </NavEl>
-              <SignBtn
-                onClick={() => {
-                  localStorage.clear();
-                }}
-              >
+              <SignBtn>
                 <Link
-                  to="/"
+                  to={isKakao ? KKLogOut : '/'}
                   style={NavLinkSt}
                   onClick={() => {
                     dispatch(delUser());
+                    localStorage.clear();
                   }}
                 >
                   Log Out

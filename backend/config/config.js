@@ -1,18 +1,18 @@
-const env = process.env;
+require('dotenv').config();
 
 const development = {
   host: 'localhost',
-  database: env.DB,
-  username: env.DB_USER,
-  password: env.DB_PASSWORD,
+  database: process.env.DB,
+  username: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
   dialect: 'mysql',
 };
 
 const production = {
   host: 'localhost',
-  database: env.DB,
-  username: env.DB_USER,
-  password: env.DB_PASSWORD,
+  database: process.env.DB,
+  username: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
   dialect: 'mysql',
 };
 

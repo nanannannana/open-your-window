@@ -41,8 +41,8 @@ const wordList = [
 
 function UniverseHMWords() {
   var idx = ~~(Math.random() * (wordList.length - 0.01));
-  console.log(idx);
-  console.log(wordList, wordList.length);
+  // console.log(idx);
+  // console.log(wordList, wordList.length);
   return [
     wordList[idx][~~(Math.random() * (wordList[idx].length - 0.01))],
     idx,
