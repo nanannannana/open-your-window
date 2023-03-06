@@ -3,21 +3,14 @@ const { Window, User } = require('../model');
 const sequelize = require('sequelize');
 const Op = sequelize.Op;
 const fs = require('fs');
+const dayjs = require('dayjs');
 
 exports.postUpload = async (req, res) => {
   let image = '/img/' + req.file.filename;
-  const date = new Date();
   // 사용자가 date 미선택 시, 기본값 default
   // 전달받은 date값이 default일 경우, 현재 날짜 저장
-  let uploadDate =
-    req.body.date !== 'default'
-      ? req.body.date
-      : date.getFullYear() +
-        '-' +
-        (date.getMonth() + 1) +
-        '-' +
-        (date.getDate() + 1);
-  console.log('날짜 확인: ', uploadDate);
+  const today = dayjs().format('YYYY-MM-DD');
+  let uploadDate = req.body.date !== 'default' ? req.body.date : today;
   // 사용자가 content 미작성 시, 기본값 undefined
   // 전달받은 content값이 undefined일 경우, 빈 값 저장
   let uploadContent = req.body.content === 'undefined' ? '' : req.body.content;
@@ -84,36 +77,34 @@ exports.postUpdate2 = async (req, res) => {
   res.send(true);
 };
 
-exports.ImgFind = async (req, res) => {
-  console.log(req.query.country);
-  const result = await Window.findAll({
-    raw: true,
-    where: { country: req.query.country },
-    include: [
-      {
-        model: User,
-        required: true,
-        attributes: ['user_name'],
-      },
-    ],
-  });
-  // console.log(req.query.country);
-  // console.log(result);
-  res.send({ countryTag: result });
-};
-
-exports.basicTag = async (req, res) => {
-  const result = await Window.findAll({
-    raw: true,
-    include: [
-      {
-        model: User,
-        required: true,
-        attributes: ['user_name'],
-      },
-    ],
-  });
-  res.send({ basicTag: result });
+exports.PostsShow = async (req, res) => {
+  // console.log('확인', req.query.country);
+  if (!req.query.country) {
+    const result = await Window.findAll({
+      raw: true,
+      include: [
+        {
+          model: User,
+          required: true,
+          attributes: ['user_name'],
+        },
+      ],
+    });
+    return res.send({ basicTag: result });
+  } else {
+    const result = await Window.findAll({
+      raw: true,
+      where: { country: req.query.country },
+      include: [
+        {
+          model: User,
+          required: true,
+          attributes: ['user_name'],
+        },
+      ],
+    });
+    return res.send({ countryTag: result });
+  }
 };
 
 exports.searchTag = async (req, res) => {

@@ -5,7 +5,7 @@ import './Window.css';
 import GlobalStyle from '../../components/common/GlobalStyle';
 import CarouselChange from '../../components/window/CarouselChange';
 import queryString from 'query-string';
-// import { BsFillPencilFill, BsFillTrashFill, BsX } from 'react-icons/bs';
+import { BsFillPencilFill, BsFillTrashFill, BsX } from 'react-icons/bs';
 import { back, userId } from '../../store/modules/window';
 
 export default function Window_Carousel({ country, basicTag, searchTag }) {
