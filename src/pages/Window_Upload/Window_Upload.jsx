@@ -103,13 +103,7 @@ export default function Window_Upload() {
 
   //2. Date 설정
   //2-1) 현재 날짜 추출
-  const dateSet = new Date();
-  const today =
-    dateSet.getFullYear() +
-    '-' +
-    (dateSet.getMonth() + 1) +
-    '-' +
-    dateSet.getDate();
+  const today = dayjs().format('YYYY-MM-DD');
   //2-2) date의 초기값은 빈값, dateChange: date에 값이 들어왔을 때 값을 문자열로 변환
   const [date, setDate] = useState('');
   const dateChange = (date, dateString) => {

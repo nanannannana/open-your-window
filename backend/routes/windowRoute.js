@@ -8,8 +8,7 @@ router.post('/postupload', multer.imgUpload, window.postUpload);
 router.get('/postedit', window.postEdit);
 router.patch('/postupdate', multer.imgUpload, window.postUpdate);
 router.patch('/postupdate2', window.postUpdate2);
-router.get('/imgfind', window.ImgFind);
-router.get('/basicTag', window.basicTag);
+router.get('/postsShow', window.PostsShow);
 router.get('/searchTag', window.searchTag);
 router.delete('/postDelete', window.postDelete);
 
