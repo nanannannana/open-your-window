@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import kakaoBtn from '../../utils/kakaoBtn.png';
 // import { ExclamationCircleFilled } from '@ant-design/icons';
 
-const KAKAO_OAUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&response_type=code&scope=account_email,talk_message,openid`;
+const KAKAO_OAUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&response_type=code&scope=profile_nickname,account_email,talk_message,openid`;
 
 export default function SignIn() {
   const navigate = useNavigate();
