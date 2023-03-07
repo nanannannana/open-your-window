@@ -62,7 +62,7 @@ export default function MyPage_Main() {
     } else {
       async function fectchData() {
         return await axios
-          .post('http://localhost:4000/mypage/userinfofind', {
+          .post(`http://${process.env.REACT_APP_HOST}/mypage/userinfofind`, {
             user_id: user_id,
           })
           .then((res) => {

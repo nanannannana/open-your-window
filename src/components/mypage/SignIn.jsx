@@ -42,7 +42,7 @@ export default function SignIn() {
   const onFinish = async (values) => {
     console.log('Received values of form: ', values);
     await axios
-      .post('http://localhost:4000/user/signIn', {
+      .post(`http://${process.env.REACT_APP_HOST}/user/signIn`, {
         email: values.email,
         pw: values.password,
       })

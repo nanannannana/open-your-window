@@ -48,7 +48,7 @@ export default function Window_Posts() {
       async function fetchData() {
         if (queryString.parse(location.search).country) {
           return await axios
-            .get('http://localhost:4000/window/postsShow', {
+            .get(`http://${process.env.REACT_APP_HOST}/window/postsShow`, {
               params: {
                 country: queryString.parse(location.search).country,
               },
@@ -57,7 +57,7 @@ export default function Window_Posts() {
             .catch((err) => console.log(err));
         } else {
           return await axios
-            .get('http://localhost:4000/window/postsShow')
+            .get(`http://${process.env.REACT_APP_HOST}/window/postsShow`)
             .then((res) => setBasicTag(res.data.basicTag))
             .catch((err) => console.log(err));
         }

@@ -51,7 +51,7 @@ export default function SignIn_SignUp() {
     console.log(getE.current.input.value);
 
     await axios
-      .post('http://localhost:4000/user/checkEmail', {
+      .post(`http://${process.env.REACT_APP_HOST}/user/checkEmail`, {
         email: getE.current.input.value,
       })
       .then((res) => {
@@ -90,7 +90,7 @@ export default function SignIn_SignUp() {
   const onFinish = async (values) => {
     console.log('Received values of form: ', values);
     await axios
-      .post('http://localhost:4000/user/signUp', {
+      .post(`http://${process.env.REACT_APP_HOST}/user/signUp`, {
         email: values.email,
         pw: values.password,
         nickname: values.nickname,

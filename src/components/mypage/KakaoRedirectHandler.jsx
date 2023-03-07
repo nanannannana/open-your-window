@@ -38,14 +38,14 @@ const KakaoRedirectHandler = () => {
         // });
         // console.log('user_info', user_info);
         await axios
-          .post('http://localhost:4000/user/checkEmail', {
+          .post(`http://${process.env.REACT_APP_HOST}/user/checkEmail`, {
             email: result.email,
           })
           .then(async (res) => {
             console.log('kakao :', res.data);
             if (res.data) {
               await axios
-                .post('http://localhost:4000/user/signUp', {
+                .post(`http://${process.env.REACT_APP_HOST}/user/signUp`, {
                   email: result.email,
                   pw: 'kakao',
                   nickname: result.nickname,
