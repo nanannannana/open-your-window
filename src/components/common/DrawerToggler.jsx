@@ -106,9 +106,19 @@ export default function DrawerToggler() {
               Window
             </Link>
           </NavEl>
-          <NavEl>
-            <Link to={KKLogOut}>Kakao Logout</Link>
-          </NavEl>
+          {/* <NavEl>
+            <Link
+              to={isKakao ? KKLogOut : '/'}
+              style={NavLinkSt}
+              onClick={() => {
+                dispatch(delUser());
+                localStorage.clear();
+                dispatch(mypageclear());
+              }}
+            >
+              Kakao Logout
+            </Link>
+          </NavEl> */}
 
           {/* 로그인 시 마이페이지 & 로그아웃 보이기*/}
           {userid ? (

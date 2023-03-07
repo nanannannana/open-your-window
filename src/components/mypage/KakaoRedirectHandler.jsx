@@ -43,13 +43,12 @@ const KakaoRedirectHandler = () => {
             email: result.email,
           })
           .then(async (res) => {
-            console.log('nickname: ', result?.nickname);
             if (res.data) {
               axios
                 .post(`http://${process.env.REACT_APP_HOST}/user/signUp`, {
                   email: result.email,
                   pw: 'kakao',
-                  nickname: result?.nickname || 'sesac',
+                  nickname: result.nickname,
                   phone: 'KakaoUser',
                 })
                 .then((res) => {
