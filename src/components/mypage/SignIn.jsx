@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router';
 import { setUser } from '../../store/modules/users';
 import { useDispatch } from 'react-redux';
+import kakaoBtn from '../../utils/kakaoBtn.png';
 // import { ExclamationCircleFilled } from '@ant-design/icons';
 
 const KAKAO_OAUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&response_type=code&scope=account_email,talk_message,openid`;
@@ -122,7 +123,7 @@ export default function SignIn() {
             Log in
           </Button>
           <img
-            src="/img/kakao_login_medium.png"
+            src={kakaoBtn}
             style={{ transform: 'scale(0.9)', marginBottom: '5px' }}
             onClick={() => (location.href = KAKAO_OAUTH_URL)}
           />
