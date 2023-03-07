@@ -9,9 +9,9 @@ const { Search } = Input;
 export default function SearchBar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const onSearch = async (value: string) => {
+  const onSearch = async (value) => {
     await axios
-      .get('http://localhost:4000/window/searchTag', {
+      .get(`http://${process.env.REACT_APP_HOST}/window/searchTag`, {
         params: {
           tag: value,
         },

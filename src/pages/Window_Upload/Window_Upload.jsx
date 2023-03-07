@@ -61,7 +61,7 @@ export default function Window_Upload() {
     if (state !== null) {
       async function fetchData() {
         await axios
-          .get('http://localhost:4000/window/postedit', {
+          .get(`http://${process.env.REACT_APP_HOST}/window/postedit`, {
             params: { num: state.num },
           })
           .then((res) => {
@@ -182,7 +182,10 @@ export default function Window_Upload() {
         };
         for (var v in data) formData.append(`${v}`, data[v]);
         await axios
-          .patch('http://localhost:4000/window/postupdate', formData)
+          .patch(
+            `http://${process.env.REACT_APP_HOST}/window/postupdate`,
+            formData
+          )
           .then(() => success({ title: '게시글이 수정되었습니다!' }))
           .catch((err) => console.log(err));
       } else {
@@ -196,7 +199,10 @@ export default function Window_Upload() {
           img: img,
         };
         await axios
-          .patch('http://localhost:4000/window/postupdate2', data)
+          .patch(
+            `http://${process.env.REACT_APP_HOST}/window/postupdate2`,
+            data
+          )
           .then(() => success({ title: '게시글이 수정되었습니다!' }))
           .catch((err) => console.log(err));
       }
@@ -213,7 +219,10 @@ export default function Window_Upload() {
       for (var v in data) formData.append(`${v}`, data[v]);
       imgUrl
         ? await axios
-            .post('http://localhost:4000/window/postupload', formData)
+            .post(
+              `http://${process.env.REACT_APP_HOST}/window/postupload`,
+              formData
+            )
             .then((res) =>
               navigate('/window/postedit', {
                 replace: true,

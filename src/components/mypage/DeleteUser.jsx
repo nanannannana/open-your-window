@@ -39,7 +39,7 @@ export default function DeleteUser() {
 
   const delUserInfo = (userid) => {
     axios
-      .delete('http://localhost:4000/user/delUser', {
+      .delete(`http://${process.env.REACT_APP_HOST}/user/delUser`, {
         data: { email: userid },
       })
       .then((res) => {

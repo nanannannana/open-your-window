@@ -31,7 +31,7 @@ export default function SignIn_Main() {
 
   const getSignImg = async () => {
     await axios
-      .get('http://localhost:4000/user/signImg')
+      .get(`http://${process.env.REACT_APP_HOST}/user/signImg`)
       .then((res) =>
         setSignBG(
           res.data.img ||
