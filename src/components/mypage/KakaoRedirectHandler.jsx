@@ -28,7 +28,7 @@ const KakaoRedirectHandler = () => {
         console.log('카카오 데이터: ', res.data);
         var base64Payload = res.data.id_token.split('.')[1]; //value 0 -> header, 1 -> payload, 2 -> VERIFY SIGNATURE
         var payload = Buffer.from(base64Payload, 'base64');
-        var result = JSON.parse(payload.toString());
+        var result = JSON.parse(payload.toString('utf-8'));
         console.log(result);
 
         // const user_info = await axios.get(`https://kapi.kakao.com/v2/user/me`, {
@@ -43,12 +43,13 @@ const KakaoRedirectHandler = () => {
             email: result.email,
           })
           .then(async (res) => {
+            console.log('nickname: ', result?.nickname);
             if (res.data) {
               axios
                 .post(`http://${process.env.REACT_APP_HOST}/user/signUp`, {
                   email: result.email,
                   pw: 'kakao',
-                  nickname: result.nickname,
+                  nickname: result?.nickname || 'sesac',
                   phone: 'KakaoUser',
                 })
                 .then((res) => {
