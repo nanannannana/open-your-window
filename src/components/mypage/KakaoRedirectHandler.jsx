@@ -25,6 +25,7 @@ const KakaoRedirectHandler = () => {
         }
       )
       .then(async (res) => {
+        console.log('카카오 데이터: ', res.data);
         var base64Payload = res.data.id_token.split('.')[1]; //value 0 -> header, 1 -> payload, 2 -> VERIFY SIGNATURE
         var payload = Buffer.from(base64Payload, 'base64');
         var result = JSON.parse(payload.toString());
@@ -42,9 +43,8 @@ const KakaoRedirectHandler = () => {
             email: result.email,
           })
           .then(async (res) => {
-            console.log('kakao :', res.data);
             if (res.data) {
-              await axios
+              axios
                 .post(`http://${process.env.REACT_APP_HOST}/user/signUp`, {
                   email: result.email,
                   pw: 'kakao',
