@@ -14,7 +14,7 @@ const Toggle = styled.div`
 `;
 const { warning } = Modal;
 
-export default function Window_Tag({ country, basicTag, searchTag }) {
+export default function Window_Tag({ posts, searchTag }) {
   const navigate = useNavigate();
   const user_id = localStorage.getItem('userid');
 
@@ -38,12 +38,10 @@ export default function Window_Tag({ country, basicTag, searchTag }) {
         <DrawerToggler />
       </Toggle>
       <Row gutter={[15, 15]}>
-        {country.length !== 0
-          ? country.map((v, i) => <PaginationImg data={v} i={i} key={i} />)
-          : queryString.parse(location.search).search
+        {searchTag.length !== 0
           ? searchTag.map((v, i) => <PaginationImg data={v} i={i} key={i} />)
-          : basicTag.length !== 0
-          ? basicTag.map((v, i) => <PaginationImg data={v} i={i} key={i} />)
+          : posts.length !== 0
+          ? posts.map((v, i) => <PaginationImg data={v} i={i} key={i} />)
           : Array(8)
               .fill(0)
               .map((v, i) => <PaginationImg data="" i={i} key={i} />)}

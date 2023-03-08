@@ -8,11 +8,9 @@ import queryString from 'query-string';
 import { BsFillPencilFill, BsFillTrashFill, BsX } from 'react-icons/bs';
 import { back, userId } from '../../store/modules/window';
 
-export default function Window_Carousel({ country, basicTag, searchTag }) {
+export default function Window_Carousel({ posts, searchTag }) {
   const num = useSelector((state) => state.window.carouselNum);
   const dispatch = useDispatch();
-  // const user_id = localStorage.getItem('userid');
-  // console.log('뭐임', country);
 
   return (
     <div>
@@ -40,11 +38,9 @@ export default function Window_Carousel({ country, basicTag, searchTag }) {
         navButtonsAlwaysVisible={true}
         index={num}
       >
-        {country.length !== 0
-          ? country.map((v, i) => <CarouselChange data={v} key={i} />)
-          : queryString.parse(location.search).search
-          ? searchTag.map((v, i) => <CarouselChange data={v} key={i} />)
-          : basicTag.map((v, i) => <CarouselChange data={v} key={i} />)}
+        {searchTag.length !== 0
+          ? searchTag.map((v, i) => <CarouselChange data={v} i={i} key={i} />)
+          : posts.map((v, i) => <CarouselChange data={v} i={i} key={i} />)}
       </Carousel>
     </div>
   );

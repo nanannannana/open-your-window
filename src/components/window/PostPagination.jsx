@@ -11,7 +11,7 @@ const PaginationCss = styled.div`
   text-align: center;
 `;
 
-export default function PostPagination({ arr }) {
+export default function PostPagination({ totalNum }) {
   const dispatch = useDispatch();
   const page = useSelector((state) => state.window.page);
 
@@ -20,7 +20,7 @@ export default function PostPagination({ arr }) {
       <Pagination
         current={page + 1}
         defaultPageSize={8}
-        total={arr.length}
+        total={totalNum}
         hideOnSinglePage={true}
         onChange={(e) => dispatch(pageChange(e))}
       />

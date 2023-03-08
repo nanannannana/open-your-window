@@ -15,7 +15,7 @@ exports.userInfoFind = async (req, res) => {
   res.send({ userInfo: userInfo });
 };
 exports.userInfoUd = async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   await User.update(
     {
       user_id: req.body.user_id,

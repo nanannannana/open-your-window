@@ -5,6 +5,7 @@ const initState = {
   carouselNum: 0,
   page: 0,
   searchTag: [],
+  searchTotalNum: 0,
   userId: '',
 };
 
@@ -18,6 +19,7 @@ const PAGECHANGE = 'window/PAGECHANGE';
 const PAGERESET = 'window/PAGERESET';
 const TAGCHANGE = 'window/TAGCHANGE';
 const SEARCHRESET = 'window/SEARCHRESET';
+const TOTALNUMCHANGE = 'window/TOTALNUMCHANGE';
 const USERID = 'window/USERID';
 
 // 액션 생성 함수 작성
@@ -30,6 +32,10 @@ export const pageChange = (page) => ({ type: PAGECHANGE, payload: page });
 export const pagereset = () => ({ type: PAGERESET });
 export const tagchange = (tag) => ({ type: TAGCHANGE, payload: tag });
 export const searchreset = () => ({ type: SEARCHRESET });
+export const totalnumchange = (totalNum) => ({
+  type: TOTALNUMCHANGE,
+  payload: totalNum,
+});
 export const userId = (userId) => ({ type: USERID, payload: userId });
 
 // 리듀서 설정
@@ -52,7 +58,9 @@ export default function window(state = initState, action) {
     case TAGCHANGE:
       return { ...state, searchTag: action.payload };
     case SEARCHRESET:
-      return { ...state, searchTag: [] };
+      return { ...state, searchTag: [], searchTotalNum: 0 };
+    case TOTALNUMCHANGE:
+      return { ...state, searchTotalNum: action.payload };
     case USERID:
       return { ...state, userId: action.payload };
     default:

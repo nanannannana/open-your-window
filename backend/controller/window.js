@@ -43,6 +43,7 @@ exports.postEdit = async (req, res) => {
 };
 
 exports.postUpdate = async (req, res) => {
+  fs.unlinkSync(`../public${req.body.imgServer}`);
   let image = '/img/' + req.file.filename;
   let uploadContent = req.body.content === 'undefined' ? '' : req.body.content;
   await Window.update(
@@ -78,9 +79,11 @@ exports.postUpdate2 = async (req, res) => {
 };
 
 exports.PostsShow = async (req, res) => {
-  // console.log('확인', req.query.country);
+  // console.log('확인: ', req.query);
+  const offset = req.query.page * 8;
+  const limit = req.query.page * 8 + 8;
   if (!req.query.country) {
-    const result = await Window.findAll({
+    const result = await Window.findAndCountAll({
       raw: true,
       include: [
         {
@@ -89,10 +92,12 @@ exports.PostsShow = async (req, res) => {
           attributes: ['user_name'],
         },
       ],
+      offset: offset,
+      limit: limit,
     });
-    return res.send({ basicTag: result });
+    return res.send({ posts: result.rows, totalNum: result.count });
   } else {
-    const result = await Window.findAll({
+    const result = await Window.findAndCountAll({
       raw: true,
       where: { country: req.query.country },
       include: [
@@ -102,13 +107,15 @@ exports.PostsShow = async (req, res) => {
           attributes: ['user_name'],
         },
       ],
+      offset: offset,
+      limit: limit,
     });
-    return res.send({ countryTag: result });
+    return res.send({ posts: result.rows, totalNum: result.count });
   }
 };
 
 exports.searchTag = async (req, res) => {
-  const result = await Window.findAll({
+  const result = await Window.findAndCountAll({
     raw: true,
     where: {
       tags: {
@@ -123,15 +130,15 @@ exports.searchTag = async (req, res) => {
       },
     ],
   });
-  res.send({ searchTag: result });
+  res.send({ posts: result.rows, totalNum: result.count });
 };
 
 exports.postDelete = async (req, res) => {
-  console.log('삭제 데이터: ', req.body.delPost);
-  const result = await Window.destroy({
+  // console.log('삭제 데이터: ', req.body.delPost);
+  await Window.destroy({
     where: { img: req.body.delPost.img },
   });
-  console.log('삭제: ', result);
+  // console.log('삭제: ', result);
   fs.unlinkSync(`../public${req.body.delPost.img}`);
   res.send(true);
 };
