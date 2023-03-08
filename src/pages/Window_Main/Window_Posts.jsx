@@ -25,8 +25,7 @@ export default function Window_Posts() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
-  // searchTag 관련 state
-  const searchTag = useSelector((state) => state.window.searchTag);
+  // searchBar 관련 state
   const searchNum = useSelector((state) => state.window.searchTotalNum);
   const [searchTotalNum, setSearchTotalNum] = useState(0);
 
@@ -56,13 +55,13 @@ export default function Window_Posts() {
           .catch((err) => console.log(err));
       }
       fetchData();
-      if (searchTag.length !== 0) setSearchTotalNum(searchNum);
+      if (queryString.parse(location.search).search)
+        setSearchTotalNum(searchNum);
     } catch (err) {
       console.log(err);
     }
     setLoading(false);
-  }, [page]);
-  console.log('totalNum: ', totalNum, searchNum);
+  }, [page, queryString.parse(location.search).search]);
 
   if (loading) {
     return (
@@ -97,9 +96,9 @@ export default function Window_Posts() {
 
         {/* main */}
         {change === 1 ? (
-          <Window_Tag posts={posts} searchTag={searchTag} />
+          <Window_Tag posts={posts} />
         ) : (
-          <Window_Carousel posts={posts} searchTag={searchTag} />
+          <Window_Carousel posts={posts} />
         )}
 
         {/* footer */}

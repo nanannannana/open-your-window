@@ -8,8 +8,9 @@ import queryString from 'query-string';
 import { BsFillPencilFill, BsFillTrashFill, BsX } from 'react-icons/bs';
 import { back, userId } from '../../store/modules/window';
 
-export default function Window_Carousel({ posts, searchTag }) {
+export default function Window_Carousel({ posts }) {
   const num = useSelector((state) => state.window.carouselNum);
+  const searchTag = useSelector((state) => state.window.searchTag);
   const dispatch = useDispatch();
 
   return (
