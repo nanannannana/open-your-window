@@ -6,6 +6,7 @@ import DrawerToggler from '../../components/common/DrawerToggler';
 import styled from 'styled-components';
 import PaginationImg from '../../components/window/PaginationImg';
 import queryString from 'query-string';
+import { useSelector } from 'react-redux';
 
 const Toggle = styled.div`
   position: fixed;
@@ -14,9 +15,10 @@ const Toggle = styled.div`
 `;
 const { warning } = Modal;
 
-export default function Window_Tag({ posts, searchTag }) {
+export default function Window_Tag({ posts }) {
   const navigate = useNavigate();
   const user_id = localStorage.getItem('userid');
+  const searchTag = useSelector((state) => state.window.searchTag);
 
   const btnClick = () => {
     if (user_id === null) {
