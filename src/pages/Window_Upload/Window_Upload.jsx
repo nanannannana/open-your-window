@@ -72,6 +72,7 @@ export default function Window_Upload() {
               content: res.data.comment,
             });
             setImg(res.data.img);
+            setImgServer(res.data.img);
             if (res.data.tags !== '') setTags(res.data.tags.split(','));
             setDate(dayjs(res.data.window_date));
           });
@@ -86,6 +87,7 @@ export default function Window_Upload() {
   //1-1) img: 이미지 미리보기 경로(화면), imgUrl: 백에 전송할 이미지파일 정보(백)
   const [img, setImg] = useState('');
   const [imgUrl, setImgUrl] = useState('');
+  const [imgServer, setImgServer] = useState('');
   const onChangeImg = (e) => {
     //1-2) 업로드 할 이미지파일 정보 imgUrl로 저장
     setImgUrl(e.target.files[0]);
@@ -179,6 +181,7 @@ export default function Window_Upload() {
           user_id: user_id,
           num: state.num,
           img: imgUrl,
+          imgServer: imgServer,
         };
         for (var v in data) formData.append(`${v}`, data[v]);
         await axios
@@ -196,7 +199,7 @@ export default function Window_Upload() {
           tags: tags,
           user_id: user_id,
           num: state.num,
-          img: img,
+          img: imgServer,
         };
         await axios
           .patch(
@@ -410,6 +413,4 @@ export default function Window_Upload() {
       </FullBox>
     </>
   );
-  // }
-  // return true;
 }

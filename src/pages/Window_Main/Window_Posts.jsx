@@ -25,50 +25,44 @@ export default function Window_Posts() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
-  // db에서 가져온 데이터 state
-  const [country, setCountry] = useState([]);
-  const [basicTag, setBasicTag] = useState([]);
-
   // searchTag 관련 state
   const searchTag = useSelector((state) => state.window.searchTag);
-  // console.log('searchTag', searchTag);
+  const searchNum = useSelector((state) => state.window.searchTotalNum);
+  const [searchTotalNum, setSearchTotalNum] = useState(0);
 
   // 게시글 & 캐러셀 컴포넌트 조건부 렌더링 관련 state
   const change = useSelector((state) => state.window.change);
 
   // 페이지네이션 관련 state
   const page = useSelector((state) => state.window.page);
-  const pagiCountry = country.slice(page * 8, page * 8 + 8);
-  const pagiBasicTag = basicTag.slice(page * 8, page * 8 + 8);
-  const pagiSearchBar = searchTag.slice(page * 8, page * 8 + 8);
+  const [posts, setPosts] = useState([]);
+  const [totalNum, setTotalNum] = useState(0);
 
   useEffect(() => {
     try {
-      // setLoading(true);
+      setLoading(true);
       async function fetchData() {
-        if (queryString.parse(location.search).country) {
-          return await axios
-            .get(`http://${process.env.REACT_APP_HOST}/window/postsShow`, {
-              params: {
-                country: queryString.parse(location.search).country,
-              },
-            })
-            .then((res) => setCountry(res.data.countryTag))
-            .catch((err) => console.log(err));
-        } else {
-          return await axios
-            .get(`http://${process.env.REACT_APP_HOST}/window/postsShow`)
-            .then((res) => setBasicTag(res.data.basicTag))
-            .catch((err) => console.log(err));
-        }
+        return await axios
+          .get(`http://${process.env.REACT_APP_HOST}/window/postsShow`, {
+            params: {
+              country: queryString.parse(location.search).country,
+              page: page,
+            },
+          })
+          .then((res) => {
+            setPosts(res.data.posts);
+            setTotalNum(res.data.totalNum);
+          })
+          .catch((err) => console.log(err));
       }
       fetchData();
+      if (searchTag.length !== 0) setSearchTotalNum(searchNum);
     } catch (err) {
       console.log(err);
     }
     setLoading(false);
-  }, []);
-  // console.log('loading', loading);
+  }, [page]);
+  console.log('totalNum: ', totalNum, searchNum);
 
   if (loading) {
     return (
@@ -103,30 +97,14 @@ export default function Window_Posts() {
 
         {/* main */}
         {change === 1 ? (
-          <Window_Tag
-            country={pagiCountry}
-            basicTag={pagiBasicTag}
-            searchTag={pagiSearchBar}
-          />
+          <Window_Tag posts={posts} searchTag={searchTag} />
         ) : (
-          <Window_Carousel
-            country={pagiCountry}
-            basicTag={pagiBasicTag}
-            searchTag={pagiSearchBar}
-          />
+          <Window_Carousel posts={posts} searchTag={searchTag} />
         )}
 
         {/* footer */}
-        {change === 1 ? (
-          country.length !== 0 ? (
-            <PostPagination arr={country} />
-          ) : queryString.parse(location.search).search ? (
-            <PostPagination arr={searchTag} />
-          ) : (
-            <PostPagination arr={basicTag} />
-          )
-        ) : (
-          true
+        {change === 1 && (
+          <PostPagination totalNum={searchTotalNum || totalNum} />
         )}
       </div>
     );
