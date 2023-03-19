@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
-import WindowBtn from '../window/WindowBtn';
+import { Button } from 'antd';
 
 const SecondDiv = styled.div`
   width: 100%;
@@ -33,6 +33,24 @@ const Universe = styled.div`
   justify-content: center;
   align-items: center;
 `;
+const LandingBtn = styled(Button)`
+  border-color: ${(props) => props.border_color} !important;
+  color: ${(props) => props.color} !important;
+  font-family: 'YUniverse-B';
+  font-size: 5vw;
+  height: auto;
+  width: 50%;
+  border: ${(props) => props.border} !important;
+  text-shadow: ${(props) => props.text_shadow} !important;
+  &:hover {
+    background-color: #0000002b !important;
+    border-color: ${(props) => props.hover_border_color} !important;
+    color: ${(props) => props.hover_color} !important;
+  }
+  @media (max-width: 767px) {
+    font-size: 4vw !important;
+  }
+`;
 
 export default function SecondPage() {
   const navigate = useNavigate();
@@ -40,37 +58,31 @@ export default function SecondPage() {
   return (
     <SecondDiv>
       <Window>
-        <WindowBtn
-          clickEvent={() => navigate('/window')}
-          borderColor="#2C2C2A"
+        <LandingBtn
+          ghost
+          onClick={() => navigate('/window')}
+          border_color="#2C2C2A"
           color="#2C2C2A"
-          hoverBackgroundColor="#0000002b"
-          hoverBorderColor="#2C2C2A"
-          hoverColor="#2C2C2A"
-          text="WINDOW"
-          fontSize="7em"
-          className="introButton"
-          height="auto"
-          padding="0 50px"
+          hover_border_color="#2C2C2A"
+          hover_color="#2C2C2A"
           border="1.5px solid #2C2C2A"
-          textShadow="2px 2px 1px #fff"
-        />
+          text_shadow="2px 2px 1px #fff"
+        >
+          WINDOW
+        </LandingBtn>
       </Window>
       <Universe>
-        <WindowBtn
-          clickEvent={() => navigate('/universe')}
+        <LandingBtn
+          ghost
+          onClick={() => navigate('/universe')}
           color="#ffffff"
-          hoverBackgroundColor="#0000002b"
-          hoverBorderColor="#ffffff"
-          hoverColor="#ffffff"
-          text="UNIVERSE"
-          fontSize="7em"
-          className="introButton"
-          height="auto"
-          padding="0 50px"
+          hover_border_color="#ffffff"
+          hover_color="#ffffff"
           border="1.5px solid #ffffff"
-          textShadow="2px 2px 2px #2C2C2A"
-        />
+          text_shadow="2px 2px 2px #2C2C2A"
+        >
+          UNIVERSE
+        </LandingBtn>
       </Universe>
     </SecondDiv>
   );

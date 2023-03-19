@@ -11,7 +11,7 @@ const PaginationCss = styled.div`
   }
 `;
 
-export default function MypagePagi({ arr }) {
+export default function MypagePagi({ postTotalNum }) {
   const dispatch = useDispatch();
   const page = useSelector((state) => state.window.page);
 
@@ -20,7 +20,7 @@ export default function MypagePagi({ arr }) {
       <Pagination
         current={page + 1}
         defaultPageSize={5}
-        total={arr.length}
+        total={postTotalNum}
         hideOnSinglePage={true}
         onChange={(e) => dispatch(pageChange(e))}
       />

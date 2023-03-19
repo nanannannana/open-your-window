@@ -24,11 +24,10 @@ const ImgDiv = styled.div`
   text-shadow: 2px 2px 1px #000;
 `;
 
-export default function MyPost() {
+export default function MyPost({ postTotalNum }) {
   const navigate = useNavigate();
+  // 내가 올린 게시물 정보가 담긴 state
   const mypost = useSelector((state) => state.mypage.mypost);
-  const page = useSelector((state) => state.window.page);
-  const pagination = mypost.slice(page * 5, page * 5 + 5);
 
   return (
     <MyPostDiv>
@@ -36,15 +35,15 @@ export default function MyPost() {
         <Col span={12}>
           {mypost.length !== 0 ? (
             <ImgDiv
-              img={pagination[0].img}
+              img={mypost[0].img}
               onClick={() =>
                 navigate('/window/postedit', {
                   replace: true,
-                  state: { num: pagination[0].num, mypage: 'mypage' },
+                  state: { num: mypost[0].num, mypage: 'mypage' },
                 })
               }
             >
-              {pagination[0].country}, {pagination[0].city}
+              {mypost[0].country}, {mypost[0].city}
             </ImgDiv>
           ) : (
             <ImgDiv />
@@ -57,11 +56,11 @@ export default function MyPost() {
               { md: 15, xxl: 30 },
             ]}
           >
-            <PostImg pagi={pagination} />
+            <PostImg />
           </Row>
         </Col>
       </Row>
-      <MypagePagi arr={mypost} />
+      <MypagePagi postTotalNum={postTotalNum} />
     </MyPostDiv>
   );
 }

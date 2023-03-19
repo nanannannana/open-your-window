@@ -7,7 +7,8 @@ import GlobalStyle from './GlobalStyle';
 import { useDispatch, useSelector } from 'react-redux';
 import { delUser } from '../../store/modules/users';
 import SearchBar from '../common/SearchBar';
-import { mypageclear } from '../../store/modules/mypage';
+import { changeReset, mypageclear } from '../../store/modules/mypage';
+import { pagereset } from '../../store/modules/window';
 
 const KKLogOut = `https://kauth.kakao.com/oauth/logout?client_id=${process.env.REACT_APP_REST_API_KEY}&logout_redirect_uri=${process.env.REACT_APP_LOGOUT_REDIRECT_URI}`;
 
@@ -124,7 +125,14 @@ export default function DrawerToggler() {
           {userid ? (
             <>
               <NavEl>
-                <Link to="/mypage" style={NavLinkSt}>
+                <Link
+                  to="/mypage"
+                  style={NavLinkSt}
+                  onClick={() => {
+                    dispatch(pagereset());
+                    dispatch(changeReset());
+                  }}
+                >
                   My Page
                 </Link>
               </NavEl>
