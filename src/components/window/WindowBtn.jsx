@@ -18,7 +18,7 @@ const MyButton = styled(Button)`
     border-color: ${(props) => props.hover_border_color} !important;
     color: ${(props) => props.hover_color} !important;
   }
-  @media (max-width: 1440px) {
+  @media (max-width: 1439px) {
     font-size: 1em !important;
   }
 `;

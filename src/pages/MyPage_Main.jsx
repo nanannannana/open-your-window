@@ -15,12 +15,18 @@ import { BsFillPencilFill, BsBrightnessHighFill } from 'react-icons/bs';
 import MyInfo from '../components/mypage/MyInfo';
 import { Modal } from 'antd';
 import { useNavigate } from 'react-router';
+import {
+  Desktop,
+  Laptop,
+  Mobile,
+  Tablet,
+} from '../components/common/Responsive';
+import MypostMobile from '../components/mypage/MypostMobile';
 
 const { warning } = Modal;
 
 const OutBox = styled.div`
-  /* padding: 170px 300px; */
-  padding: 5% 15%;
+  padding: 3% 15%;
   height: 100vh;
 `;
 const Username = styled.div`
@@ -49,6 +55,8 @@ export default function MyPage_Main() {
   const user_id = localStorage.getItem('userid');
   const userInfo = useSelector((state) => state.mypage.userInfo);
   const change = useSelector((state) => state.mypage.change);
+  const page = useSelector((state) => state.window.page);
+  const [postTotalNum, setPostTotalNum] = useState(null);
 
   useEffect(() => {
     if (!user_id) {
@@ -64,19 +72,21 @@ export default function MyPage_Main() {
         return await axios
           .post(`http://${process.env.REACT_APP_HOST}/mypage/userinfofind`, {
             user_id: user_id,
+            page: page,
           })
           .then((res) => {
             dispatch(infochange(res.data.userInfo));
             // 업로드한 게시물 존재 유무
-            if (res.data.showPosts) dispatch(update(res.data.showPosts));
+            if (res.data.showPosts) {
+              dispatch(update(res.data.showPosts));
+              setPostTotalNum(res.data.postTotalNum);
+            }
           })
           .catch((err) => console.log(err));
       }
       fectchData();
-      dispatch(pagereset());
-      dispatch(changeReset());
     }
-  }, []);
+  }, [page]);
 
   if (!user_id) return <div></div>;
 
@@ -84,7 +94,7 @@ export default function MyPage_Main() {
     <>
       <DrawerToggler />
       <OutBox>
-        {userInfo.length !== 0 ? (
+        {userInfo.length !== 0 && (
           <>
             <Username>{userInfo['user_name']}</Username>
             <EmailandIconBox>
@@ -92,10 +102,25 @@ export default function MyPage_Main() {
               <PostIcon size="17" onClick={() => dispatch(changeReset())} />
               <BsFillPencilFill size="15" onClick={() => dispatch(goInfo(2))} />
             </EmailandIconBox>
-            {change === 1 ? <MyPost /> : <MyInfo />}
+            {change === 1 ? (
+              <>
+                <Desktop>
+                  <MyPost postTotalNum={postTotalNum} />
+                </Desktop>
+                <Laptop>
+                  <MyPost postTotalNum={postTotalNum} />
+                </Laptop>
+                <Tablet>
+                  <MypostMobile postTotalNum={postTotalNum} />
+                </Tablet>
+                <Mobile>
+                  <MypostMobile postTotalNum={postTotalNum} />
+                </Mobile>
+              </>
+            ) : (
+              <MyInfo />
+            )}
           </>
-        ) : (
-          true
         )}
       </OutBox>
     </>

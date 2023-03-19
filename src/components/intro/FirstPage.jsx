@@ -1,7 +1,7 @@
 import { Carousel } from 'antd';
 import React from 'react';
 import styled from 'styled-components';
-import WindowBtn from '../window/WindowBtn';
+import { Button, Space } from 'antd';
 
 const FirstDiv = styled.div`
   display: flex;
@@ -33,6 +33,21 @@ const Img = styled.img`
   object-fit: cover;
   /* background-image: url(${(props) => props.backgrond_img}); */
 `;
+const LandingBtn = styled(Button)`
+  border-color: #fff;
+  color: #fff;
+  background-color: #0000002b;
+  font-family: 'YUniverse-B';
+  font-size: 2.5em;
+  height: auto;
+  padding: 0 30px;
+  text-shadow: 2px 2px 2px #2c2c2a;
+  &:hover {
+    background-color: #dddddd2b !important;
+    border-color: #fff !important;
+    color: #fff !important;
+  }
+`;
 
 export default function FirstPage({ setMain }) {
   const img = [
@@ -46,21 +61,11 @@ export default function FirstPage({ setMain }) {
       <FirstDiv>
         <Title>Open Your Window</Title>
         <SubTitle>당신의 창 밖 풍경을 전세계 사람들과 공유해보세요</SubTitle>
-        <WindowBtn
-          clickEvent={() => setMain(2)}
-          borderColor="#ffffff"
-          color="#ffffff"
-          backgroundColor="#0000002b"
-          hoverBackgroundColor="#dddddd2b"
-          //   hoverBorderColor="#bcbcbc"
-          hoverColor="#ffffff"
-          text="start"
-          fontSize="2.5em"
-          className="introButton"
-          height="auto"
-          padding="0 30px"
-          textShadow="2px 2px 2px #2C2C2A"
-        />
+        <Space className="site-button-ghost-wrapper" wrap>
+          <LandingBtn ghost onClick={() => setMain(2)} htmlType="submit">
+            start
+          </LandingBtn>
+        </Space>
       </FirstDiv>
 
       <Carousel autoplay dots={false} effect={'fade'} autoPlaySpeed={4000}>

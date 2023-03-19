@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Col } from 'antd';
 import { useNavigate } from 'react-router';
+import { useSelector } from 'react-redux';
 
 const ImgDiv = styled.div`
   /* background-color: skyblue; */
@@ -22,13 +23,14 @@ const ImgDiv = styled.div`
   }
 `;
 
-export default function PostImg({ pagi }) {
+export default function PostImg() {
   const navigate = useNavigate();
-  const postArr = pagi.filter((v) => pagi.indexOf(v) !== 0);
+  const mypost = useSelector((state) => state.mypage.mypost);
+  const postArr = mypost.filter((v) => mypost.indexOf(v) !== 0);
 
   return (
     <>
-      {pagi.length !== 0 ? (
+      {mypost.length !== 0 ? (
         postArr.map((v) => (
           <Col span={12} key={v.img}>
             <ImgDiv

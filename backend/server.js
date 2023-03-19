@@ -15,9 +15,6 @@ app.use(
     credentials: true,
   })
 );
-app.set('view engine', 'ejs');
-// app.use(express.static('static'));
-app.use(express.urlencoded({ extended: true }));
 
 const windowRouter = require('./routes/windowRoute');
 const userRouter = require('./routes/userRoute');

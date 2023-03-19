@@ -239,7 +239,7 @@ export default function Window_Upload() {
           });
     }
   };
-  console.log('date', date);
+  // console.log('date', date);
 
   if (date === '') return true;
   return (
