@@ -26,7 +26,7 @@ import MypostMobile from '../components/mypage/MypostMobile';
 const { warning } = Modal;
 
 const OutBox = styled.div`
-  padding: 3% 15%;
+  padding: 5% 15%;
   height: 100vh;
 `;
 const Username = styled.div`
