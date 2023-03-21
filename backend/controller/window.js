@@ -43,7 +43,7 @@ exports.postEdit = async (req, res) => {
 };
 
 exports.postUpdate = async (req, res) => {
-  fs.unlinkSync(`../public${req.body.imgServer}`);
+  fs.unlinkSync(`../${process.env.FILE}${req.body.imgServer}`);
   let image = '/img/' + req.file.filename;
   let uploadContent = req.body.content === 'undefined' ? '' : req.body.content;
   await Window.update(
@@ -107,7 +107,7 @@ exports.PostsShow = async (req, res) => {
         },
       ],
       offset: offset,
-      limit: limit,
+      limit: 8,
     });
     return res.send({ posts: result.rows, totalNum: result.count });
   }
@@ -138,6 +138,6 @@ exports.postDelete = async (req, res) => {
     where: { img: req.body.delPost.img },
   });
   // console.log('삭제: ', result);
-  fs.unlinkSync(`../public${req.body.delPost.img}`);
+  fs.unlinkSync(`../${process.env.FILE}${req.body.delPost.img}`);
   res.send(true);
 };
