@@ -79,7 +79,7 @@ exports.postUpdate2 = async (req, res) => {
 };
 
 exports.PostsShow = async (req, res) => {
-  // console.log('확인: ', req.query);
+  console.log('확인: ', req.query);
   const offset = req.query.page * 8;
   if (!req.query.country) {
     const result = await Window.findAndCountAll({
@@ -107,7 +107,7 @@ exports.PostsShow = async (req, res) => {
         },
       ],
       offset: offset,
-      limit: limit,
+      limit: 8,
     });
     return res.send({ posts: result.rows, totalNum: result.count });
   }
