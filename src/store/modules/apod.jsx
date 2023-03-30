@@ -8,7 +8,7 @@ export const asyncUpFetch = createAsyncThunk(
       `https://api.nasa.gov/planetary/apod?api_key=SnhXUAk6vrVz2m05FXJ8KTUg7aa54Ak5nwKHHqOD&date=${date}`
     );
     const data = response.data;
-    console.log(data.title);
+    console.log(data);
     return data;
   }
 );

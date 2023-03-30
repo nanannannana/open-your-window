@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './SignIn_SignUp.css';
 import { Form, Input, Checkbox, Button, Modal } from 'antd';
 import axios from 'axios';
@@ -37,6 +37,7 @@ const tailFormItemLayout = {
 export default function SignIn_SignUp() {
   const [form] = Form.useForm();
   // const [newE, setNewE] = useState('');
+
   const [showOK, setShowOK] = useState(false);
   const [showErr, setShowErr] = useState(false);
   const [idFix, setIdFix] = useState(false);
@@ -112,7 +113,7 @@ export default function SignIn_SignUp() {
     });
   };
 
-  /////////// UI 시작/////////////////
+  /////////////////// UI 시작/////////////////
   return (
     <div className="FormContainer">
       <Form
@@ -126,6 +127,7 @@ export default function SignIn_SignUp() {
         <Form.Item
           name="email"
           label="E-mail"
+          hasFeedback
           rules={[
             {
               type: 'email',
@@ -135,9 +137,23 @@ export default function SignIn_SignUp() {
               required: true,
               message: 'Please input your E-mail!',
             },
+            // {
+            //   validator: (_, value) => {
+            //     let regexr =
+            //       /^[0-9a-zA-Z]([-_\.]?[-9a-zA-z])*@[0-9a-zA-Z]([-_\.]?[-9a-zA-z])*\.[a-zA-Z]{2,3}$/;
+            //     return regexr.test(value)
+            //       ? Promise.resolve()
+            //       : Promise.reject(new Error('Invalid E-mail Address'));
+            //   },
+            // },
           ]}
         >
-          <Input size="large" ref={getE} disabled={idFix} />
+          <Input
+            size="large"
+            ref={getE}
+            disabled={idFix}
+            placeholder="default@example.com"
+          />
         </Form.Item>
         <Form.Item>
           <Button
@@ -161,10 +177,23 @@ export default function SignIn_SignUp() {
               required: true,
               message: 'Please input your password!',
             },
+            {
+              validator: (_, value) => {
+                let regexr =
+                  /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&])(?!.* ).{8,12}$/;
+                return regexr.test(value)
+                  ? Promise.resolve()
+                  : Promise.reject(
+                      new Error(
+                        'At least one lowercase, uppercase, and special character (e.g., @#$%&) are required.'
+                      )
+                    );
+              },
+            },
           ]}
           hasFeedback
         >
-          <Input.Password size="large" />
+          <Input.Password size="large" placeholder="Should be 8~12 letters" />
         </Form.Item>
 
         <Form.Item
@@ -214,9 +243,17 @@ export default function SignIn_SignUp() {
               required: true,
               message: 'Please input your phone number!',
             },
+            {
+              validator: (_, value) => {
+                let regexr = /^\d{10,11}$/;
+                return regexr.test(value)
+                  ? Promise.resolve()
+                  : Promise.reject(new Error('Check your phone number'));
+              },
+            },
           ]}
         >
-          <Input size="large" />
+          <Input size="large" placeholder="Enter numbers only" />
         </Form.Item>
         <Form.Item
           name="agreement"
