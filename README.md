@@ -38,12 +38,11 @@
 ## API 명세서
 |기능|URL|Method|Request|Response|
 |---|---|---|---|---|
-|게시물 업로드|/window/postupload|Post|{<br> country, <br> city, <br> comment, <br> date, <br> tags, <br> user_id, <br> img <br> }|{<br> num <br>}|
-|게시물 번호|/window/postedit|Get|{<br>num<br>}|{<br>num, <br>country, <br>city, <br>img, <br>comment, <br>user_id, <br>window_date, <br>tags <br>}|
-|게시물 수정<br>(이미지 수정)|/window/postupdate|patch|{<br>country, <br> city, <br> comment, <br>date, <br>tags, <br>user_id, <br>num, <br>img, <br> imgServer <br> }|true|
-|게시물 수정<br>(이미지 수정X)|/window/postupdate2|patch|{<br>country, <br>city, <br>comment, <br>date, <br>tags, <br>user_id, <br>num, <br> img <br> }|true|
-|게시물 삭제|/window/postDelete|delete|{<br>num,<br>country,<br>city,<br>img,<br>comment,<br>user_id,<br>window_date,<br>tags<br>}|true|
-게시물 가져오기<br>(전체&국가별)|/window/postsShow|get|{<br>country, <br>page <br>}|{<br>posts(*num, country, city, window_date, tags, user_id, img, 'user_name'*), <br>totalNum(*count*)<br>}|
-|게시물 가져오기(태그별)|/window/searchtag/get/{<br>tag<br>}|{<br>posts(*num, country, city, window_date, tags, user_id, img*)<br>totalNum(*count*)<br>}|
-|마이페이지 정보 가져오기|/mypage/userinfofind|post|{<br>user_id, <br>page<br>}|게시물 有<br>{<br>showPosts(*num, country, city, window_date, tags, user_id, img*), <br>postTotalNum(*count*), <br> userInfo(*user_id, user_pw, user_name, phone*)<br>}<br> 게시물 無<br>{<br>userInfo: <br>user_id, <br>user_pw, <br>user_name, <br>phone <br>}|
-|회원정보 수정|/mypage/userinfoUd|patch|{<br>user_id, <br>user_pw, <br> user_name, <br> phone <br> }|{<br>user_id, <br>user_pw, <br>user_name <br> phone <br>}|
+|게시물 업로드|/window/posts|Post|{<br> country, <br> city, <br> comment, <br> date, <br> tags, <br> user_id, <br> img <br> }|{<br> num <br>}|
+|게시물 정보 가져오기(이미지 수정용)|/window/posts|Get|{ num }|{<br>num, <br>country, <br>city, <br>img, <br>comment, <br>user_id, <br>window_date, <br>tags <br>}|
+|게시물 수정<br>(이미지 수정)|/window/posts-image|patch|{<br>country, <br> city, <br> comment, <br>date, <br>tags, <br>user_id, <br>num, <br>img, <br> imgServer <br> }|true|
+|게시물 수정<br>(이미지 수정X)|/window/posts|patch|{<br>country, <br>city, <br>comment, <br>date, <br>tags, <br>user_id, <br>num, <br> img <br> }|true|
+|게시물 삭제|/window/posts|delete|{<br>num,<br>country,<br>city,<br>img,<br>comment,<br>user_id,<br>window_date,<br>tags<br>}|true|
+게시물 가져오기|/window/board|get|**전체** <br> { } <br><br> **국가별** <br> {country, page} <br><br> **검색 태그별** <br> { tag } <br>|{<br>posts(*num, country, city, window_date, tags, user_id, img, 'user_name'*), <br>totalNum(*count*)<br>}|
+|마이페이지 정보 가져오기|/mypage/user|post|{user_id, page}|**게시물 有**<br>{<br>showPosts(*num, country, city, window_date, tags, user_id, img*), <br>postTotalNum(*count*), <br> userInfo(*user_id, user_pw, user_name, phone*)<br>}<br> **게시물 無**<br>{<br>userInfo: <br>user_id, <br>user_pw, <br>user_name, <br>phone <br>}|
+|회원정보 수정|/mypage/user|patch|{<br>user_id, <br>user_pw, <br> user_name, <br> phone <br> }|{<br>user_id, <br>user_pw, <br>user_name <br> phone <br>}|
