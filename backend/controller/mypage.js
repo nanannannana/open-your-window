@@ -20,7 +20,7 @@ exports.userInfoFind = async (req, res) => {
     });
   res.send({ userInfo: userInfo });
 };
-exports.userInfoUd = async (req, res) => {
+exports.userInfoUpdate = async (req, res) => {
   // console.log(req.body);
   await User.update(
     {

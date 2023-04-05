@@ -3,7 +3,7 @@ const express = require('express');
 const mypage = require('../controller/mypage');
 const router = express.Router();
 
-router.post('/userinfofind', mypage.userInfoFind);
-router.patch('/userInfoUd', mypage.userInfoUd);
+router.post('/user', mypage.userInfoFind);
+router.patch('/user', mypage.userInfoUpdate);
 
 module.exports = router;

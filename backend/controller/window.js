@@ -42,7 +42,7 @@ exports.postEdit = async (req, res) => {
   res.send(result);
 };
 
-exports.postUpdate = async (req, res) => {
+exports.postUpdate_image = async (req, res) => {
   fs.unlinkSync(`../${process.env.FILE}${req.body.imgServer}`);
   let image = '/img/' + req.file.filename;
   let uploadContent = req.body.content === 'undefined' ? '' : req.body.content;
@@ -60,7 +60,7 @@ exports.postUpdate = async (req, res) => {
   );
   res.send(true);
 };
-exports.postUpdate2 = async (req, res) => {
+exports.postUpdate = async (req, res) => {
   let updateContent = req.body.content === 'undefined' ? '' : req.body.content;
   let updateTags = req.body.tags.length === 0 ? '' : req.body.tags.join(',');
   await Window.update(
@@ -78,10 +78,12 @@ exports.postUpdate2 = async (req, res) => {
   res.send(true);
 };
 
-exports.PostsShow = async (req, res) => {
-  console.log('확인: ', req.query);
+exports.getBoard = async (req, res) => {
+  // console.log('확인: ', req.query);
   const offset = req.query.page * 8;
-  if (!req.query.country) {
+  if (!req.query.country && !req.query.tag) {
+    // 전체 게시물 조회
+    console.log('1');
     const result = await Window.findAndCountAll({
       raw: true,
       include: [
@@ -95,7 +97,28 @@ exports.PostsShow = async (req, res) => {
       limit: 8,
     });
     return res.send({ posts: result.rows, totalNum: result.count });
+  } else if (req.query.tag) {
+    // 검색 게시물 조회
+    console.log('2');
+    const result = await Window.findAndCountAll({
+      raw: true,
+      where: {
+        tags: {
+          [Op.like]: '%' + req.query.tag + '%',
+        },
+      },
+      include: [
+        {
+          model: User,
+          required: true,
+          attributes: ['user_name'],
+        },
+      ],
+    });
+    res.send({ posts: result.rows, totalNum: result.count });
   } else {
+    // 국가별 게시물 조회
+    console.log('3');
     const result = await Window.findAndCountAll({
       raw: true,
       where: { country: req.query.country },
@@ -111,25 +134,6 @@ exports.PostsShow = async (req, res) => {
     });
     return res.send({ posts: result.rows, totalNum: result.count });
   }
-};
-
-exports.searchTag = async (req, res) => {
-  const result = await Window.findAndCountAll({
-    raw: true,
-    where: {
-      tags: {
-        [Op.like]: '%' + req.query.tag + '%',
-      },
-    },
-    include: [
-      {
-        model: User,
-        required: true,
-        attributes: ['user_name'],
-      },
-    ],
-  });
-  res.send({ posts: result.rows, totalNum: result.count });
 };
 
 exports.postDelete = async (req, res) => {
