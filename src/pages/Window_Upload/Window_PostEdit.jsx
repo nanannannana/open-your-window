@@ -41,7 +41,7 @@ export default function Window_PostEdit() {
       async function fetchData() {
         try {
           await axios
-            .get(`http://${process.env.REACT_APP_HOST}/window/postedit`, {
+            .get(`http://${process.env.REACT_APP_HOST}/window/posts`, {
               params: { num: state.num },
             })
             .then((res) => setDataArr(res.data));
@@ -67,7 +67,7 @@ export default function Window_PostEdit() {
 
   const delPost = () => {
     axios
-      .delete(`http://${process.env.REACT_APP_HOST}/window/postDelete`, {
+      .delete(`http://${process.env.REACT_APP_HOST}/window/posts`, {
         data: { delPost: dataArr },
       })
       .then(() => deleteSuccess());

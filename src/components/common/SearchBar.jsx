@@ -11,11 +11,7 @@ export default function SearchBar() {
   const navigate = useNavigate();
   const onSearch = async (value) => {
     await axios
-      .get(`http://${process.env.REACT_APP_HOST}/window/searchTag`, {
-        params: {
-          tag: value,
-        },
-      })
+      .get(`http://${process.env.REACT_APP_HOST}/window/board?tag=${value}`)
       .then((res) => {
         dispatch(tagchange(res.data.posts));
         dispatch(totalnumchange(res.data.totalNum));

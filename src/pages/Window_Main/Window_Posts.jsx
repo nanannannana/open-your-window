@@ -37,26 +37,27 @@ export default function Window_Posts() {
   const [posts, setPosts] = useState([]);
   const [totalNum, setTotalNum] = useState(0);
 
+  async function axiosData() {
+    return await axios
+      .get(`http://${process.env.REACT_APP_HOST}/window/board`, {
+        params: {
+          country: queryString.parse(location.search).country,
+          page: page,
+        },
+      })
+      .then((res) => {
+        setPosts(res.data.posts);
+        setTotalNum(res.data.totalNum);
+      })
+      .catch((err) => console.log(err));
+  }
+
   useEffect(() => {
     try {
       setLoading(true);
-      async function fetchData() {
-        return await axios
-          .get(`http://${process.env.REACT_APP_HOST}/window/postsShow`, {
-            params: {
-              country: queryString.parse(location.search).country,
-              page: page,
-            },
-          })
-          .then((res) => {
-            setPosts(res.data.posts);
-            setTotalNum(res.data.totalNum);
-          })
-          .catch((err) => console.log(err));
-      }
-      fetchData();
       if (queryString.parse(location.search).search)
         setSearchTotalNum(searchNum);
+      else axiosData();
     } catch (err) {
       console.log(err);
     }

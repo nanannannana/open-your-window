@@ -30,7 +30,7 @@ export default function MyInfo() {
   const onFinish = async (values) => {
     // console.log('values', values);
     await axios
-      .patch(`http://${process.env.REACT_APP_HOST}/mypage/userInfoUd`, values)
+      .patch(`http://${process.env.REACT_APP_HOST}/mypage/user`, values)
       .then((res) => {
         showAlert();
         dispatch(infochange(res.data));
