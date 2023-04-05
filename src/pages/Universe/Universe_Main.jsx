@@ -1,13 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import './Universe_Main.css';
 import styled from 'styled-components';
 import Button from 'antd/lib/button';
-import UniverseBtn from '../../components/universe/UniverseBtn';
 import { ArrowRightOutlined } from '@ant-design/icons';
 import Tooltip from 'antd/lib/tooltip';
 import DrawerToggler from '../../components/common/DrawerToggler';
-import { useSelector } from 'react-redux';
-import UniverseViewer from '../../components/universe/UniverseViewer';
 
 const MyBG = styled.div`
   height: 100vh;

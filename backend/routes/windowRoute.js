@@ -4,12 +4,11 @@ const window = require('../controller/window');
 const multer = require('../middleware/multer');
 const router = express.Router();
 
-router.post('/postupload', multer.imgUpload, window.postUpload);
-router.get('/postedit', window.postEdit);
-router.patch('/postupdate', multer.imgUpload, window.postUpdate);
-router.patch('/postupdate2', window.postUpdate2);
-router.get('/postsShow', window.PostsShow);
-router.get('/searchTag', window.searchTag);
-router.delete('/postDelete', window.postDelete);
+router.post('/posts', multer.imgUpload, window.postUpload);
+router.get('/posts', window.postEdit);
+router.patch('/posts-image', multer.imgUpload, window.postUpdate_image);
+router.patch('/posts', window.postUpdate);
+router.get('/board', window.getBoard);
+router.delete('/posts', window.postDelete);
 
 module.exports = router;
