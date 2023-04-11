@@ -13,6 +13,7 @@ export default function SearchBar() {
     await axios
       .get(`http://${process.env.REACT_APP_HOST}/window/board?tag=${value}`)
       .then((res) => {
+        if (!res.data.posts.length) return alert('검색된 결과가 없습니다.');
         dispatch(tagchange(res.data.posts));
         dispatch(totalnumchange(res.data.totalNum));
         navigate(`/window/tag?search=${value}`, { replace: true });
