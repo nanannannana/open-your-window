@@ -83,7 +83,6 @@ exports.getBoard = async (req, res) => {
   const offset = req.query.page * 8;
   if (!req.query.country && !req.query.tag) {
     // 전체 게시물 조회
-    console.log('1');
     const result = await Window.findAndCountAll({
       raw: true,
       include: [
@@ -99,7 +98,6 @@ exports.getBoard = async (req, res) => {
     return res.send({ posts: result.rows, totalNum: result.count });
   } else if (req.query.tag) {
     // 검색 게시물 조회
-    console.log('2');
     const result = await Window.findAndCountAll({
       raw: true,
       where: {
@@ -118,7 +116,6 @@ exports.getBoard = async (req, res) => {
     res.send({ posts: result.rows, totalNum: result.count });
   } else {
     // 국가별 게시물 조회
-    console.log('3');
     const result = await Window.findAndCountAll({
       raw: true,
       where: { country: req.query.country },
