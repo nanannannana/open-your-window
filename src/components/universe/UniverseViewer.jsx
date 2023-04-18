@@ -11,14 +11,6 @@ import UniverseBtn from './UniverseBtn';
 import GlobalStyle from '../common/GlobalStyle';
 import styled from 'styled-components';
 
-const GoVideo = styled.a`
-  background-color: aliceblue;
-  font-size: 8em;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-`;
-
 // 원하는 날짜의 우주 사진 볼 수 있는 PAGE (NASA APOD API)
 export default function Viewer() {
   const [isVideo, setIsVideo] = useState(false);
@@ -58,28 +50,9 @@ export default function Viewer() {
     );
   };
 
-  // const VideoPlayer = () => {
-  //   return (
-  //     <div
-  //       style={{
-  //         position: 'absolute',
-  //         top: '50%',
-  //         left: '50%',
-  //         zIndex: '1000',
-  //       }}
-  //     >
-  //       <video muted autoPlay playsInline style={{ width: '100%' }}>
-  //         <source src={url} />
-  //         {/* <source src={url} type="video/mp4" /> */}
-  //       </video>
-  //     </div>
-  //   );
-  // };
   const goVideo = (url) => {
     return (
-      <GoVideo href={url} target="_blank">
-        Go Video
-      </GoVideo>
+      <iframe src={url} style={{ width: '100%', height: '100%' }}></iframe>
     );
   };
 
