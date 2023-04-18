@@ -25,6 +25,20 @@ const RegA = styled.a`
   font-family: 'YUniverse-B';
 `;
 
+const Leftbox = styled.div`
+  height: 100vh;
+  width: 50vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+const Rightbox = styled.div`
+  height: 100vh;
+  width: 50vw;
+  /* padding: 0 0 0 200px; */
+`;
+
 export default function SignIn_Main() {
   const [signBG, setSignBG] = useState();
   const [isUser, setIsUser] = useState(true);
@@ -49,26 +63,32 @@ export default function SignIn_Main() {
       <Toggler>
         <DrawerToggler />
       </Toggler>
-      <Row align="middle" justify="space-around">
-        <Col span={8} align="center">
-          {isUser && <SignIn />}
-          {isUser || <SignIn_SignUp />}
-          <div style={{ textAlign: 'center' }}>
-            <RegA
-              onClick={() => {
-                setIsUser(!isUser);
-              }}
-            >
-              {isUser
-                ? 'Or Register now!'
-                : 'Or Already have an account? Login now!'}
-            </RegA>
-          </div>
-        </Col>
-        <Col span={16} align="center">
-          <img src={signBG} style={{ height: '100vh' }} />
-        </Col>
-      </Row>
+      <Leftbox>
+        {isUser && <SignIn />}
+        {isUser || <SignIn_SignUp />}
+        <div style={{ textAlign: 'center' }}>
+          <RegA
+            onClick={() => {
+              setIsUser(!isUser);
+            }}
+          >
+            {isUser
+              ? 'Or Register now!'
+              : 'Or Already have an account? Login now!'}
+          </RegA>
+        </div>
+      </Leftbox>
+      <Rightbox>
+        <div
+          style={{
+            backgroundImage: `url(${signBG})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            height: '100%',
+            width: '100%',
+          }}
+        ></div>
+      </Rightbox>
     </SignContainer>
   );
 }

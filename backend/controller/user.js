@@ -25,10 +25,10 @@ exports.checkEmail = async (req, res) => {
   res.send(result === null ? true : false);
 };
 
-// exports.kakaoLogin = async (req, res) => {
-//   console.log(req.body);
-//   res.send(true);
-// };
+exports.kakaoLogin = async (req, res) => {
+  console.log(req.body);
+  res.send(true);
+};
 
 exports.signUp = async (req, res) => {
   console.log(req.body);
