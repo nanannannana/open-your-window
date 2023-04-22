@@ -39,8 +39,9 @@ export default function Viewer() {
   // 2-[2] 앞서 선언한 변수 값 Update
   const dateUpdate = (_, newDate) => {
     //date,dateString 중 dateString(YYYY/MM/DD)을 date로 받음
-    dispatch(asyncUpFetch(newDate.match(/\d+/g).join('-')));
-    console.log(newDate);
+    if (newDate) {
+      dispatch(asyncUpFetch(newDate.match(/\d+/g).join('-')));
+    }
   };
   // 3. datepicker의 date range : api의 date range와 일치시킴
   const disabledDate = (current) => {
