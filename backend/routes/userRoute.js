@@ -6,7 +6,7 @@ const router = express.Router();
 router.get('/signImg', user.signImg);
 router.post('/checkEmail', user.checkEmail);
 
-// router.post('/KakaoLogin', user.kakaoLogin);
+router.post('/KakaoLogin', user.kakaoLogin);
 
 router.post('/signUp', user.signUp);
 router.post('/signIn', user.signIn);

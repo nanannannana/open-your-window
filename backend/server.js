@@ -23,12 +23,14 @@ const mypageRouter = require('./routes/mypageRoute');
 app.get('/', (req, res) => {
   res.status(200).send('server');
 });
+// require('./auth')(app);
 app.use('/window', windowRouter);
 app.use('/user', userRouter);
 app.use('/mypage', mypageRouter);
 
 // DB 연결 성공 여부
 const { sequelize } = require('./model/index');
+const cookieParser = require('cookie-parser');
 // 다른 require문은 일단 생략
 const ConnectDB = async () => {
   try {

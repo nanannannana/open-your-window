@@ -2,7 +2,7 @@ import Button from 'antd/lib/button';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { HMWords } from './HMWords';
-import { FavoriteOutlined } from '@mui/icons-material';
+import { BsHeart } from 'react-icons/bs';
 import HMReset from './HMReset';
 
 const HMContainer = styled.div`
@@ -54,7 +54,7 @@ const BtnArr = styled.div`
 `;
 // Component 시작 ///////////////
 export default function HMPlayer() {
-  const [count, setCount] = useState(5);
+  const [count, setCount] = useState(4);
   const [answer, setAnswer] = useState(HMWords());
   const [hint, setHint] = useState('HINT');
   const [guessed, setGuessed] = useState([]);
@@ -128,9 +128,7 @@ export default function HMPlayer() {
         ) : (
           [...Array(count + 1)].map((_, i) => (
             <span key={i}>
-              <FavoriteOutlined
-                style={{ fontSize: '70px', margin: '0 5px 5px 5px' }}
-              />
+              <BsHeart style={{ fontSize: '70px', margin: '0 5px 5px 5px' }} />
             </span>
           ))
         )}

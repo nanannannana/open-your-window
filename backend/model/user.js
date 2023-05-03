@@ -12,7 +12,7 @@ const user = (Sequelize, DataTypes) => {
         allowNull: false,
       },
       user_pw: {
-        type: DataTypes.STRING(16),
+        type: DataTypes.STRING(100),
         allowNull: false,
       },
       phone: {

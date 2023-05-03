@@ -11,14 +11,6 @@ import UniverseBtn from './UniverseBtn';
 import GlobalStyle from '../common/GlobalStyle';
 import styled from 'styled-components';
 
-const GoVideo = styled.a`
-  background-color: aliceblue;
-  font-size: 8em;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-`;
-
 // 원하는 날짜의 우주 사진 볼 수 있는 PAGE (NASA APOD API)
 export default function Viewer() {
   const [isVideo, setIsVideo] = useState(false);
@@ -47,8 +39,9 @@ export default function Viewer() {
   // 2-[2] 앞서 선언한 변수 값 Update
   const dateUpdate = (_, newDate) => {
     //date,dateString 중 dateString(YYYY/MM/DD)을 date로 받음
-    dispatch(asyncUpFetch(newDate.match(/\d+/g).join('-')));
-    console.log(newDate);
+    if (newDate) {
+      dispatch(asyncUpFetch(newDate.match(/\d+/g).join('-')));
+    }
   };
   // 3. datepicker의 date range : api의 date range와 일치시킴
   const disabledDate = (current) => {
@@ -58,28 +51,9 @@ export default function Viewer() {
     );
   };
 
-  // const VideoPlayer = () => {
-  //   return (
-  //     <div
-  //       style={{
-  //         position: 'absolute',
-  //         top: '50%',
-  //         left: '50%',
-  //         zIndex: '1000',
-  //       }}
-  //     >
-  //       <video muted autoPlay playsInline style={{ width: '100%' }}>
-  //         <source src={url} />
-  //         {/* <source src={url} type="video/mp4" /> */}
-  //       </video>
-  //     </div>
-  //   );
-  // };
   const goVideo = (url) => {
     return (
-      <GoVideo href={url} target="_blank">
-        Go Video
-      </GoVideo>
+      <iframe src={url} style={{ width: '100%', height: '100%' }}></iframe>
     );
   };
 

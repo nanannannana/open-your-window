@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router';
 import { setUser } from '../../store/modules/users';
 import { useDispatch } from 'react-redux';
 import kakaoBtn from '../../utils/kakaoBtn.png';
-// import { ExclamationCircleFilled } from '@ant-design/icons';
 
 const KAKAO_OAUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&response_type=code&scope=profile_nickname,account_email,talk_message,openid`;
 
@@ -48,13 +47,14 @@ export default function SignIn() {
         pw: values.password,
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
+
         res.data
           ? (localStorage.setItem('userid', `${values.email}`),
             dispatch(setUser({ userid: `${values.email}` })),
             showConfirm())
           : showError();
-        console.log(res.data);
+        // console.log(res.data);
       })
       .catch((err) => console.log(err));
   };
@@ -109,7 +109,7 @@ export default function SignIn() {
             <Checkbox>Remember me</Checkbox>
           </Form.Item>
 
-          <span className="login-form-forgot">Forgot password</span>
+          {/* <span className="login-form-forgot">Forgot password</span> */}
         </Form.Item>
 
         <Form.Item>

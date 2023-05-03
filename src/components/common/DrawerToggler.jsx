@@ -142,6 +142,7 @@ export default function DrawerToggler() {
               </NavEl>
               <SignBtn>
                 <Link
+                  // to={isKakao ? KKLogOut : '/user/signOut'}
                   to={isKakao ? KKLogOut : '/'}
                   style={NavLinkSt}
                   onClick={() => {
