@@ -30,6 +30,9 @@ exports.postUpload = async (req, res) => {
 exports.postEdit = async (req, res) => {
   const result = await Window.findOne({
     raw: true,
+    attributes: {
+      exclude: ['user_id'],
+    },
     where: { num: req.query.num },
     include: [
       {
@@ -79,12 +82,14 @@ exports.postUpdate = async (req, res) => {
 };
 
 exports.getBoard = async (req, res) => {
-  // console.log('확인: ', req.query);
   const offset = req.query.page * 8;
   if (!req.query.country && !req.query.tag) {
     // 전체 게시물 조회
     const result = await Window.findAndCountAll({
       raw: true,
+      attributes: {
+        exclude: ['user_id'],
+      },
       include: [
         {
           model: User,
@@ -100,6 +105,9 @@ exports.getBoard = async (req, res) => {
     // 검색 게시물 조회
     const result = await Window.findAndCountAll({
       raw: true,
+      attributes: {
+        exclude: ['user_id'],
+      },
       where: {
         tags: {
           [Op.like]: '%' + req.query.tag + '%',
@@ -118,6 +126,9 @@ exports.getBoard = async (req, res) => {
     // 국가별 게시물 조회
     const result = await Window.findAndCountAll({
       raw: true,
+      attributes: {
+        exclude: ['user_id'],
+      },
       where: { country: req.query.country },
       include: [
         {
@@ -134,11 +145,9 @@ exports.getBoard = async (req, res) => {
 };
 
 exports.postDelete = async (req, res) => {
-  // console.log('삭제 데이터: ', req.body.delPost);
   await Window.destroy({
-    where: { img: req.body.delPost.img },
+    where: { img: req.body.deletePost },
   });
-  // console.log('삭제: ', result);
-  fs.unlinkSync(`../${process.env.FILE}${req.body.delPost.img}`);
+  fs.unlinkSync(`../${process.env.FILE}${req.body.deletePost}`);
   res.send(true);
 };

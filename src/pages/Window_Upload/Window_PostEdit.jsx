@@ -68,7 +68,7 @@ export default function Window_PostEdit() {
   const delPost = () => {
     axios
       .delete(`http://${process.env.REACT_APP_HOST}/window/posts`, {
-        data: { delPost: dataArr },
+        data: { deletePost: dataArr.img },
       })
       .then(() => deleteSuccess());
   };
