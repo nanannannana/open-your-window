@@ -4,6 +4,9 @@ const { Window, User } = require('../model');
 exports.userInfoFind = async (req, res) => {
   const showPosts = await Window.findAndCountAll({
     raw: true,
+    attributes: {
+      exclude: ['user_id', 'like_num'],
+    },
     where: { user_id: req.body.user_id },
     offset: req.body.page * 5,
     limit: 5,
@@ -12,6 +15,7 @@ exports.userInfoFind = async (req, res) => {
     raw: true,
     where: { user_id: req.body.user_id },
   });
+
   if (showPosts.length !== 0)
     return res.send({
       showPosts: showPosts.rows,
